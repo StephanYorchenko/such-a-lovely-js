@@ -21,8 +21,8 @@
 Состав команды
 ---
 
-  1. Александр Ложкин
-  2. Степан Юрченко
-  3. *А*нчутин Никита
-  4. Арет*м*ий Рогов
-  5. Юрий Фролов
+  1. Александр Ложкин [ @lololozhkin ](https://github.com/lololozhkin)
+  2. Степан Юрченко [ @stephan_yorchenko ](https://github.com/StephanYorchenko)
+  3. *А*нчутин Никита [ @asdminerpro ](https://github.com/asdminerpro)
+  4. Арте*м*ий Рогов [ @artamaney ](https://github.com/artamaney)
+  5. Юрий Фролов [ @EinKrebs ](https://github.com/EinKrebs)
