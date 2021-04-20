@@ -1,11 +1,11 @@
-name: Lint Code Base
-on:
-  push:
-    branches:
-        - '*'
+name: CI
+on: push
 jobs:
-  linter:
+  build:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v2
-        - uses: docker://github/super-linter:v2.1.0
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+    - name: Run ESLint
+      run: eslint . --ext .js,.jsx,.ts,.tsx --fix
