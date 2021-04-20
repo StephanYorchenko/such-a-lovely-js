@@ -11,6 +11,15 @@
     "session-file-store": "^1.5.0"
   },
   "devDependencies": {
-    "eslint": "^7.24.0"
+    "eslint": "^7.24.0",
+    "precommit": "^1.2.2"
+  },
+  "scripts": {
+    "hook-install": "precommit install",
+    "hook-remove": "precommit remove",
+    "precommit" : "eslinter 'src/**/*.js'"
+  },
+  "precommit" : {
+    "tasks" : ["npm run precommit"]
   }
 }
