@@ -17,7 +17,7 @@
   "scripts": {
     "hook-install": "precommit install",
     "hook-remove": "precommit remove",
-    "precommit": "eslinter 'src/**/*.js' --fix"
+    "precommit": "eslint src --fix"
   },
   "precommit": {
     "tasks": [

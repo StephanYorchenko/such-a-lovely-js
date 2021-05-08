@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 async function getSurveys(){
 	return await sendRequest('listCreatedSurveys', {});
 }
