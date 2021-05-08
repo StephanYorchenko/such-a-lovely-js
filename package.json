@@ -11,9 +11,15 @@
     "session-file-store": "^1.5.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.14.1",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.24.1"
+    "eslint": "^7.24.0",
+    "precommit": "^1.2.2"
+  },
+  "scripts": {
+    "hook-install": "precommit install",
+    "hook-remove": "precommit remove",
+    "precommit" : "eslinter 'src/**/*.js' --fix"
+  },
+  "precommit" : {
+    "tasks" : ["npm run precommit"]
   }
 }

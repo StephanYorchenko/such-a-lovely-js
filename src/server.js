@@ -3,6 +3,7 @@ const session = require('express-session');
 const store = require('session-file-store')(session);
 const manager = require('./core/managers/manager');
 
+
 const app = express();
 const port = 31337;
 
@@ -13,11 +14,13 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
+
 function checkCredentials(login){
-    return login === "asdasd"; // TODO: add auth;
+	return login === 'asdasd'; // TODO: add auth;
 }
 
 app.post('/tryLogin', (req, res) =>{
+
     req.session.isLogin = checkCredentials(req.body.login);
     req.session.user = req.body.login;
     if (req.session.isLogin) {
@@ -27,6 +30,7 @@ app.post('/tryLogin', (req, res) =>{
         res.send({success: false});
     }
 })
+
 
 app.post('/api', (req, res) => {
     const result = manager.tryExecute(req.body.method, req.body.params, req.session.user);
@@ -54,6 +58,7 @@ app.get('/static/:type/:filename', (req, res) => {
 })
 
 
+
 app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}`)
-})
+	console.log(`Listening at http://localhost:${port}`);
+});
