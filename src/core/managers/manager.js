@@ -27,7 +27,14 @@ const handlers = new HandlerFactory();
 const manager = new Manager();
 
 //set handlers to methods
-manager.addHandler(handlers.createHandler('listCreatedSurveys', (_, user) => ['aaa', user]));
-
+manager.addHandler(handlers.createHandler('listCreatedSurveys', (_, req) => ['aaa', req.session.user]));
+manager.addHandler(handlers.createHandler('tryLogin', (params, req) => {
+	const success = params.userid === "asdasd";
+	if (success){
+		req.session.isLogin = true;
+		req.session.user = params.userid;
+	}
+	return {success: success};
+}))
 
 module.exports = Object.freeze(manager);

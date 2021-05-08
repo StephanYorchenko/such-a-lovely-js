@@ -15,25 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-function checkCredentials(login){
-	return login === 'asdasd'; // TODO: add auth;
-}
-
-app.post('/tryLogin', (req, res) =>{
-
-	req.session.isLogin = checkCredentials(req.body.login);
-	req.session.user = req.body.login;
-	if (req.session.isLogin) {
-		res.redirect('/');
-	}
-	else {
-		res.send({success: false});
-	}
-});
-
-
 app.post('/api', (req, res) => {
-	const result = manager.tryExecute(req.body.method, req.body.params, req.session.user);
+	const result = manager.tryExecute(req.body.method, req.body.params, req);
 	res.send(result);
 });
 

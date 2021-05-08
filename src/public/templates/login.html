@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
+    <script src="/static/js/base.js"></script>
+    <script src="/static/js/login.js"></script>
 </head>
 <body>
-    <form action="tryLogin" method="post">
-        <label for="label"><input type="text" id="login" name="login"> Логин</label>
-        <button>Вход</button>
-    </form>
+    <div class="card-footer" onsubmit="tryLogin(); return false;">
+        <h5>Авторизация</h5>
+        <form name="login">
+            <label for="login"><input type="text" name="userid"> Логин</label>
+            <button type="submit">Войти</button>
+        </form>
+    </div>
 </body>
 </html>
