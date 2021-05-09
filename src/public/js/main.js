@@ -1,7 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 async function logout(){
+	// eslint-disable-next-line no-undef
 	const result = await sendRequest('logout', {});
 	if (result.success)
-		window.location.href = "/login";
+		window.location.href = '/login';
 }
 
 async function getSurveys(){
@@ -11,28 +13,28 @@ async function getSurveys(){
 
 function generateSurveyCard(data){
 	const surveyCard = document.createElement('div');
-	surveyCard.className = `card survey-card mb-3 mt-3 ${data.style.bg || "bg-light"} ` +
-		`${data.style.text || "text-dark"}`;
+	surveyCard.className = `card survey-card mb-3 mt-3 ${data.style.bg || 'bg-light'} ` +
+		`${data.style.text || 'text-dark'}`;
 
-	const hidden = document.createElement("span");
-	hidden.style.visibility = "hidden";
+	const hidden = document.createElement('span');
+	hidden.style.visibility = 'hidden';
 	hidden.innerText = data.id;
 
-	const body = document.createElement("div");
-	body.className = "card-body";
+	const body = document.createElement('div');
+	body.className = 'card-body';
 
-	const header = document.createElement("h5");
-	header.className = "card-title";
+	const header = document.createElement('h5');
+	header.className = 'card-title';
 	header.innerText = data.title;
 
-	const descr = document.createElement("p");
-	descr.className = "card-text";
+	const descr = document.createElement('p');
+	descr.className = 'card-text';
 	descr.innerText =  data.description;
 
-	const footer = document.createElement("p");
-	footer.className = "card-text";
-	const creationDate = document.createElement("small");
-	creationDate.className = "text-muted";
+	const footer = document.createElement('p');
+	footer.className = 'card-text';
+	const creationDate = document.createElement('small');
+	creationDate.className = 'text-muted';
 	creationDate.innerText = data.createdAt;
 
 	footer.append(creationDate);
