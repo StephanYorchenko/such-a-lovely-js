@@ -3,7 +3,7 @@ const SurveysRepository = require('../../infrastructure/repositories/surveysRepo
 
 const ListSurveysUseCase =
 class extends BaseUseCase{
-	static execute(params, request){ //eslint-disable-line no-unused-vars
+	static execute(_, request){
 		return SurveysRepository.getAllSurveysByUserID(request.session.user);
 	}
 };
