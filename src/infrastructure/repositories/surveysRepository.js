@@ -1,12 +1,12 @@
 const baseSurveysRepository = require('../../core/baseRepositories/baseSurveysRepository');
-const userStorage = require('../userStorage');
+const surveysStorage = require('../surveyStorage');
 
 const SurveysRepository =
 class extends baseSurveysRepository{
 	getAllSurveysByUserID(userID){
-		return this.userStorage.data[userID];
+		return this.surveysStorage.getCreatedByUser(userID);
 	}
 };
 
 
-module.exports = new SurveysRepository(userStorage);
+module.exports = new SurveysRepository(surveysStorage);

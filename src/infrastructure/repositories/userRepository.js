@@ -6,6 +6,12 @@ class extends baseUserRepository{
 	checkUserExistByID(userID){
 		return this.userStorage.includes(userID);
 	}
+
+	getUserById(userID){
+		for (const user of this.userStorage.data)
+			if (userID === user.name)
+				return user;
+	}
 };
 
 
