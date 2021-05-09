@@ -2,9 +2,9 @@ const TryLoginUseCase = require('../../core/useCases/tryLogin');
 const ListSurveysUseCase = require('../../core/useCases/listSurveys');
 
 class HandlerFactory{
-	createHandler(methodName, func){
+	createHandler(methodName, useCase){
 		const handler = {};
-		handler[methodName] = func;
+		handler[methodName] = useCase;
 		return handler;
 	}
 }
@@ -19,7 +19,6 @@ class Manager{
 	}
 
 	tryExecute(methodName, args, request){
-		console.log(methodName, args);
 		for (const handler of this.handlers)
 			if (Object.getOwnPropertyNames(handler).includes(methodName))
 				return handler[methodName].execute(args, request);
