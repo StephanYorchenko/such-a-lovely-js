@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 async function sendRequest(method, params){
 	console.log(`Sending ${method} with ${params}`);
 	const response =  await fetch(

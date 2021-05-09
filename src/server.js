@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const store = require('session-file-store')(session);
-const manager = require('./core/managers/manager');
+const manager = require('./core/managers/manager.js');
 
 
 const app = express();

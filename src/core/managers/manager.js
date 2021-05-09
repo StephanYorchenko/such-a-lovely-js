@@ -1,3 +1,6 @@
+const TryLoginUseCase = require('../useCases/tryLogin');
+const ListSurveysUseCase = require('../useCases/listSurveys');
+
 class HandlerFactory{
 	createHandler(methodName, func){
 		const handler = {};
@@ -19,7 +22,7 @@ class Manager{
 		console.log(methodName, args);
 		for (const handler of this.handlers)
 			if (Object.getOwnPropertyNames(handler).includes(methodName))
-				return handler[methodName](args, request);
+				return handler[methodName].execute(args, request);
 	}
 }
 
@@ -27,14 +30,7 @@ const handlers = new HandlerFactory();
 const manager = new Manager();
 
 //set handlers to methods
-manager.addHandler(handlers.createHandler('listCreatedSurveys', (_, req) => ['aaa', req.session.user]));
-manager.addHandler(handlers.createHandler('tryLogin', (params, req) => {
-	const success = params.userid === 'asdasd';
-	if (success){
-		req.session.isLogin = true;
-		req.session.user = params.userid;
-	}
-	return {success: success};
-}));
+manager.addHandler(handlers.createHandler('listCreatedSurveys', ListSurveysUseCase));
+manager.addHandler(handlers.createHandler('tryLogin', TryLoginUseCase));
 
 module.exports = Object.freeze(manager);
