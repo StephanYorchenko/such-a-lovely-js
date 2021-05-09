@@ -1,5 +1,6 @@
 const TryLoginUseCase = require('../../core/useCases/tryLogin');
 const ListSurveysUseCase = require('../../core/useCases/listSurveys');
+const LogoutUseCase = require('../../core/useCases/logoutUseCase');
 
 class HandlerFactory{
 	createHandler(methodName, useCase){
@@ -31,5 +32,6 @@ const manager = new Manager();
 //set handlers to methods
 manager.addHandler(handlers.createHandler('listCreatedSurveys', ListSurveysUseCase));
 manager.addHandler(handlers.createHandler('tryLogin', TryLoginUseCase));
+manager.addHandler((handlers.createHandler("logout", LogoutUseCase)))
 
 module.exports = Object.freeze(manager);

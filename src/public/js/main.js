@@ -1,3 +1,9 @@
+async function logout(){
+	const result = await sendRequest('logout', {});
+	if (result.success)
+		window.location.href = "/login";
+}
+
 async function getSurveys(){
 	// eslint-disable-next-line no-undef
 	return await sendRequest('listCreatedSurveys', {});
