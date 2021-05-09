@@ -4,4 +4,6 @@ async function tryLogin(){
 	const result = await sendRequest('tryLogin', data); // eslint-disable-line no-undef
 	if (result.success)
 		window.location.href = '/';
+	else
+		document.querySelector('#error').style.visibility = 'visible';
 }

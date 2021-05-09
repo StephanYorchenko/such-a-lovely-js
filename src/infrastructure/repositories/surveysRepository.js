@@ -1,19 +1,12 @@
 const baseSurveysRepository = require('../../core/baseRepositories/baseSurveysRepository');
+const userStorage = require('../userStorage');
 
 const SurveysRepository =
 class extends baseSurveysRepository{
 	getAllSurveysByUserID(userID){
-		return this.userStorage[userID];
+		return this.userStorage.data[userID];
 	}
 };
 
-const userStorage = {
-	'asdasd': [
-		{description: 'Какой-то опрос про тервер'},
-		{description: 'Другой опрос про то насколько сильно все любят js'}
-	],
-	'lololozhkin': [
-		{description: 'Кто больше любит жс?'},
-	],
-};
+
 module.exports = new SurveysRepository(userStorage);
