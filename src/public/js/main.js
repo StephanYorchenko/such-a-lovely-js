@@ -5,8 +5,10 @@ async function getSurveys(){
 
 function generateSurveyCard(data){
 	const surveyCard = document.createElement('div');
-	surveyCard.className = 'card survey-card';
-	surveyCard.innerText = data.description;
+	surveyCard.className = `card survey-card mb-3 mt-3 ${data.bgColor || "light"} ${data.textColor || "text-dark"}`;
+	const header = document.createElement("h5");
+	header.className = "card-title";
+	header.innerText = data.title;
 	return surveyCard;
 }
 
