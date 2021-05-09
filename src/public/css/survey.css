@@ -1,0 +1,11 @@
+.root{
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#histogramContainer{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}

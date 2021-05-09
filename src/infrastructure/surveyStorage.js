@@ -65,6 +65,12 @@ const surveysStorage = {
 				result.push(survey);
 		return result;
 	},
+
+	getSurveyById(surveyId){
+		for (const survey of this.data)
+			if (survey.id === surveyId)
+				return survey;
+	}
 };
 
 module.exports = surveysStorage;

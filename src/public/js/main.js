@@ -1,11 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-async function logout(){
-	// eslint-disable-next-line no-undef
-	const result = await sendRequest('logout', {});
-	if (result.success)
-		window.location.href = '/login';
-}
-
 function goToSurvey(id) {
 	window.location.href = `/survey/${id}`;
 }
@@ -20,7 +12,7 @@ function generateSurveyCard(data){
 	surveyCard.className = `card survey-card mb-3 mt-3 ${data.style.bg || 'bg-light'} ` +
 		`${data.style.text || 'text-dark'}`;
 
-	surveyCard.setAttribute("survey", data.id);
+	surveyCard.setAttribute('survey', data.id);
 
 	const body = document.createElement('div');
 	body.className = 'card-body';
@@ -46,7 +38,7 @@ function generateSurveyCard(data){
 	body.append(footer);
 	surveyCard.append(body);
 
-	surveyCard.addEventListener("click", () => goToSurvey(data.id));
+	surveyCard.addEventListener('click', () => goToSurvey(data.id));
 	return surveyCard;
 }
 

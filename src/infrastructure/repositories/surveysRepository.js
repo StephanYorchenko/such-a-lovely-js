@@ -6,6 +6,10 @@ class extends baseSurveysRepository{
 	getAllSurveysByUserID(userID){
 		return this.surveysStorage.getCreatedByUser(userID);
 	}
+
+	getSurveyByID(surveyId){
+		return this.surveysStorage.getSurveyById(surveyId);
+	}
 };
 
 

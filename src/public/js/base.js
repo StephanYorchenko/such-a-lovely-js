@@ -15,3 +15,10 @@ async function sendRequest(method, params){
 		});
 	return await response.json();
 }
+
+// eslint-disable-next-line no-unused-vars
+async function logout(){
+	const result = await sendRequest('logout', {});
+	if (result.success)
+		window.location.href = '/login';
+}

@@ -13,6 +13,8 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.set('views', './public/templates');
+app.set('view engine', 'pug');
 
 
 app.post('/api', (req, res) => {
@@ -26,7 +28,7 @@ app.get('/', (req, res) => {
 		res.redirect('/login');
 	}
 	else
-		res.sendFile(__dirname + '/public/templates/index.html');
+		res.render('index');
 });
 
 app.get('/login', (req, res) => {
@@ -38,14 +40,15 @@ app.get('/login', (req, res) => {
 
 app.get('/survey/:surveyID', (req, res) => {
 	if (!req.session.isLogin){
-		req.session.targetPage = `/survey/${surveyID}`;
+		req.session.targetPage = `/survey/${req.params.surveyID}`;
 		res.redirect('/login');
 	}
 	else{
-		req.session.survey
-		res.sendFile(__dirname + '/public/templates/surveys.html')
+		const surveyData = manager.tryExecute('renderSurvey', {id: req.params.surveyID}, req);
+		console.log(surveyData.data);
+		res.render('survey', surveyData);
 	}
-})
+});
 
 app.get('/static/:type/:filename', (req, res) => {
 	res.sendFile(__dirname + '/public/' + req.params.type + '/' + req.params.filename);
