@@ -1,29 +1,31 @@
+class User{
+	constructor(originData) {
+		this.name = originData.name;
+		this.voted = originData.voted;
+		this.created = originData.created;
+	}
+}
+
 const userStorage = {
-	data: {
-		'asdasd': [
-			{
-				id: "some-strange-uuid",
-				title: 'Какой-то опрос про тервер 2',
-				description: "Есть идеи как удвоить баллы за пару недель?",
-				bgColor: "bg-dark",
-				textColor: "text-white"
-			},
-			{
-				title: 'Другой опрос про то насколько сильно все любят js',
-				description: "Способны ли вы любить js сильнее, чем это делаю я?"
-			}
-		],
-		'lololozhkin': [
-			{
-				title: 'Кто больше любит жс?',
-				description: "Кто больше любит жс я или артемий рогофф?"
-			},
-		],
-	},
+	data: [
+		new User({
+			name: "asdasd",
+			voted: ["7f92dd20-99b6-44a1-bbc2-5dc62e5722d7"],
+			created: ["d22a153c-72ca-44d4-b7cb-ad912ed009f8", "9ae892a1-f9e0-4434-aa93-f19817c90063"]
+		}),
+		new User({
+			name: "lolozhkin",
+			voted: ["d22a153c-72ca-44d4-b7cb-ad912ed009f8", "9ae892a1-f9e0-4434-aa93-f19817c90063"],
+			created: ["7f92dd20-99b6-44a1-bbc2-5dc62e5722d7"]
+		})
+	],
 
 	includes(userId){
-		return userId in this.data;
-	}
+		for (const user of this.data)
+			if (user.name === userId)
+				return true;
+		return false;
+	},
 };
 
 
