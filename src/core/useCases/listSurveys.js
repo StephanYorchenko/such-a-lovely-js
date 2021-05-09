@@ -1,12 +1,10 @@
 const BaseUseCase = require('./baseUseCase');
+const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
 
 const ListSurveysUseCase =
 class extends BaseUseCase{
 	static execute(params, request){ //eslint-disable-line no-unused-vars
-		return [
-			{description: 'Какой-то опрос про тервер'},
-			{description: 'Другой опрос про то насколько сильно все любят js'}
-		];
+		return SurveysRepository.getAllSurveysByUserID(request.session.user);
 	}
 };
 

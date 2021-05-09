@@ -1,5 +1,5 @@
-const TryLoginUseCase = require('../useCases/tryLogin');
-const ListSurveysUseCase = require('../useCases/listSurveys');
+const TryLoginUseCase = require('../../core/useCases/tryLogin');
+const ListSurveysUseCase = require('../../core/useCases/listSurveys');
 
 class HandlerFactory{
 	createHandler(methodName, func){
