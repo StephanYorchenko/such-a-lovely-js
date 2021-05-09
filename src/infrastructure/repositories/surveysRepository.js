@@ -10,6 +10,10 @@ class extends baseSurveysRepository{
 	getSurveyByID(surveyId){
 		return this.surveysStorage.getSurveyById(surveyId);
 	}
+
+	getAllVotedSurveysByUserID(userID){
+		return this.surveysStorage.getVotedByUser(userID);
+	}
 };
 
 

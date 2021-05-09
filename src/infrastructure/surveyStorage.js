@@ -23,7 +23,7 @@ const surveysStorage = {
 			id: 'd22a153c-72ca-44d4-b7cb-ad912ed009f8',
 			title: 'Какой-то опрос про тервер 2',
 			description: 'Есть идеи как удвоить баллы за пару недель?',
-			config: 'multiple',
+			config: 'checkbox',
 			bgColor: 'bg-dark',
 			textColor: 'text-white',
 			results: {
@@ -35,7 +35,7 @@ const surveysStorage = {
 		new Survey({
 			id: '9ae892a1-f9e0-4434-aa93-f19817c90063',
 			title: 'Какой-то опрос про тервер 1',
-			config:'free',
+			config:'checkbox',
 			description: 'Есть идеи как набрать баллы за семестр?',
 			results: {
 				'Пукать в чат': 0,
@@ -56,6 +56,33 @@ const surveysStorage = {
 			textColor: 'text-white',
 			createdAt: '23-12-1970 07:48'
 		}),
+		new Survey({
+			id: '7f92dd20-99b6-44a1-bbc2-5dc62e5722d9',
+			title: 'Кто фанат Саши Волковой',
+			description: '',
+			config:'radio',
+			results: {
+				'Артемий Рогов': 0,
+				'Данил Савин': 0
+			},
+			bgColor: 'bg-dark',
+			textColor: 'text-white',
+			createdAt: '23-12-1970 07:48'
+		}),
+		new Survey({
+			id: '06b91703-c50c-4154-8a26-c1440edc9904',
+			title: 'Куда идём кушать?',
+			description: 'Концептуальный вопрос',
+			config:'checkbox',
+			results: {
+				'А ты где?': 0,
+				'Кубанский парень': 0,
+				'KFC': 1,
+			},
+			bgColor: 'bg-dark',
+			textColor: 'text-white',
+			createdAt: '23-12-1970 07:48'
+		}),
 	],
 
 	getCreatedByUser(user){
@@ -63,6 +90,7 @@ const surveysStorage = {
 		for (const survey of this.data)
 			if (user.created.includes(survey.id))
 				result.push(survey);
+		console.log('->', result);
 		return result;
 	},
 
@@ -70,6 +98,15 @@ const surveysStorage = {
 		for (const survey of this.data)
 			if (survey.id === surveyId)
 				return survey;
+	},
+
+	getVotedByUser(user){
+		const result = [];
+		for (const survey of this.data)
+			if (user.voted.includes(survey.id))
+				result.push(survey);
+		console.log(result);
+		return result;
 	}
 };
 

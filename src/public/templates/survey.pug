@@ -16,16 +16,33 @@
                 <div class="card-body>
                     <h5 class="card-text"> #{data.title}</h5>
                     <p class="card-text"> #{data.description}</p>
-                    <ul>
-                        each value, index in data.results
-                            li=index + ' ' + value
-                    </ul>
+                    <canvas id="histogramContainer"></canvas>
+                </div>
+            </div>
+            <script src="/static/js/generateHistogram.js" async></script>
+        else if hasVoted
+            <div class="card survey-card>
+                <div class="card-body>
+                    <h5 class="card-text"> #{data.title}</h5>
+                    <p class="card-text"> #{data.description}</p>
                     <canvas id="histogramContainer"></canvas>
                 </div>
             </div>
             <script src="/static/js/generateHistogram.js" async></script>
         else
-            h1 hello
+            <div class="card survey-card>
+                <div class="card-body>
+                    <h5 class="card-text"> #{data.title}</h5>
+                    <p class="card-text"> #{data.description}</p>
+                    <form name="response">
+                        <div>
+                            each val, index in data.results
+                                <label><input type="#{data.config}" name="sex" value="#{index}">#{index}</label>
+                        </div>
+                        <button type="button" onclick="">Отправить ответ</button>
+                    </form>
+                </div>
+            </div>
     </div>
 </body>
 </html>

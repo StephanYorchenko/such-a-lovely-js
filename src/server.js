@@ -31,6 +31,15 @@ app.get('/', (req, res) => {
 		res.render('index');
 });
 
+app.get('/results', (req, res) => {
+	if (!req.session.isLogin){
+		req.session.targetPage = '/results';
+		res.redirect('/login');
+	}
+	else
+		res.render('results');
+});
+
 app.get('/login', (req, res) => {
 	if (req.session.isLogin)
 		res.redirect(req.session.targetPage || '/');
