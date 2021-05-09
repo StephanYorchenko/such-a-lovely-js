@@ -1,7 +1,7 @@
 const baseSurveysRepository =
 class {
-	constructor (userStorage){
-		this.userStorage = userStorage;
+	constructor (surveysStorage){
+		this.surveysStorage = surveysStorage;
 	}
 };
 
