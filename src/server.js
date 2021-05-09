@@ -36,6 +36,17 @@ app.get('/login', (req, res) => {
 		res.sendFile(__dirname + '/public/templates/login.html');
 });
 
+app.get('/survey/:surveyID', (req, res) => {
+	if (!req.session.isLogin){
+		req.session.targetPage = `/survey/${surveyID}`;
+		res.redirect('/login');
+	}
+	else{
+		req.session.survey
+		res.sendFile(__dirname + '/public/templates/surveys.html')
+	}
+})
+
 app.get('/static/:type/:filename', (req, res) => {
 	res.sendFile(__dirname + '/public/' + req.params.type + '/' + req.params.filename);
 });
