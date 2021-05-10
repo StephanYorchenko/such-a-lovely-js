@@ -6,7 +6,7 @@ const RenderSurveyDataUseCase =
 class extends BaseUseCase{
 	static execute(params, req){
 		const user = UserRepository.getUserById(req.session.user);
-		const surveyData = SurveysRepository.getSurveyByID(params.id);
+		const surveyData = SurveysRepository.getSurveyById(params.id);
 		return {
 			data: surveyData,
 			isAuthor: user.created.includes(params.id),

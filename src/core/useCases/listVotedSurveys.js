@@ -6,7 +6,7 @@ const ListVotedSurveysUseCase =
 class extends BaseUseCase{
 	static execute(_, request){
 		const user = UserRepository.getUserById(request.session.user);
-		return SurveysRepository.getAllVotedSurveysByUserID(user);
+		return SurveysRepository.getAllVotedSurveysByUser(user);
 	}
 };
 

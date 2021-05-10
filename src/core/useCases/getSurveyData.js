@@ -4,7 +4,7 @@ const SurveysRepository = require('../../infrastructure/repositories/surveysRepo
 const GetSurveyHistogramDataUseCase =
 class extends BaseUseCase{
 	static execute(params){
-		const surveyData = SurveysRepository.getSurveyByID(params.id).results;
+		const surveyData = SurveysRepository.getSurveyById(params.id).results;
 		const labels = [];
 		const dataset = [];
 		for (const [key, value] of Object.entries(surveyData)){
