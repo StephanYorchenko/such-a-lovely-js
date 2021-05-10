@@ -20,6 +20,7 @@
                     <canvas id="histogramContainer"></canvas>
                     if !wasEnd
                         <form name="closeSurvey">
+                            <button type="button" class="btn btn-outline-success" onclick="copySurveyLink()">Скопировать ссылку</button>
                             <button type="button" class="btn btn-outline-danger" onclick="setClosed('#{data.id}')">Закрыть опрос</button>
                         </form>
                     else
