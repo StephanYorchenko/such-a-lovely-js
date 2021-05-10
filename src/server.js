@@ -9,7 +9,7 @@ const port = 31337;
 
 app.use(session({
 	store: new store(),
-	secret: process.env['SECRET_KEY'] || 'hello',
+	secret: process.env['APP_SECRET_KEY'] || 'hello',
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
