@@ -14,6 +14,7 @@ class Survey{
 
 		this.config = originData.config;
 		this.results = originData.results;
+		this.end = originData.end || false;
 	}
 }
 
@@ -29,7 +30,8 @@ const surveysStorage = [
 			'Никак': 1,
 			'Просто': 1
 		},
-		createdAt: '21-07-2020 17:23'
+		createdAt: '21-07-2020 17:23',
+		end: true
 	}),
 	new Survey({
 		id: '9ae892a1-f9e0-4434-aa93-f19817c90063',
@@ -80,7 +82,8 @@ const surveysStorage = [
 		},
 		bgColor: 'bg-dark',
 		textColor: 'text-white',
-		createdAt: '23-12-1970 07:48'
+		createdAt: '23-12-1970 07:48',
+		end: true,
 	}),
 ];
 

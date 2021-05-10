@@ -10,7 +10,8 @@ class extends BaseUseCase{
 		return {
 			data: surveyData,
 			isAuthor: user.created.includes(params.id),
-			hasVoted: user.voted.includes(params.id)
+			hasVoted: user.voted.includes(params.id),
+			wasEnd: surveyData.end
 		};
 	}
 };

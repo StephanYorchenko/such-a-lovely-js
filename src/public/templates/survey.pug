@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/static/css/survey.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
     <script src="/static/js/base.js"></script>
+    <script src="/static/js/survey.js"></script>
     <title>#{data.title}</title>
 </head>
 <body>
@@ -17,6 +18,12 @@
                     <h5 class="card-text"> #{data.title}</h5>
                     <p class="card-text"> #{data.description}</p>
                     <canvas id="histogramContainer"></canvas>
+                    if !wasEnd
+                        <form name="closeSurvey">
+                            <button type="button" class="btn btn-outline-danger" onclick="setClosed('#{data.id}')">Закрыть опрос</button>
+                        </form>
+                    else
+                        <p class="card-text"> Опрос быз закрыт Вами</p>
                 </div>
             </div>
             <script src="/static/js/generateHistogram.js" async></script>
@@ -29,6 +36,14 @@
                 </div>
             </div>
             <script src="/static/js/generateHistogram.js" async></script>
+        else if wasEnd
+            <div class="card survey-card>
+                <div class="card-body>
+                    <h5 class="card-text"> Опрос закрыт автором</h5>
+                    <p class="card-text"> Вы не участвовали в этом опросе и не можете увидеть его результаты</p>
+                    <canvas id="histogramContainer"></canvas>
+                </div>
+            </div>
         else
             <div class="card survey-card>
                 <div class="card-body>
