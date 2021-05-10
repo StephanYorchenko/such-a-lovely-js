@@ -40,6 +40,15 @@ app.get('/results', (req, res) => {
 		res.render('results');
 });
 
+app.get('/createSurvey', (req, res) => {
+	if (!req.session.isLogin){
+		req.session.targetPage = '/createSurvey';
+		res.redirect('/login');
+	}
+	else
+		res.render('createSurvey');
+});
+
 app.get('/login', (req, res) => {
 	if (req.session.isLogin)
 		res.redirect(req.session.targetPage || '/');

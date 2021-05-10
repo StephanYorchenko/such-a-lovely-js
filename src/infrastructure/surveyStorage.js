@@ -102,4 +102,7 @@ const surveysStorage = [
 	}),
 ];
 
-module.exports = surveysStorage;
+module.exports = {
+	surveysStorage: surveysStorage,
+	Survey: Survey
+};
