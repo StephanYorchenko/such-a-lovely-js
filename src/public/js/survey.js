@@ -28,5 +28,6 @@ function sendResponse(id){
 		response: radioAnswer || getDataFromCheckbox(),
 		surveyID: id
 	};
-	sendRequest("replySurvey", data).then(() => {window.location.reload()});
+	// eslint-disable-next-line no-undef
+	sendRequest('replySurvey', data).then(() => {window.location.reload();});
 }
