@@ -53,9 +53,9 @@
                     <form name="response">
                         <div>
                             each val, index in data.results
-                                <label><input type="#{data.config}" name="sex" value="#{index}">#{index}</label>
+                                <label><input type="#{data.config}" name="answer" class="ans" value="#{index}" required>#{index}</label>
                         </div>
-                        <button type="button" onclick="">Отправить ответ</button>
+                        <button type="button" onclick="sendResponse('#{data.id}');">Отправить ответ</button>
                     </form>
                 </div>
             </div>

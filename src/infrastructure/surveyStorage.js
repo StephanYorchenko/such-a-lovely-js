@@ -85,6 +85,21 @@ const surveysStorage = [
 		createdAt: '23-12-1970 07:48',
 		end: true,
 	}),
+	new Survey({
+		id: '1bbf58c7-1953-4758-8606-83bfc3a2e706',
+		title: 'Куда идём кушать?',
+		description: 'Концептуальный вопрос',
+		config:'checkbox',
+		results: {
+			'Jang SU': 0,
+			'Grott bar': 0,
+			'Лавкрвфт': 1,
+		},
+		bgColor: 'bg-dark',
+		textColor: 'text-white',
+		createdAt: '23-12-1970 07:49',
+		end: false,
+	}),
 ];
 
 module.exports = {
