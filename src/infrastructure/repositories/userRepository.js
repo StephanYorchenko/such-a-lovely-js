@@ -1,18 +1,23 @@
-const baseUserRepository = require('../../core/baseRepositories/baseUserRepository');
 const userStorage = require('../userStorage');
 
-const UserRepository =
-class extends baseUserRepository{
+class UserRepository{
+	constructor(userStorage) {
+		this.userStorage = userStorage;
+	}
+
 	checkUserExistByID(userID){
-		return this.userStorage.includes(userID);
+		for (const user of this.userStorage)
+			if (user.name === userID)
+				return true;
+		return false;
 	}
 
 	getUserById(userID){
-		for (const user of this.userStorage.data)
+		for (const user of this.userStorage)
 			if (userID === user.name)
 				return user;
 	}
-};
+}
 
 
 module.exports = new UserRepository(userStorage);

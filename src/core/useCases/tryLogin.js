@@ -10,7 +10,7 @@ class extends BaseUseCase{
 			req.session.isLogin = true;
 			req.session.user = params.userid;
 		}
-		return {success: success};
+		return {success: success, target: req.session.targetPage};
 	}
 };
 
