@@ -2,8 +2,7 @@ const BaseUseCase = require('./baseUseCase');
 const UserRepository = require('../../infrastructure/repositories/userRepository');
 
 
-const TryLoginUseCase =
-class extends BaseUseCase{
+class TryLoginUseCase extends BaseUseCase{
 	static execute(params, req){
 		const success = UserRepository.checkUserExistByID(params.userid);
 		if (success){
@@ -12,6 +11,6 @@ class extends BaseUseCase{
 		}
 		return {success: success, target: req.session.targetPage};
 	}
-};
+}
 
 module.exports = TryLoginUseCase;

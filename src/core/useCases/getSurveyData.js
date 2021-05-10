@@ -1,8 +1,7 @@
 const BaseUseCase = require('./baseUseCase');
 const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
 
-const GetSurveyHistogramDataUseCase =
-class extends BaseUseCase{
+class GetSurveyHistogramDataUseCase extends BaseUseCase{
 	static execute(params){
 		const surveyData = SurveysRepository.getSurveyById(params.id).results;
 		const labels = [];
@@ -16,6 +15,6 @@ class extends BaseUseCase{
 			dataset: dataset
 		};
 	}
-};
+}
 
 module.exports = GetSurveyHistogramDataUseCase;

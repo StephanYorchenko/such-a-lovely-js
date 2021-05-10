@@ -2,8 +2,7 @@ const BaseUseCase = require('./baseUseCase');
 const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
 const UserRepository = require('../../infrastructure/repositories/userRepository');
 
-const RenderSurveyDataUseCase =
-class extends BaseUseCase{
+class RenderSurveyDataUseCase extends BaseUseCase{
 	static execute(params, req){
 		const user = UserRepository.getUserById(req.session.user);
 		const surveyData = SurveysRepository.getSurveyById(params.id);
@@ -14,6 +13,6 @@ class extends BaseUseCase{
 			wasEnd: surveyData.end
 		};
 	}
-};
+}
 
 module.exports = RenderSurveyDataUseCase;
