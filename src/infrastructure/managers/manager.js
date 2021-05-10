@@ -5,6 +5,7 @@ const LogoutUseCase = require('../../core/useCases/logoutUseCase');
 const RenderSurveyDataUseCase = require('../../core/useCases/renderSurveyData');
 const GetSurveyHistogramDataUseCase = require('../../core/useCases/getSurveyData');
 const CloseSurveyUseCase = require('../../core/useCases/closeSurvey');
+const CreateSurveyUseCase = require('../../core/useCases/createSurvey');
 
 class HandlerFactory{
 	createHandler(methodName, useCase){
@@ -41,5 +42,6 @@ manager.addHandler(handlers.createHandler('logout', LogoutUseCase));
 manager.addHandler(handlers.createHandler('renderSurvey', RenderSurveyDataUseCase));
 manager.addHandler(handlers.createHandler('getSurveyHistogramData', GetSurveyHistogramDataUseCase));
 manager.addHandler(handlers.createHandler('closeSurvey', CloseSurveyUseCase));
+manager.addHandler(handlers.createHandler('createSurvey', CreateSurveyUseCase));
 
 module.exports = Object.freeze(manager);
