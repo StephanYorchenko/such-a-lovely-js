@@ -40,6 +40,6 @@ manager.addHandler(handlers.createHandler('tryLogin', TryLoginUseCase));
 manager.addHandler(handlers.createHandler('logout', LogoutUseCase));
 manager.addHandler(handlers.createHandler('renderSurvey', RenderSurveyDataUseCase));
 manager.addHandler(handlers.createHandler('getSurveyHistogramData', GetSurveyHistogramDataUseCase));
-manager.addHandler(handlers.createHandler('closeSurvey', CloseSurveyUseCase))
+manager.addHandler(handlers.createHandler('closeSurvey', CloseSurveyUseCase));
 
 module.exports = Object.freeze(manager);
