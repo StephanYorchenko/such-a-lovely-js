@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+  app:
+    image: such-a-lovely-js__app
+    build: ./src
+    ports:
+      - ${APP_PORT}:31337
+    command: >
+      /wait-for postgres:5432 --timeout 5 -- node /app/server.js
+  
+  postgres:
+    image: such-a-lovely-js__postgres
+    build: ./postgres
+    
