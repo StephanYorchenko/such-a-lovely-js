@@ -90,7 +90,6 @@ const surveysStorage = {
 		for (const survey of this.data)
 			if (user.created.includes(survey.id))
 				result.push(survey);
-		console.log('->', result);
 		return result;
 	},
 
@@ -105,7 +104,6 @@ const surveysStorage = {
 		for (const survey of this.data)
 			if (user.voted.includes(survey.id))
 				result.push(survey);
-		console.log(result);
 		return result;
 	}
 };

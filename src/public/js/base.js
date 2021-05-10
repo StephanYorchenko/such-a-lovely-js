@@ -13,7 +13,6 @@ async function sendRequest(method, params){
 				params: params
 			})
 		});
-	console.log(response);
 	return await response.json();
 }
 

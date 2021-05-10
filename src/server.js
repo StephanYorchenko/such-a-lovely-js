@@ -54,7 +54,6 @@ app.get('/survey/:surveyID', (req, res) => {
 	}
 	else{
 		const surveyData = manager.tryExecute('renderSurvey', {id: req.params.surveyID}, req);
-		console.log(surveyData.data);
 		res.render('survey', surveyData);
 	}
 });
@@ -62,7 +61,6 @@ app.get('/survey/:surveyID', (req, res) => {
 app.get('/static/:type/:filename', (req, res) => {
 	res.sendFile(__dirname + '/public/' + req.params.type + '/' + req.params.filename);
 });
-
 
 
 app.listen(port, () => {
