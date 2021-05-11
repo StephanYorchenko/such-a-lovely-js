@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const store = require('session-file-store')(session);
 const manager = require('./infrastructure/managers/manager.js');
+const db = require('./infrastructure/models')
 
 
 const app = express();

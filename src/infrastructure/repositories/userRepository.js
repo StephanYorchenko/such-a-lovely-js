@@ -1,4 +1,5 @@
 const userStorage = require('../userStorage');
+const db = require('../models')
 
 class UserRepository {
 	constructor(userStorage) {
