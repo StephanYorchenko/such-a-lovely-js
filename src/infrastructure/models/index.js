@@ -43,7 +43,7 @@ db.Question.belongsToMany(db.User, {
 });
 
 async function sync() {
-    await db.sequelize.sync({ force: true });
+    await db.sequelize.sync();
 
     const user = await db.User.create({
         email: 'asd@mail.ru',
