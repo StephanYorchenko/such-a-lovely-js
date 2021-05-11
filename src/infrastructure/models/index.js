@@ -28,6 +28,7 @@ db.User.hasMany(db.Question, {
 });
 
 db.User.belongsToMany(db.Question, {
+    as: 'answer_question',
     through: db.UserAnswer,
     sourceKey: 'id',
     targetKey: 'id',
@@ -38,13 +39,26 @@ db.Question.belongsToMany(db.User, {
     through: db.UserAnswer,
     sourceKey: 'id',
     targetKey: 'id',
-    foreignKey: {
-        name: 'question_id'
-    }
+    foreignKey: 'question_id',
 });
 
 async function sync() {
-    await db.sequelize.sync({ force: true });
+    await db.sequelize.sync({ alter: true });
+
+    const user = await db.User.create({
+        email: 'asd@mail.ru',
+        password: 'strong password',
+    })
+    console.log(user.toJSON());
+
+    const question = await user.createQuestion({
+        questionText: 'Любите ли вы Артемия Рогова?',
+        questionDescription: 'Щепитильный вопрос',
+        questionType: 'SINGLE_CHOICE',
+        options: ['Yes', 'No'],
+    });
+    console.log(await user.countQuestions());
+    console.log(question.toJSON());
 }
 sync();
 
