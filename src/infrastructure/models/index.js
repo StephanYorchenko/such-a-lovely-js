@@ -1,11 +1,11 @@
 const config = require('../config/db.config.js');
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Sequelize, Model, DataTypes } = require('sequelize'); //eslint-disable-line no-unused-vars
 
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
-    host: config.HOST,
-    port: config.PORT,
-    dialect: config.dialect,
-    logging: false,
+	host: config.HOST,
+	port: config.PORT,
+	dialect: config.dialect,
+	logging: false,
 });
 
 const db = {};
@@ -18,47 +18,47 @@ db.UserAnswer = require('./useranswer.model.js')(sequelize, Sequelize.DataTypes,
 db.Question = require('./question.model.js')(sequelize, Sequelize.DataTypes, Model);
 
 db.User.hasMany(db.Question, {
-    onDelete: 'SET NULL',
-    onUpdate: 'CASCADE',
-    sourceKey: 'id',
-    foreignKey: {
-        name: 'user',
-        allowNull: true,
-    },
+	onDelete: 'SET NULL',
+	onUpdate: 'CASCADE',
+	sourceKey: 'id',
+	foreignKey: {
+		name: 'user',
+		allowNull: true,
+	},
 });
 
 db.User.belongsToMany(db.Question, {
-    as: 'answer_question',
-    through: db.UserAnswer,
-    sourceKey: 'id',
-    targetKey: 'id',
-    foreignKey: 'user_id',
+	as: 'answer_question',
+	through: db.UserAnswer,
+	sourceKey: 'id',
+	targetKey: 'id',
+	foreignKey: 'user_id',
 });
 
 db.Question.belongsToMany(db.User, {
-    through: db.UserAnswer,
-    sourceKey: 'id',
-    targetKey: 'id',
-    foreignKey: 'question_id',
+	through: db.UserAnswer,
+	sourceKey: 'id',
+	targetKey: 'id',
+	foreignKey: 'question_id',
 });
 
 async function sync() {
-    await db.sequelize.sync();
+	await db.sequelize.sync();
 
-    const user = await db.User.create({
-        email: 'asd@mail.ru',
-        password: 'strong password',
-    })
-    console.log(user.toJSON());
+	const user = await db.User.create({
+		email: 'asd@mail.ru',
+		password: 'strong password',
+	});
+	console.log(user.toJSON());
 
-    const question = await user.createQuestion({
-        questionText: 'Любите ли вы Артемия Рогова?',
-        questionDescription: 'Щепитильный вопрос',
-        questionType: 'SINGLE_CHOICE',
-        options: ['Yes', 'No'],
-    });
-    console.log(await user.countQuestions());
-    console.log(question.toJSON());
+	const question = await user.createQuestion({
+		questionText: 'Любите ли вы Артемия Рогова?',
+		questionDescription: 'Щепитильный вопрос',
+		questionType: 'SINGLE_CHOICE',
+		options: ['Yes', 'No'],
+	});
+	console.log(await user.countQuestions());
+	console.log(question.toJSON());
 }
 sync();
 

@@ -1,5 +1,5 @@
 const userStorage = require('../userStorage');
-const db = require('../models')
+const db = require('../models'); //eslint-disable-line no-unused-vars
 
 class UserRepository {
 	constructor(userStorage) {
