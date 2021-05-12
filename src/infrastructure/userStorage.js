@@ -20,4 +20,7 @@ const userStorage = [
 ];
 
 
-module.exports = userStorage;
+module.exports = {
+	userStorage: userStorage,
+	User: User
+};
