@@ -28,7 +28,7 @@ db.User.hasMany(db.Question, {
 });
 
 db.User.belongsToMany(db.Question, {
-	as: 'answer_question',
+	as: {singular: 'UserAnswer', plural: 'UserAnswers'},
 	through: db.UserAnswer,
 	sourceKey: 'id',
 	targetKey: 'id',
@@ -36,6 +36,7 @@ db.User.belongsToMany(db.Question, {
 });
 
 db.Question.belongsToMany(db.User, {
+	as: {singular: 'AnsweredUser', plural: 'AnsweredUsers'},
 	through: db.UserAnswer,
 	sourceKey: 'id',
 	targetKey: 'id',
@@ -59,6 +60,10 @@ async function sync() {
 	});
 	console.log(await user.countQuestions());
 	console.log(question.toJSON());
+
+	await user.addUserAnswer(question, {
+		through: {answers: ['Yes']}
+	})
 }
 sync();
 

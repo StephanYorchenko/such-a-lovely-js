@@ -1,11 +1,12 @@
-const {surveysStorage, Survey} = require('../surveyStorage');
+const { surveysStorage, Survey } = require('../surveyStorage');
+const db = require('../models')
 
 class SurveysRepository {
-	constructor (surveysStorage){
+	constructor(surveysStorage) {
 		this.surveysStorage = surveysStorage;
 	}
 
-	getCreatedByUser(user){
+	getCreatedByUser(user) {
 		const result = [];
 		for (const survey of this.surveysStorage)
 			if (user.created.includes(survey.id))
@@ -13,13 +14,14 @@ class SurveysRepository {
 		return result;
 	}
 
-	getSurveyById(surveyId){
+	getSurveyById(surveyId) {
 		for (const survey of this.surveysStorage)
 			if (survey.id === surveyId)
 				return survey;
 	}
 
-	getAllVotedSurveysByUser(user){
+	getAllVotedSurveysByUser(user) {
+		// return user.
 		const result = [];
 		for (const survey of this.surveysStorage)
 			if (user.voted.includes(survey.id))
@@ -28,13 +30,13 @@ class SurveysRepository {
 	}
 
 	_uuidv4() {
-		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
 			const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
 			return v.toString(16);
 		});
 	}
 
-	_getDateTime(){
+	_getDateTime() {
 		const today = new Date();
 		const dd = String(today.getDate()).padStart(2, '0');
 		const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -43,11 +45,11 @@ class SurveysRepository {
 		return dd + '-' + mm + '-' + yyyy;
 	}
 
-	createSurvey(surveyData){
+	createSurvey(surveyData) {
 		surveyData.id = this._uuidv4();
 		surveyData.createdAt = this._getDateTime();
 		surveyData.results = {};
-		for (const answer of surveyData.answers){
+		for (const answer of surveyData.answers) {
 			surveyData.results[answer] = 0;
 		}
 		surveyData.end = false;

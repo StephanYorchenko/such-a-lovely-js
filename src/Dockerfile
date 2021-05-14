@@ -4,7 +4,7 @@ RUN mkdir app
 
 WORKDIR /app/
 
-COPY ../package*.json ./
+COPY ./package*.json ./
 
 RUN npm ci && \
     wget -qO- https://raw.githubusercontent.com/eficode/wait-for/v2.1.0/wait-for > /wait-for && \

@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes, Model) => {
 			allowNull: false,
 		}
 	}, {
+		modelName: 'UserQuestionRel',
 		tableName: 'user_answers',
 		sequelize,
-		modelName: 'UserAnswer',
 
 		timestamps: true,
 		createdAt: 'created_at',
