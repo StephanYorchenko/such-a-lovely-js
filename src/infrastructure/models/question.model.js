@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes, Model) => {
 			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
 		},
-		questionText: {
+		questionTitle: {
 			type: DataTypes.STRING(255),
-			field: 'question_text',
+			field: 'question_title',
 			allowNull: false,
 		},
 		questionDescription: {
@@ -25,10 +25,25 @@ module.exports = (sequelize, DataTypes, Model) => {
 			type: DataTypes.ARRAY(DataTypes.STRING(255)),
 			allowNull: true,
 		},
-		rightAnswer: {
-			type: DataTypes.ARRAY(DataTypes.STRING(255)),
-			field: 'right_answer',
+		closed: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false,
+		},
+		config: {
+			type: DataTypes.ENUM('radio', 'checkbox'),
+			allowNull: false,
+			defaultValue: 'radio',
+		},
+		bgColor: {
+			type: DataTypes.STRING(255),
+			allowNull: false,
+			defaultValue: 'bg-dark',
+		},
+		textColor: {
+			type: DataTypes.ENUM('text-white', 'text-dark'),
 			allowNull: true,
+			defaultValue: 'text-white',
 		}
 	}, {
 		sequelize,

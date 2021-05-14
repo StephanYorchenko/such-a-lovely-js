@@ -4,9 +4,10 @@ const UserRepository = require('../../infrastructure/repositories/userRepository
 
 
 class CreateSurveyUseCase extends BaseUseCase {
-	static execute(params, request) {
-		const surveyID = SurveysRepository.createSurvey(params);
-		const result = UserRepository.addCreatedSurveyToUser(request.session.user, surveyID);
+	static async execute(params, request) {
+		const survey = await SurveysRepository.createSurvey(params);
+		const result = UserRepository.addSurveyToUser(request.session.user, survey);
+		
 		return { success: result };
 	}
 }

@@ -28,20 +28,20 @@ db.User.hasMany(db.Question, {
 });
 
 db.User.belongsToMany(db.Question, {
-	as: {singular: 'UserAnswer', plural: 'UserAnswers'},
 	through: db.UserAnswer,
-	sourceKey: 'id',
-	targetKey: 'id',
-	foreignKey: 'user_id',
+	as: { single: 'UserAnswer', plural: 'UserAnswers' },
 });
-
 db.Question.belongsToMany(db.User, {
-	as: {singular: 'AnsweredUser', plural: 'AnsweredUsers'},
 	through: db.UserAnswer,
-	sourceKey: 'id',
-	targetKey: 'id',
-	foreignKey: 'question_id',
-});
+	as: { single: 'AnsweredUser', plural: 'AnsweredUsers' },
+})
+
+db.UserAnswer.belongsTo(db.Question);
+db.Question.hasMany(db.UserAnswer);
+
+db.UserAnswer.belongsTo(db.User);
+db.User.hasMany(db.UserAnswer);
+
 
 async function sync() {
 	await db.sequelize.sync();
@@ -53,7 +53,7 @@ async function sync() {
 	console.log(user.toJSON());
 
 	const question = await user.createQuestion({
-		questionText: 'Любите ли вы Артемия Рогова?',
+		questionTitle: 'Любите ли вы Артемия Рогова?',
 		questionDescription: 'Щепитильный вопрос',
 		questionType: 'SINGLE_CHOICE',
 		options: ['Yes', 'No'],
@@ -61,9 +61,13 @@ async function sync() {
 	console.log(await user.countQuestions());
 	console.log(question.toJSON());
 
-	await user.addUserAnswer(question, {
-		through: {answers: ['Yes']}
-	})
+	const ans = await db.UserAnswer.create({
+		answerText: 'Yes',
+		UserId: user.id,
+		QuestionId: question.id,
+	});
+
+	console.log(ans.toJSON());
 }
 sync();
 
