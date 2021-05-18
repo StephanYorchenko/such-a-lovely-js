@@ -4,10 +4,14 @@ const UserRepository = require('../../infrastructure/repositories/userRepository
 
 class TryLoginUseCase extends BaseUseCase {
 	static async execute(params, req) {
-		const success = await UserRepository.checkUserExistByID(params.userid);
-		if (success) {
+		console.log(params);
+		const user = await UserRepository.getUserByName(params.userid);
+
+		let success = false;
+		if (user !== null) {
 			req.session.isLogin = true;
-			req.session.user = params.userid;
+			req.session.user = user.id;
+			success = true;
 		}
 		
 		return { success: success, target: req.session.targetPage };

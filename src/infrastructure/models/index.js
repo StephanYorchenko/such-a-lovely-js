@@ -65,7 +65,7 @@ async function sync() {
 	await db.sequelize.sync({ force: true });
 
 	const user = await db.User.create({
-		email: 'asd@mail.ru',
+		name: 'asdasd',
 		password: 'strong password',
 	});
 	console.log(user.toJSON());

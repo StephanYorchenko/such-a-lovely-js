@@ -19,7 +19,7 @@ app.set('view engine', 'pug');
 
 
 app.post('/api', ash(async(req, res) => {
-	const result = manager.tryExecute(req.body.method, req.body.params, req);
+	const result = await manager.tryExecute(req.body.method, req.body.params, req);
 	res.send(result);
 }));
 

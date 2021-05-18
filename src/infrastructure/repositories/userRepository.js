@@ -13,6 +13,16 @@ class UserRepository {
 		return tryUser !== null;
 	}
 
+	async getUserByName(username) {
+		const user = await db.User.findOne({
+			where: {
+				name: username,
+			},
+		});
+
+		return user;
+	}
+
 	async getUserById(userID) {
 		const user = await db.User.findByPk(userID);
 

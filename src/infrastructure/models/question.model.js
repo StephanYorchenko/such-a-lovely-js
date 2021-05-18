@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes, Model) => {
 			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
 		},
-		questionTitle: {
+		title: {
 			type: DataTypes.STRING(255),
 			field: 'question_title',
 			allowNull: false,
 		},
-		questionDescription: {
+		description: {
 			type: DataTypes.STRING,
 			field: 'question_description',
 			allowNull: true,
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes, Model) => {
 			defaultValue: 'bg-dark',
 		},
 		textColor: {
-			type: DataTypes.ENUM('text-white', 'text-dark'),
+			type: DataTypes.ENUM('text-white', 'text-black'),
 			allowNull: true,
 			defaultValue: 'text-white',
 		}
