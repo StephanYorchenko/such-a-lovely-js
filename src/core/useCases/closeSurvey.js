@@ -3,7 +3,7 @@ const SurveysRepository = require('../../infrastructure/repositories/surveysRepo
 
 class CloseSurveyUseCase extends BaseUseCase {
 	static async execute(params) {
-		const surveyData = SurveysRepository.getSurveyById(params.id);
+		const surveyData = await SurveysRepository.getSurveyById(params.id);
 		if (surveyData !== null) {
 			surveyData.closed = true;
 			await surveyData.save();

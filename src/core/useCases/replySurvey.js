@@ -2,14 +2,22 @@ const BaseUseCase = require('./baseUseCase');
 const UserRepository = require('../../infrastructure/repositories/userRepository');
 const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
 
-class ReplySurveyUseCase extends BaseUseCase{
-	static execute(params, req){
-		const user = UserRepository.getUserById(req.session.user);
-		user.voted.push(params.surveyID);
-		const survey = SurveysRepository.getSurveyById(params.surveyID);
-		for (const answer of params.response)
-			survey.results[answer]++;
-		return {success: true};
+class ReplySurveyUseCase extends BaseUseCase {
+	static async execute(params, req) {
+		try {
+			const user = await UserRepository.getUserById(req.session.user);
+			const survey = await SurveysRepository.getSurveyById(params.surveyID);
+
+			await user.addQuestion(survey);
+
+			for (const answer of params.response) {
+				UserRepository.addAnswerToQuestion(user, survey, answer);
+			}
+			return { success: true };
+			
+		} catch (error) {
+			return { success: false, errors: error }
+		}
 	}
 }
 

@@ -6,25 +6,18 @@ class SurveysRepository {
 		this.surveysStorage = surveysStorage;
 	}
 
-	getCreatedByUser(user) {
-		const result = [];
-		for (const survey of this.surveysStorage)
-			if (user.created.includes(survey.id))
-				result.push(survey);
-		return result;
+	async getCreatedByUser(user) {
+		const questions = await user.getQuestions();
+
+		return questions;
 	}
 
 	async getSurveyById(surveyId) {
 		return await db.Question.findByPk(surveyId)
 	}
 
-	getAllVotedSurveysByUser(user) {
-		// return user.
-		const result = [];
-		for (const survey of this.surveysStorage)
-			if (user.voted.includes(survey.id))
-				result.push(survey);
-		return result;
+	async getAllVotedSurveysByUser(user) {
+		return await db.User.getVotedQuestions();
 	}
 
 	_getDateTime() {
@@ -51,12 +44,20 @@ class SurveysRepository {
 	}
 
 	async getSurveyResults(surveyID) {
-		db.UserAnswer.findAll({
-			attributes: [
-				'answer_text',
-				[]
-			],
-		})
+		const answersCount = await db.sequelize.query(
+			'SELECT answer_text, COUNT(*) FROM user_answers WHERE question_id = :questionId GROUP BY answer_text;',
+			{
+				type: db.QueryType.SELECT,
+				replacements: { questionId: surveyID },
+			}
+		)
+		
+		const result = {}
+		for (const elem of answersCount) {
+			result[elem.answerText] = Number(elem.answerCount) || 0;
+		}
+
+		return result;
 	}
 }
 

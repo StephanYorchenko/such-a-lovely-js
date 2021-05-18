@@ -2,12 +2,11 @@ const BaseUseCase = require('./baseUseCase');
 const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
 
 class GetSurveyHistogramDataUseCase extends BaseUseCase {
-	static execute(params) {
-		const results = 
-		const surveyData = SurveysRepository.getSurveyById(params.id).results;
+	static async execute(params) {
+		const results = await SurveysRepository.getSurveyResults(params.id);
 		const labels = [];
 		const dataset = [];
-		for (const [key, value] of Object.entries(surveyData)) {
+		for (const [key, value] of Object.entries(results)) {
 			labels.push(key);
 			dataset.push(value);
 		}

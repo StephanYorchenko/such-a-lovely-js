@@ -1,5 +1,5 @@
 const config = require('../config/db.config.js');
-const { Sequelize, Model, DataTypes } = require('sequelize'); //eslint-disable-line no-unused-vars
+const { Sequelize, Model, QueryTypes } = require('sequelize'); //eslint-disable-line no-unused-vars
 
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 	host: config.HOST,
@@ -12,6 +12,7 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+db.QueryType = QueryTypes;
 
 db.User = require('./user.model.js')(sequelize, Sequelize.DataTypes, Model);
 db.UserAnswer = require('./useranswer.model.js')(sequelize, Sequelize.DataTypes, Model);
@@ -29,22 +30,44 @@ db.User.hasMany(db.Question, {
 
 db.User.belongsToMany(db.Question, {
 	through: db.UserAnswer,
-	as: { single: 'UserAnswer', plural: 'UserAnswers' },
+	as: { single: 'VotedQuestion', plural: 'VotedQuestions' },
+	foreignKey: {
+		name: 'user_id',
+		allowNull: false,
+	},
 });
 db.Question.belongsToMany(db.User, {
 	through: db.UserAnswer,
 	as: { single: 'AnsweredUser', plural: 'AnsweredUsers' },
-})
+	foreignKey: {
+		name: 'question_id',
+		allowNull: false,
+	},
+});
 
 db.UserAnswer.belongsTo(db.Question);
-db.Question.hasMany(db.UserAnswer);
+db.Question.hasMany(db.UserAnswer, {
+	onDelete: 'CASCADE',
+	onUpdate: 'CASCADE',
+	foreignKey: {
+		name: 'question_id',
+		allowNull: false,
+	},
+});
 
 db.UserAnswer.belongsTo(db.User);
-db.User.hasMany(db.UserAnswer);
+db.User.hasMany(db.UserAnswer, {
+	onDelete: 'CASCADE',
+	onUpdata: 'CASCADE',
+	foreignKey: {
+		name: 'user_id',
+		allowNull: false,
+	}
+});
 
 
 async function sync() {
-	await db.sequelize.sync();
+	await db.sequelize.sync({ force: true });
 
 	const user = await db.User.create({
 		email: 'asd@mail.ru',
@@ -61,13 +84,33 @@ async function sync() {
 	console.log(await user.countQuestions());
 	console.log(question.toJSON());
 
-	const ans = await db.UserAnswer.create({
+	let ans = await db.UserAnswer.create({
 		answerText: 'Yes',
-		UserId: user.id,
-		QuestionId: question.id,
+		userId: user.id,
+		questionId: question.id,
+	});
+	ans = await db.UserAnswer.create({
+		answerText: 'No',
+		userId: user.id,
+		questionId: question.id,
+	});
+	ans = await db.UserAnswer.create({
+		answerText: 'Maybe',
+		userId: user.id,
+		questionId: question.id,
 	});
 
-	console.log(ans.toJSON());
+	// console.log(await db.UserAnswer.findAll());
+	const answersCount = await db.sequelize.query(
+		'SELECT answer_text, COUNT(*) as answer_count FROM user_answers WHERE question_id = :questionId GROUP BY answer_text;',
+		{
+			type: db.QueryType.SELECT,
+			replacements: { questionId: question.id },
+		}
+	);
+	console.log(answersCount);
+
+	console.log(await user.getVotedQuestions())
 }
 sync();
 

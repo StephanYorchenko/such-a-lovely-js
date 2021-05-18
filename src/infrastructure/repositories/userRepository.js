@@ -7,11 +7,10 @@ class UserRepository {
 		this.userStorage = userStorage;
 	}
 
-	checkUserExistByID(userID) {
-		for (const user of this.userStorage)
-			if (user.name === userID)
-				return true;
-		return false;
+	async checkUserExistByID(userID) {
+		const tryUser = await db.User.findByPk(userID);
+
+		return tryUser !== null;
 	}
 
 	async getUserById(userID) {
@@ -34,6 +33,14 @@ class UserRepository {
 		const survey = await surveyRepository.getSurveyById(surveyID);
 
 		return await this.addSurveyToUser(userID, survey);
+	}
+
+	async addAnswerToQuestion(user, question, answerText) {
+		await db.UserAnswer.create({
+			userId: user.id,
+			questionId: question.id,
+			answerText: answerText,
+		});
 	}
 }
 
