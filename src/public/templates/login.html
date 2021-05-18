@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
-    <div class="card login-card" onsubmit="tryLogin(); return false;">
+    <div class="card login-card">
         <div class="card-header"><h5>Авторизация</h5></div>
         <div class="card-body">
             <form name="login">
@@ -19,7 +19,8 @@
                     <div id="emailHelp" class="form-text">Введите свой логин</div>
                     <div id="error">Введён неверный логин</div>
                 </div>
-                <button type="submit" class="btn btn-success">Войти</button>
+                <button type="button" class="btn btn-success" onclick='tryLogin(); return false;'>Войти</button>
+                <button type="button" class="btn btn-outline-success" onclick='tryRegister(); return false;'>Зарегистрироваться</button>
             </form>
         </div>
     </div>
