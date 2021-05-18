@@ -10,7 +10,7 @@ class CloseSurveyUseCase extends BaseUseCase {
 			return { success: true };
 		}
 		
-		return { success: false, error: "not able to find survey with given id" };
+		return { success: false, error: 'not able to find survey with given id' };
 	}
 }
 

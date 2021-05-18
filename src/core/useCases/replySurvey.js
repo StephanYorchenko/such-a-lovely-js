@@ -18,7 +18,7 @@ class ReplySurveyUseCase extends BaseUseCase {
 			return { success: true };
 			
 		} catch (error) {
-			return { success: false, errors: error }
+			return { success: false, errors: error };
 		}
 	}
 }

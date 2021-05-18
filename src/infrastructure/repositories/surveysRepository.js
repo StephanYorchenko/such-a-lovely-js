@@ -1,5 +1,5 @@
-const { surveysStorage, Survey } = require('../surveyStorage');
-const db = require('../models')
+const { surveysStorage } = require('../surveyStorage');
+const db = require('../models');
 
 class SurveysRepository {
 	constructor(surveysStorage) {
@@ -13,7 +13,7 @@ class SurveysRepository {
 	}
 
 	async getSurveyById(surveyId) {
-		return await db.Question.findByPk(surveyId)
+		return await db.Question.findByPk(surveyId);
 	}
 
 	async getAllVotedSurveysByUser(userId) {
@@ -29,7 +29,7 @@ class SurveysRepository {
 		const questions = await db.sequelize.query(query, {
 			type: db.QueryType.SELECT,
 			replacements: {
-				userId: user.id,
+				userId: userId,
 			},
 		});
 
@@ -69,9 +69,9 @@ class SurveysRepository {
 				type: db.QueryType.SELECT,
 				replacements: { questionId: surveyID },
 			}
-		)
+		);
 		
-		const result = {}
+		const result = {};
 		for (const elem of answersCount) {
 			result[elem.answerText] = Number(elem.answer_count) || 0;
 		}

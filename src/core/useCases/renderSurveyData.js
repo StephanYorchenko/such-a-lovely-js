@@ -10,7 +10,7 @@ class RenderSurveyDataUseCase extends BaseUseCase {
 			data: survey,
 			isAuthor: user.hasQuestion(survey),
 			hasVoted: await user.hasVotedQuestion(survey),
-			wasEnd: surveyData.closed
+			wasEnd: survey.closed
 		};
 	}
 }

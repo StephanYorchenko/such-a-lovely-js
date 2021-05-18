@@ -79,17 +79,17 @@ async function sync() {
 	console.log(await user.countQuestions());
 	console.log(question.toJSON());
 
-	let ans = await db.UserAnswer.create({
+	await db.UserAnswer.create({
 		answerText: 'Yes',
 		user_id: user.id,
 		question_id: question.id,
 	});
-	ans = await db.UserAnswer.create({
+	db.UserAnswer.create({
 		answerText: 'No',
 		user_id: user.id,
 		question_id: question.id,
 	});
-	ans = await db.UserAnswer.create({
+	db.UserAnswer.create({
 		answerText: 'Maybe',
 		user_id: user.id,
 		question_id: question.id,
@@ -102,8 +102,8 @@ async function sync() {
 			replacements: { questionId: question.id },
 		}
 	);
-	// console.log(answersCount);
-	// console.log(await user.getAnswers());
+	console.log(answersCount);
+	console.log(await user.getAnswers());
 	const query = [
 		'WITH needed_ids(question_id) AS (',
 		'SELECT DISTINCT question_id FROM user_answers',
