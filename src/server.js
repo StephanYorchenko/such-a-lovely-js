@@ -2,8 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const store = require('session-file-store')(session);
 const manager = require('./infrastructure/managers/manager.js');
-//eslint-disable-next-line no-unused-vars
-const db = require('./infrastructure/models');
+const ash = require('express-async-handler');
 
 
 const app = express();
@@ -19,46 +18,46 @@ app.set('views', './public/templates');
 app.set('view engine', 'pug');
 
 
-app.post('/api', (req, res) => {
+app.post('/api', ash(async(req, res) => {
 	const result = manager.tryExecute(req.body.method, req.body.params, req);
 	res.send(result);
-});
+}));
 
-app.get('/', (req, res) => {
+app.get('/', ash(async(req, res) => {
 	if (!req.session.isLogin){
 		req.session.targetPage = '/';
 		res.redirect('/login');
 	}
 	else
 		res.render('index');
-});
+}));
 
-app.get('/results', (req, res) => {
+app.get('/results', ash(async(req, res) => {
 	if (!req.session.isLogin){
 		req.session.targetPage = '/results';
 		res.redirect('/login');
 	}
 	else
 		res.render('results');
-});
+}));
 
-app.get('/createSurvey', (req, res) => {
+app.get('/createSurvey', ash(async(req, res) => {
 	if (!req.session.isLogin){
 		req.session.targetPage = '/createSurvey';
 		res.redirect('/login');
 	}
 	else
 		res.render('createSurvey');
-});
+}));
 
-app.get('/login', (req, res) => {
+app.get('/login', ash(async(req, res) => {
 	if (req.session.isLogin)
 		res.redirect(req.session.targetPage || '/');
 	else
 		res.sendFile(__dirname + '/public/templates/login.html');
-});
+}));
 
-app.get('/survey/:surveyID', (req, res) => {
+app.get('/survey/:surveyID', ash(async(req, res) => {
 	if (!req.session.isLogin){
 		req.session.targetPage = `/survey/${req.params.surveyID}`;
 		res.redirect('/login');
@@ -67,11 +66,11 @@ app.get('/survey/:surveyID', (req, res) => {
 		const surveyData = manager.tryExecute('renderSurvey', {id: req.params.surveyID}, req);
 		res.render('survey', surveyData);
 	}
-});
+}));
 
-app.get('/static/:type/:filename', (req, res) => {
+app.get('/static/:type/:filename', ash(async(req, res) => {
 	res.sendFile(__dirname + '/public/' + req.params.type + '/' + req.params.filename);
-});
+}));
 
 
 app.listen(port, () => {

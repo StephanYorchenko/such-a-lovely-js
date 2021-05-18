@@ -11,7 +11,9 @@ class ReplySurveyUseCase extends BaseUseCase {
 			await user.addQuestion(survey);
 
 			for (const answer of params.response) {
-				UserRepository.addAnswerToQuestion(user, survey, answer);
+				if (survey.options.includes(answer)) {
+					await UserRepository.addAnswerToQuestion(user, survey, answer);
+				}
 			}
 			return { success: true };
 			

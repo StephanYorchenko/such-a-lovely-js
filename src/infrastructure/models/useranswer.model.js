@@ -11,24 +11,6 @@ module.exports = (sequelize, DataTypes, Model) => {
 			allowNull: false,
 			field: 'answer_text',
 		},
-		userId: {
-			type: DataTypes.UUID,
-			allowNull: false,
-			field: 'user_id',
-			references: {
-				model: 'Users',
-				key: 'id',
-			}
-		},
-		questionId: {
-			type: DataTypes.UUID,
-			allowNull: false,
-			field: 'question_id',
-			references: {
-				model: 'Questions',
-				key: 'id',
-			}
-		},
 	}, {
 		modelName: 'UserQuestionRel',
 		tableName: 'user_answers',

@@ -5,8 +5,7 @@ const UserRepository = require('../../infrastructure/repositories/userRepository
 
 class ListVotedSurveysUseCase extends BaseUseCase {
 	static async execute(_, request) {
-		const user = await UserRepository.getUserById(request.session.user);
-		return await SurveysRepository.getAllVotedSurveysByUser(user);
+		return await SurveysRepository.getAllVotedSurveysByUser(request.session.user);
 	}
 }
 

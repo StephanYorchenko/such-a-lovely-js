@@ -28,25 +28,14 @@ db.User.hasMany(db.Question, {
 	},
 });
 
-db.User.belongsToMany(db.Question, {
-	through: db.UserAnswer,
-	as: { single: 'VotedQuestion', plural: 'VotedQuestions' },
-	foreignKey: {
-		name: 'user_id',
-		allowNull: false,
-	},
-});
-db.Question.belongsToMany(db.User, {
-	through: db.UserAnswer,
-	as: { single: 'AnsweredUser', plural: 'AnsweredUsers' },
+db.UserAnswer.belongsTo(db.Question, {
 	foreignKey: {
 		name: 'question_id',
 		allowNull: false,
-	},
+	}
 });
-
-db.UserAnswer.belongsTo(db.Question);
 db.Question.hasMany(db.UserAnswer, {
+	as: { single: 'Answer', plural: 'Answers' },
 	onDelete: 'CASCADE',
 	onUpdate: 'CASCADE',
 	foreignKey: {
@@ -55,8 +44,14 @@ db.Question.hasMany(db.UserAnswer, {
 	},
 });
 
-db.UserAnswer.belongsTo(db.User);
+db.UserAnswer.belongsTo(db.User, {
+	foreignKey: {
+		name: 'user_id',
+		allowNull: false,
+	},
+});
 db.User.hasMany(db.UserAnswer, {
+	as: { single: 'Answer', plural: 'Answers' },
 	onDelete: 'CASCADE',
 	onUpdata: 'CASCADE',
 	foreignKey: {
@@ -86,21 +81,20 @@ async function sync() {
 
 	let ans = await db.UserAnswer.create({
 		answerText: 'Yes',
-		userId: user.id,
-		questionId: question.id,
+		user_id: user.id,
+		question_id: question.id,
 	});
 	ans = await db.UserAnswer.create({
 		answerText: 'No',
-		userId: user.id,
-		questionId: question.id,
+		user_id: user.id,
+		question_id: question.id,
 	});
 	ans = await db.UserAnswer.create({
 		answerText: 'Maybe',
-		userId: user.id,
-		questionId: question.id,
+		user_id: user.id,
+		question_id: question.id,
 	});
 
-	// console.log(await db.UserAnswer.findAll());
 	const answersCount = await db.sequelize.query(
 		'SELECT answer_text, COUNT(*) as answer_count FROM user_answers WHERE question_id = :questionId GROUP BY answer_text;',
 		{
@@ -108,9 +102,25 @@ async function sync() {
 			replacements: { questionId: question.id },
 		}
 	);
-	console.log(answersCount);
+	// console.log(answersCount);
+	// console.log(await user.getAnswers());
+	const query = [
+		'WITH needed_ids(question_id) AS (',
+		'SELECT DISTINCT question_id FROM user_answers',
+		'WHERE user_id = :userId',
+		')',
+		'SELECT * FROM needed_ids JOIN questions',
+		'ON question_id = questions.id;'
+	].join(' ');
 
-	console.log(await user.getVotedQuestions())
+	const questions = await db.sequelize.query(query, {
+		type: db.QueryType.SELECT,
+		replacements: {
+			userId: user.id,
+		},
+	});
+
+	console.log(questions);
 }
 sync();
 
