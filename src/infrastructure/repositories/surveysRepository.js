@@ -77,7 +77,7 @@ class SurveysRepository {
 		}
 
 		for (const option of survey.options) {
-			if (!result.hasOwnProperty(option)) {
+			if (!Object.prototype.hasOwnProperty.call(result, option)) {
 				result[option] = 0;
 			}
 		}
