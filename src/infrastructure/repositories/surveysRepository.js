@@ -76,6 +76,12 @@ class SurveysRepository {
 			result[elem.answer_text] = Number(elem.answer_count) || 0;
 		}
 
+		for (const option of survey.options) {
+			if (!result.hasOwnProperty(option)) {
+				result[option] = 0;
+			}
+		}
+
 		return result;
 	}
 }

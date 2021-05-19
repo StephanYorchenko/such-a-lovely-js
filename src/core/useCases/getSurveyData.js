@@ -10,6 +10,7 @@ class GetSurveyHistogramDataUseCase extends BaseUseCase {
 			labels.push(key);
 			dataset.push(value);
 		}
+
 		return {
 			labels: labels,
 			dataset: dataset

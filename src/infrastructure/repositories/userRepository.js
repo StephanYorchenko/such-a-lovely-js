@@ -32,7 +32,7 @@ class UserRepository {
 	async addSurveyToUser(userID, survey) {
 		const user = await this.getUserById(userID);
 		if (user !== null && survey !== null) {
-			user.addQuestion(survey);
+			await user.addQuestion(survey);
 			return true;
 		}
 
