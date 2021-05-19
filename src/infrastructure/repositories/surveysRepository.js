@@ -74,9 +74,14 @@ class SurveysRepository {
 				replacements: { questionId: surveyID },
 			}
 		);
-		
+		const survey = await this.getSurveyById(surveyID);
+
 		const result = {};
 		for (const elem of answersCount) {
+			if (!survey.options.includes(elem.answer_text)) {
+				continue;
+			}
+
 			result[elem.answer_text] = Number(elem.answer_count) || 0;
 		}
 

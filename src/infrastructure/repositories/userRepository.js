@@ -45,12 +45,17 @@ class UserRepository {
 		return await this.addSurveyToUser(userID, survey);
 	}
 
-	async addAnswerToQuestion(user, question, answerText) {
-		await db.UserAnswer.create({
-			user_id: user.id,
-			question_id: question.id,
-			answerText: answerText,
+	async addAnswersToQuestion(user, question, answers) {
+		const neededAnswers = answers.filter(text => question.options.includes(text));
+		const answerRecords = neededAnswers.map(text => {
+			return {
+				user_id: user.id,
+				question_id: question.id,
+				answerText: text,
+			};
 		});
+
+		await db.UserAnswer.bulkCreate(answerRecords)
 	}
 
 	async hasUserAnswered(userId, questionId) {

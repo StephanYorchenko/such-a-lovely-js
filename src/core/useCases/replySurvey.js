@@ -8,16 +8,12 @@ class ReplySurveyUseCase extends BaseUseCase {
 			const user = await UserRepository.getUserById(req.session.user);
 			const survey = await SurveysRepository.getSurveyById(params.surveyID);
 
-			await user.addQuestion(survey);
+			await UserRepository.addAnswersToQuestion(user, survey, params.response);
 
-			for (const answer of params.response) {
-				if (survey.options.includes(answer)) {
-					await UserRepository.addAnswerToQuestion(user, survey, answer);
-				}
-			}
 			return { success: true };
 			
 		} catch (error) {
+			console.log(error);
 			return { success: false, errors: error };
 		}
 	}
