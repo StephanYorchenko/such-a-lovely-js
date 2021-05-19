@@ -40,15 +40,6 @@ class SurveysRepository {
 		return questions;
 	}
 
-	_getDateTime() {
-		const today = new Date();
-		const dd = String(today.getDate()).padStart(2, '0');
-		const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-		const yyyy = today.getFullYear();
-
-		return dd + '-' + mm + '-' + yyyy;
-	}
-
 	async createSurvey(surveyData) {
 		console.log(surveyData);
 		const questionType = surveyData.config == 'radio' ? 'SINGLE_CHOICE' : 'MULTI_CHOICE';

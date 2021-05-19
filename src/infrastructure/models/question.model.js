@@ -1,11 +1,20 @@
 module.exports = (sequelize, DataTypes, Model) => {
 	class Question extends Model { 
+		static formatDate(date) {
+			const dd = String(date.getDate()).padStart(2, '0');
+			const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+			const yyyy = date.getFullYear();
+	
+			return dd + '-' + mm + '-' + yyyy;
+		}
+
 		getDtoForFront() {
 			const dto = this.get();
 			dto.style = {
 				bg: this.bgColor,
 				text: this.textColor,
 			};
+			dto.createdAt = Question.formatDate(this.createdAt);
 
 			return dto;
 		}
@@ -61,7 +70,7 @@ module.exports = (sequelize, DataTypes, Model) => {
 		modelName: 'Question',
 
 		timestamps: true,
-		createdAt: 'created_at',
+		createdAt: true,
 		updatedAt: false,
 	});
 
