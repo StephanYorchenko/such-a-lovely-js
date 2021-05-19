@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes, Model) => {
 			type: DataTypes.STRING,
 			allowNull: false,
 			field: 'answer_text',
+			unique: 'unique_ans',
 		},
 	}, {
 		modelName: 'UserQuestionRel',

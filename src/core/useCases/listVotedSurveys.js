@@ -5,7 +5,7 @@ const SurveysRepository = require('../../infrastructure/repositories/surveysRepo
 class ListVotedSurveysUseCase extends BaseUseCase {
 	static async execute(_, request) {
 		const questions = await SurveysRepository.getAllVotedSurveysByUser(request.session.user);
-		return questions.map(survey => survey.get_dto_for_front());
+		return questions.map(survey => survey.getDtoForFront());
 	}
 }
 

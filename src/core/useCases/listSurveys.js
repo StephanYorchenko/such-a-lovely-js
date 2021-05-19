@@ -7,7 +7,7 @@ class ListSurveysUseCase extends BaseUseCase {
 		const user = await UserRepository.getUserById(request.session.user);
 		const questions = await SurveysRepository.getCreatedByUser(user);
 
-		return questions.map(survey => survey.get_dto_for_front());
+		return questions.map(survey => survey.getDtoForFront());
 	}
 }
 

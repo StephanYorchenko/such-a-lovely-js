@@ -47,8 +47,8 @@ class UserRepository {
 
 	async addAnswerToQuestion(user, question, answerText) {
 		await db.UserAnswer.create({
-			userId: user.id,
-			questionId: question.id,
+			user_id: user.id,
+			question_id: question.id,
 			answerText: answerText,
 		});
 	}

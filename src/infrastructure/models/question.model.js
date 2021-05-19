@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes, Model) => {
 	class Question extends Model { 
-		get_dto_for_front() {
+		getDtoForFront() {
 			const dto = this.get();
 			dto.style = {
 				bg: this.bgColor,

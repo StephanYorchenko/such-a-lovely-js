@@ -32,6 +32,7 @@ db.UserAnswer.belongsTo(db.Question, {
 	foreignKey: {
 		name: 'question_id',
 		allowNull: false,
+		unique: 'unique_ans',
 	}
 });
 db.Question.hasMany(db.UserAnswer, {
@@ -41,6 +42,7 @@ db.Question.hasMany(db.UserAnswer, {
 	foreignKey: {
 		name: 'question_id',
 		allowNull: false,
+		unique: 'unique_ans',
 	},
 });
 
@@ -48,6 +50,7 @@ db.UserAnswer.belongsTo(db.User, {
 	foreignKey: {
 		name: 'user_id',
 		allowNull: false,
+		unique: 'unique_ans',
 	},
 });
 db.User.hasMany(db.UserAnswer, {
@@ -57,6 +60,7 @@ db.User.hasMany(db.UserAnswer, {
 	foreignKey: {
 		name: 'user_id',
 		allowNull: false,
+		unique: 'unique_ans',
 	}
 });
 

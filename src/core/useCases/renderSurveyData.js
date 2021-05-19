@@ -11,11 +11,14 @@ class RenderSurveyDataUseCase extends BaseUseCase {
 			return null;
 		}
 
+		const data = survey.getDtoForFront();
+		data.results = await SurveysRepository.getSurveyResults(params.id);
+
 		return {
-			data: survey.get_dto_for_front(),
-			isAuthor: user.hasQuestion(survey),
+			data,
+			isAuthor: await user.hasQuestion(survey),
 			hasVoted: await UserRepository.hasUserAnswered(user.id, survey.id),
-			wasEnd: survey.closed
+			wasEnd: survey.closed,
 		};
 	}
 }
