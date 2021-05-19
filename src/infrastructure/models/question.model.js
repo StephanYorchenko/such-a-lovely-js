@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes, Model) => {
 			dto.style = {
 				bg: this.bgColor,
 				text: this.textColor,
-			}
+			};
 
 			return dto;
 		}
