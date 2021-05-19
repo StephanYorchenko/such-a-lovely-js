@@ -55,7 +55,7 @@ class UserRepository {
 			};
 		});
 
-		await db.UserAnswer.bulkCreate(answerRecords)
+		await db.UserAnswer.bulkCreate(answerRecords);
 	}
 
 	async hasUserAnswered(userId, questionId) {
