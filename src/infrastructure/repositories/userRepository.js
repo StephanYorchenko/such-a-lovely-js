@@ -1,6 +1,6 @@
 const userStorage = require('../userStorage');
 const surveyRepository = require('./surveysRepository');
-const db = require('../models'); //eslint-disable-line no-unused-vars
+const db = require('../models');
 
 class UserRepository {
 	constructor(userStorage) {
@@ -39,7 +39,7 @@ class UserRepository {
 		return false;
 	}
 
-	async addCreatedSurveyToUserById(userID, surveyID){
+	async addCreatedSurveyToUserById(userID, surveyID) {
 		const survey = await surveyRepository.getSurveyById(surveyID);
 
 		return await this.addSurveyToUser(userID, survey);
@@ -69,12 +69,17 @@ class UserRepository {
 		return ans !== null;
 	}
 
-	createUser(userName){
-		if (this.checkUserExistByID(userName))
+	async createUser(userName) {
+		if (await this.getUserByName(userName) !== null) {
 			return false;
-		const user = new User({ name: userName });
-		this.userStorage.push(user);
-		return user.name;
+		}
+		
+		const user = await db.User.create({
+			name: userName,
+			password: 'i love js',
+		});
+
+		return user.id;
 	}
 }
 
