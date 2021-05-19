@@ -68,6 +68,11 @@ async function sync() {
 		name: 'asdasd',
 		password: 'strong password',
 	});
+	await db.User.create({
+		name: 'abacaba',
+		password: 'weak password',
+	});
+	
 	console.log(user.toJSON());
 
 	const question = await user.createQuestion({
