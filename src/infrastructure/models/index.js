@@ -71,8 +71,8 @@ async function sync() {
 	console.log(user.toJSON());
 
 	const question = await user.createQuestion({
-		questionTitle: 'Любите ли вы Артемия Рогова?',
-		questionDescription: 'Щепитильный вопрос',
+		title: 'Любите ли вы Артемия Рогова?',
+		description: 'Щепитильный вопрос',
 		questionType: 'SINGLE_CHOICE',
 		options: ['Yes', 'No'],
 	});

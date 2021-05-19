@@ -1,5 +1,15 @@
 module.exports = (sequelize, DataTypes, Model) => {
-	class Question extends Model { }
+	class Question extends Model { 
+		get_dto_for_front() {
+			const dto = this.get();
+			dto.style = {
+				bg: this.bgColor,
+				text: this.textColor,
+			}
+
+			return dto;
+		}
+	}
 	Question.init({
 		id: {
 			type: DataTypes.UUID,

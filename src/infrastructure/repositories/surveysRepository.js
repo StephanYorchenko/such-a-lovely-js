@@ -13,7 +13,9 @@ class SurveysRepository {
 	}
 
 	async getSurveyById(surveyId) {
-		return await db.Question.findByPk(surveyId);
+		const question = await db.Question.findByPk(surveyId);
+		
+		return question;
 	}
 
 	async getAllVotedSurveysByUser(userId) {
@@ -31,6 +33,8 @@ class SurveysRepository {
 			replacements: {
 				userId: userId,
 			},
+			model: db.Question,
+			mapToModel: true,
 		});
 
 		return questions;
@@ -51,8 +55,8 @@ class SurveysRepository {
 		const question = await db.Question.create({
 			questionType: questionType,
 			options: surveyData.answers,
-			questionTitle: surveyData.title,
-			questionDescription: surveyData.description,
+			title: surveyData.title,
+			description: surveyData.description,
 			closed: surveyData.end || false,
 			bgColor: surveyData.bgColor,
 			textColor: surveyData.textColor,
@@ -73,7 +77,7 @@ class SurveysRepository {
 		
 		const result = {};
 		for (const elem of answersCount) {
-			result[elem.answerText] = Number(elem.answer_count) || 0;
+			result[elem.answer_text] = Number(elem.answer_count) || 0;
 		}
 
 		return result;

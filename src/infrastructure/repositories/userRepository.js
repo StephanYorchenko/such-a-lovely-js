@@ -52,6 +52,17 @@ class UserRepository {
 			answerText: answerText,
 		});
 	}
+
+	async hasUserAnswered(userId, questionId) {
+		const ans = await db.UserAnswer.findOne({
+			where: {
+				user_id: userId,
+				question_id: questionId,
+			}
+		});
+
+		return ans !== null;
+	}
 }
 
 
