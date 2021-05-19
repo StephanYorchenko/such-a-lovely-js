@@ -1,8 +1,8 @@
 class User{
 	constructor(originData) {
 		this.name = originData.name;
-		this.voted = originData.voted;
-		this.created = originData.created;
+		this.voted = originData.voted || [];
+		this.created = originData.created || [];
 	}
 }
 
@@ -20,4 +20,7 @@ const userStorage = [
 ];
 
 
-module.exports = userStorage;
+module.exports = {
+	userStorage: userStorage,
+	User: User
+};

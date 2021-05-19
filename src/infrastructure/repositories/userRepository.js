@@ -68,6 +68,14 @@ class UserRepository {
 
 		return ans !== null;
 	}
+
+	createUser(userName){
+		if (this.checkUserExistByID(userName))
+			return false;
+		const user = new User({ name: userName });
+		this.userStorage.push(user);
+		return user.name;
+	}
 }
 
 

@@ -7,3 +7,13 @@ async function tryLogin(){
 	else
 		document.querySelector('#error').style.visibility = 'visible';
 }
+
+// eslint-disable-next-line no-unused-vars
+async function tryRegister(){
+	const data = {userName: document.forms.login.userid.value};
+	const result = await sendRequest('createUser', data); // eslint-disable-line no-undef
+	if (result.success)
+		window.location.href = result.target || '/';
+	else
+		document.querySelector('#error').style.visibility = 'visible';
+}
