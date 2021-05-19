@@ -86,5 +86,4 @@ class SurveysRepository {
 	}
 }
 
-
 module.exports = new SurveysRepository(surveysStorage);
