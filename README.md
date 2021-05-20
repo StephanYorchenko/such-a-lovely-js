@@ -1,4 +1,8 @@
 # such-a-lovely-js
+![Code Climate issues](https://img.shields.io/badge/love--js-100%25-green)
+![GitHub repo size](https://img.shields.io/github/repo-size/StephanYorchenko/such-a-lovely-js)
+![GitHub branch checks state](https://img.shields.io/github/checks-status/StephanYorchenko/such-a-lovely-js/master)
+![GitHub Repo stars](https://img.shields.io/github/stars/StephanYorchenko/such-a-lovely-js?style=social)
 
 ## Сервис создания соцопросов
 

@@ -16,8 +16,9 @@
   },
   "devDependencies": {
     "eslint": "^7.24.0",
-    "precommit": "^1.2.2",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "jest": "^26.6.3",
+    "precommit": "^1.2.2"
   },
   "scripts": {
     "hook-install": "precommit install",

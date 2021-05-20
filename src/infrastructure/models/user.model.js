@@ -6,11 +6,9 @@ module.exports = (sequelize, DataTypes, Model) => {
 			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
 		},
-		email: {
+		name: {
 			type: DataTypes.STRING(255),
-			validate: {
-				isEmail: true
-			}
+			unique: true,
 		},
 		password: {
 			type: DataTypes.STRING,

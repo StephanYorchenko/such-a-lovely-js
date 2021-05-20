@@ -6,14 +6,16 @@ module.exports = (sequelize, DataTypes, Model) => {
 			autoIncrement: true,
 			primaryKey: true,
 		},
-		answers: {
-			type: DataTypes.ARRAY(DataTypes.STRING),
+		answerText: {
+			type: DataTypes.STRING,
 			allowNull: false,
-		}
+			field: 'answer_text',
+			unique: 'unique_ans',
+		},
 	}, {
+		modelName: 'UserQuestionRel',
 		tableName: 'user_answers',
 		sequelize,
-		modelName: 'UserAnswer',
 
 		timestamps: true,
 		createdAt: 'created_at',
