@@ -2,6 +2,21 @@ const express = require('express');
 const session = require('express-session');
 const store = require('session-file-store')(session);
 const manager = require('./infrastructure/managers/manager.js');
+const log4js = require('log4js');
+
+log4js.configure({
+	appenders: {
+		tracer: { type: 'stdout', level: 'trace'},
+		important: { type: 'file', filename: 'logs/manager.log', maxLogSize: 10 * 1024 * 1024, level: 'info'},
+	},
+	categories: {
+		router: {appenders: ['tracer'], level: 'trace'},
+		manager: {appenders: ['important'], level: 'info'},
+		default: { appenders: ['tracer', 'important'], level: 'trace'}
+	}
+});
+
+const logger = log4js.getLogger('router');
 
 
 const app = express();
@@ -18,11 +33,13 @@ app.set('view engine', 'pug');
 
 
 app.post('/api', (req, res) => {
+	logger.trace('Request API ' + req.body.method);
 	const result = manager.tryExecute(req.body.method, req.body.params, req);
 	res.send(result);
 });
 
 app.get('/', (req, res) => {
+	logger.trace('Try open / as ' + req.session.user);
 	if (!req.session.isLogin){
 		req.session.targetPage = '/';
 		res.redirect('/login');
@@ -32,6 +49,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/results', (req, res) => {
+	logger.trace('Try open /results as ' + req.session.user);
 	if (!req.session.isLogin){
 		req.session.targetPage = '/results';
 		res.redirect('/login');
@@ -41,6 +59,7 @@ app.get('/results', (req, res) => {
 });
 
 app.get('/createSurvey', (req, res) => {
+	logger.trace('Try create survey as ' + req.session.user);
 	if (!req.session.isLogin){
 		req.session.targetPage = '/createSurvey';
 		res.redirect('/login');
@@ -50,8 +69,10 @@ app.get('/createSurvey', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-	if (req.session.isLogin)
+	if (req.session.isLogin) {
+		logger.info(`Already signed in as ${req.session.user}`);
 		res.redirect(req.session.targetPage || '/');
+	}
 	else
 		res.sendFile(__dirname + '/public/templates/login.html');
 });
@@ -73,5 +94,5 @@ app.get('/static/:type/:filename', (req, res) => {
 
 
 app.listen(port, () => {
-	console.log(`Listening at http://localhost:${port}`);
+	logger.trace(`Start server at http://localhost:${port}`);
 });
