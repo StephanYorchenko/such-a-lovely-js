@@ -12,8 +12,16 @@ async function tryLogin(){
 async function tryRegister(){
 	const data = {userName: document.forms.login.userid.value};
 	const result = await sendRequest('createUser', data); // eslint-disable-line no-undef
+	console.log(result);
 	if (result.success)
 		window.location.href = result.target || '/';
 	else
-		document.querySelector('#error').style.visibility = 'visible';
+		showError(result.error);
+}
+
+function showError(message){
+	const errorMessageField = document.querySelector('#error');
+	errorMessageField.style.visibility = 'visible';
+	errorMessageField.innerText = message;
+
 }
