@@ -25,7 +25,8 @@
   "scripts": {
     "hook-install": "../node_modules/.bin/precommit install",
     "hook-remove": "../node_modules/.bin/precommit remove",
-    "precommit": "../node_modules/.bin/eslint . --fix"
+    "precommit": "../node_modules/.bin/eslint . --fix",
+    "test": "jest"
   },
   "precommit": {
     "tasks": [
