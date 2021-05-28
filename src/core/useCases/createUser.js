@@ -2,7 +2,7 @@ const BaseUseCase = require('./baseUseCase');
 const UserRepository = require('../../infrastructure/repositories/userRepository');
 
 class CreateUserUseCase extends BaseUseCase{
-	static execute(params, request){
+	static async execute(params, request){
 		if (params.userName === '')
 			return {success: false, error: 'Пустое имя пользователя'};
 		const result = UserRepository.createUser(params.userName);
