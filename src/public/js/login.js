@@ -12,10 +12,11 @@ async function tryLogin(){
 async function tryRegister(){
 	const data = {userName: document.forms.login.userid.value};
 	const result = await sendRequest('createUser', data); // eslint-disable-line no-undef
-	console.log(result);
-	if (result.success)
-		window.location.href = result.target || '/';
-	else
+	if (result.success){
+		let target = result.target || '/';
+		target = target == '/login' ? '/' : target;
+		window.location.href = target;
+	} else
 		showError(result.error);
 }
 

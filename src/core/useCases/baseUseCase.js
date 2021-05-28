@@ -1,5 +1,5 @@
 class BaseUseCase{
-	static execute() {
+	static async execute() {
 		return {};
 	}
 }

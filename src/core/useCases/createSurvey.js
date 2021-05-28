@@ -3,11 +3,12 @@ const SurveysRepository = require('../../infrastructure/repositories/surveysRepo
 const UserRepository = require('../../infrastructure/repositories/userRepository');
 
 
-class CreateSurveyUseCase extends BaseUseCase{
-	static execute(params, request){
-		const surveyID = SurveysRepository.createSurvey(params);
-		const result = UserRepository.addCreatedSurveyToUser(request.session.user, surveyID);
-		return {success: result};
+class CreateSurveyUseCase extends BaseUseCase {
+	static async execute(params, request) {
+		const survey = await SurveysRepository.createSurvey(params);
+		const result = await UserRepository.addSurveyToUser(request.session.user, survey);
+		
+		return { success: result };
 	}
 }
 

@@ -6,8 +6,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
-      run: npm install
+      run: cd src && npm install
     - name: Run ESLint
-      run: ./node_modules/.bin/eslint src
+      run: cd src && ./node_modules/.bin/eslint .
     - name: Testing
-      run: ./node_modules/.bin/jest
+      run: cd src && ./node_modules/.bin/jest
