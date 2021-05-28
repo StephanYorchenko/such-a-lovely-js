@@ -32,7 +32,9 @@ jest.mock('../../../infrastructure/repositories/userRepository', function () {
 test('Success create user', () => {
 	const request = {session: {}};
 	const actual = useCase.execute({userName: 'artamaney'}, request);
-	expect(actual).toStrictEqual({success: true});
+	expect(actual).toStrictEqual(
+		{success: true, error: 'Данное имя уже занято'}
+	);
 	expect(request.session.user).toBe('artamaney');
 	expect(request.session.isLogin).toBe(true);
 	expect(UserRepository.getUserById('artamaney')).toBe(mockUser);
