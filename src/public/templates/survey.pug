@@ -51,10 +51,14 @@
                     <h5 class="card-text"> #{data.title}</h5>
                     <p class="card-text"> #{data.description}</p>
                     <form name="response">
-                        <div>
+                        <ul>
                             each val, index in data.results
-                                <label><input type="#{data.config}" name="answer" class="ans" value="#{index}" required>#{index}</label>
-                        </div>
+                                <li>
+                                    <div>
+                                        <label><input type="#{data.config}" name="answer" class="ans" value="#{index}" required>#{index}</label>
+                                    </div>
+                                </li>
+                        </ul>
                         <button type="button" onclick="sendResponse('#{data.id}');">Отправить ответ</button>
                     </form>
                 </div>
