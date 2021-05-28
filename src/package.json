@@ -4,6 +4,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "express-session": "^1.17.1",
     "express-validator": "^6.10.0",
     "morgan": "^1.10.0",
@@ -21,9 +22,9 @@
     "sequelize-cli": "^6.2.0"
   },
   "scripts": {
-    "hook-install": "precommit install",
-    "hook-remove": "precommit remove",
-    "precommit": "eslint src --fix"
+    "hook-install": "../node_modules/.bin/precommit install",
+    "hook-remove": "../node_modules/.bin/precommit remove",
+    "precommit": "../node_modules/.bin/eslint . --fix"
   },
   "precommit": {
     "tasks": [
