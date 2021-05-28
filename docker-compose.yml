@@ -7,9 +7,16 @@ services:
     ports:
       - ${APP_PORT}:31337
     command: >
-      /wait-for postgres:5432 --timeout 5 -- node /app/server.js
+      /wait-for postgres:5432 --timeout 5 -- node server.js
+    env_file: .env
   
   postgres:
     image: such-a-lovely-js__postgres
     build: ./postgres
+    volumes:
+      - db_volume:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
     
+volumes:
+  db_volume:

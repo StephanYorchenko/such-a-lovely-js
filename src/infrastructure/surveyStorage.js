@@ -1,5 +1,5 @@
-class Survey{
-	constructor(originData){
+class Survey {
+	constructor(originData) {
 		this.id = originData.id;
 		this.title = originData.title;
 		this.description = originData.description;
@@ -36,7 +36,7 @@ const surveysStorage = [
 	new Survey({
 		id: '9ae892a1-f9e0-4434-aa93-f19817c90063',
 		title: 'Какой-то опрос про тервер 1',
-		config:'checkbox',
+		config: 'checkbox',
 		description: 'Есть идеи как набрать баллы за семестр?',
 		results: {
 			'Пукать в чат': 0,
@@ -48,7 +48,7 @@ const surveysStorage = [
 		id: '7f92dd20-99b6-44a1-bbc2-5dc62e5722d7',
 		title: 'Кто больший фанат тервера',
 		description: 'Есть идеи как удвоить баллы за пару недель?',
-		config:'radio',
+		config: 'radio',
 		results: {
 			'Пукать в чат': 0,
 			'Пятиминутки': 1
@@ -61,7 +61,7 @@ const surveysStorage = [
 		id: '7f92dd20-99b6-44a1-bbc2-5dc62e5722d9',
 		title: 'Кто фанат Саши Волковой',
 		description: '',
-		config:'radio',
+		config: 'radio',
 		results: {
 			'Артемий Рогов': 0,
 			'Данил Савин': 0
@@ -74,7 +74,7 @@ const surveysStorage = [
 		id: '06b91703-c50c-4154-8a26-c1440edc9904',
 		title: 'Куда идём кушать?',
 		description: 'Концептуальный вопрос',
-		config:'checkbox',
+		config: 'checkbox',
 		results: {
 			'А ты где?': 0,
 			'Кубанский парень': 0,
@@ -89,7 +89,7 @@ const surveysStorage = [
 		id: '1bbf58c7-1953-4758-8606-83bfc3a2e706',
 		title: 'Куда идём кушать?',
 		description: 'Концептуальный вопрос',
-		config:'checkbox',
+		config: 'checkbox',
 		results: {
 			'Jang SU': 0,
 			'Grott bar': 0,
