@@ -3,14 +3,10 @@ const SurveysRepository = require('../../infrastructure/repositories/surveysRepo
 
 class CloseSurveyUseCase extends BaseUseCase {
 	static async execute(params) {
-		const surveyData = await SurveysRepository.getSurveyById(params.id);
-		if (surveyData !== null) {
-			surveyData.closed = true;
-			await surveyData.save();
-			return { success: true };
-		}
-		
-		return { success: false, error: 'not able to find survey with given id' };
+		const result = { success: await SurveysRepository.closeSurvey(params.id) };
+		if (!result.success)
+			result.error = 'not able to find survey with given id';
+		return result;
 	}
 }
 

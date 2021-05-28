@@ -13,6 +13,10 @@ const mockUser = new User({
 	created: []
 });
 
+jest.mock('../../../infrastructure/models', function(){
+	return jest.requireActual('../../../infrastructure/models');
+});
+
 jest.mock('../../../infrastructure/repositories/userRepository', function () {
 	const mockUserRepository = jest.requireActual('../../../infrastructure/repositories/userRepository');
 
@@ -29,9 +33,9 @@ jest.mock('../../../infrastructure/repositories/userRepository', function () {
 	return mockUserRepository;
 });
 
-test('Success create user', () => {
+test('Success create user', async () => {
 	const request = {session: {}};
-	const actual = useCase.execute({userName: 'artamaney'}, request);
+	const actual = await useCase.execute({userName: 'artamaney'}, request);
 	expect(actual).toStrictEqual({success: true});
 	expect(request.session.user).toBe('artamaney');
 	expect(request.session.isLogin).toBe(true);

@@ -17,18 +17,22 @@ const mockSurvey = new Survey({
 	end: true,
 });
 
+jest.mock('../../../infrastructure/models', function(){
+	return jest.requireActual('../../../infrastructure/models');
+});
+
 jest.mock('../../../infrastructure/repositories/surveysRepository', function () {
 	const mockSurveysRepository = jest.requireActual('../../../infrastructure/repositories/surveysRepository');
 
-	mockSurveysRepository.getSurveyById = function () {
-		return mockSurvey;
+	mockSurveysRepository.closeSurvey = async function () {
+		return true;
 	};
 
 	return mockSurveysRepository;
 });
 
-test('Close Survey use case test', () => {
-	const actual = useCase.execute({id: '06b91703-c50c-4154-8a26-c1440edc9904'});
+test('Close Survey use case test', async () => {
+	const actual = await useCase.execute({id: '06b91703-c50c-4154-8a26-c1440edc9904'});
 	expect(actual).toStrictEqual({success: true});
 	expect(mockSurvey.end).toBe(true);
 });

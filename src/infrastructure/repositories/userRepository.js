@@ -1,12 +1,7 @@
-const userStorage = require('../userStorage');
 const surveyRepository = require('./surveysRepository');
 const db = require('../models');
 
 class UserRepository {
-	constructor(userStorage) {
-		this.userStorage = userStorage;
-	}
-
 	async checkUserExistByID(userID) {
 		const tryUser = await db.User.findByPk(userID);
 
@@ -14,19 +9,15 @@ class UserRepository {
 	}
 
 	async getUserByName(username) {
-		const user = await db.User.findOne({
+		return await db.User.findOne({
 			where: {
 				name: username,
 			},
 		});
-
-		return user;
 	}
 
 	async getUserById(userID) {
-		const user = await db.User.findByPk(userID);
-
-		return user;
+		return await db.User.findByPk(userID);
 	}
 
 	async addSurveyToUser(userID, survey) {
@@ -84,4 +75,4 @@ class UserRepository {
 }
 
 
-module.exports = new UserRepository(userStorage);
+module.exports = new UserRepository();

@@ -1,21 +1,22 @@
-const { surveysStorage } = require('../surveyStorage');
 const db = require('../models');
 
 class SurveysRepository {
-	constructor(surveysStorage) {
-		this.surveysStorage = surveysStorage;
-	}
-
 	async getCreatedByUser(user) {
-		const questions = await user.getQuestions();
-
-		return questions;
+		return await user.getQuestions();
 	}
 
 	async getSurveyById(surveyId) {
-		const question = await db.Question.findByPk(surveyId);
-		
-		return question;
+		return await db.Question.findByPk(surveyId);
+	}
+
+	async closeSurvey(surveyId){
+		const survey = this.getSurveyById(surveyId);
+		if (survey !== null){
+			survey.closed = true;
+			await survey.save();
+			return true;
+		}
+		return false;
 	}
 
 	async getAllVotedSurveysByUser(userId) {
@@ -27,8 +28,8 @@ class SurveysRepository {
 			'SELECT * FROM needed_ids JOIN questions',
 			'ON question_id = questions.id;'
 		].join(' ');
-	
-		const questions = await db.sequelize.query(query, {
+
+		return await db.sequelize.query(query, {
 			type: db.QueryType.SELECT,
 			replacements: {
 				userId: userId,
@@ -36,14 +37,12 @@ class SurveysRepository {
 			model: db.Question,
 			mapToModel: true,
 		});
-
-		return questions;
 	}
 
 	async createSurvey(surveyData) {
 		console.log(surveyData);
-		const questionType = surveyData.config == 'radio' ? 'SINGLE_CHOICE' : 'MULTI_CHOICE';
-		const question = await db.Question.create({
+		const questionType = surveyData.config === 'radio' ? 'SINGLE_CHOICE' : 'MULTI_CHOICE';
+		return await db.Question.create({
 			questionType: questionType,
 			options: surveyData.answers,
 			title: surveyData.title,
@@ -53,8 +52,6 @@ class SurveysRepository {
 			textColor: surveyData.textColor,
 			config: surveyData.config,
 		});
-
-		return question;
 	}
 
 	async getSurveyResults(surveyID) {
@@ -86,4 +83,4 @@ class SurveysRepository {
 	}
 }
 
-module.exports = new SurveysRepository(surveysStorage);
+module.exports = new SurveysRepository();
