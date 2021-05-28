@@ -3,6 +3,21 @@ const session = require('express-session');
 const store = require('session-file-store')(session);
 const manager = require('./infrastructure/managers/manager.js');
 const ash = require('express-async-handler');
+const log4js = require('log4js');
+
+log4js.configure({
+	appenders: {
+		tracer: { type: 'stdout', level: 'trace'},
+		important: { type: 'file', filename: 'logs/manager.log', maxLogSize: 10 * 1024 * 1024, level: 'info'},
+	},
+	categories: {
+		router: {appenders: ['tracer'], level: 'trace'},
+		manager: {appenders: ['important'], level: 'info'},
+		default: { appenders: ['tracer', 'important'], level: 'trace'}
+	}
+});
+
+const logger = log4js.getLogger('router');
 
 
 const app = express();
@@ -19,11 +34,14 @@ app.set('view engine', 'pug');
 
 
 app.post('/api', ash(async (req, res) => {
+	logger.trace('Request API ' + req.body.method);
 	const result = await manager.tryExecute(req.body.method, req.body.params, req);
 	res.send(result);
 }));
 
+
 app.get('/', ash(async (req, res) => {
+	logger.trace('Try open / as ' + req.session.user);
 	if (!req.session.isLogin) {
 		req.session.targetPage = '/';
 		res.redirect('/login');
@@ -33,6 +51,7 @@ app.get('/', ash(async (req, res) => {
 }));
 
 app.get('/results', ash(async (req, res) => {
+	logger.trace('Try open /results as ' + req.session.user);
 	if (!req.session.isLogin) {
 		req.session.targetPage = '/results';
 		res.redirect('/login');
@@ -42,6 +61,7 @@ app.get('/results', ash(async (req, res) => {
 }));
 
 app.get('/createSurvey', ash(async (req, res) => {
+	logger.trace('Try create survey as ' + req.session.user);
 	if (!req.session.isLogin) {
 		req.session.targetPage = '/createSurvey';
 		res.redirect('/login');
@@ -51,8 +71,10 @@ app.get('/createSurvey', ash(async (req, res) => {
 }));
 
 app.get('/login', ash(async (req, res) => {
-	if (req.session.isLogin)
+	if (req.session.isLogin){
+		logger.info(`Already signed in as ${req.session.user}`);
 		res.redirect(req.session.targetPage || '/');
+	}
 	else
 		res.sendFile(__dirname + '/public/templates/login.html');
 }));
@@ -79,5 +101,5 @@ app.get('/static/:type/:filename', ash(async (req, res) => {
 
 
 app.listen(port, () => {
-	console.log(`Listening at http://localhost:${port}`);
+	logger.trace(`Start server at http://localhost:${port}`);
 });

@@ -7,6 +7,7 @@
     "express-async-handler": "^1.1.4",
     "express-session": "^1.17.1",
     "express-validator": "^6.10.0",
+    "log4js": "^6.3.0",
     "morgan": "^1.10.0",
     "passport-github": "^1.1.0",
     "pg": "^8.6.0",

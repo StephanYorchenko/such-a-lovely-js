@@ -8,6 +8,8 @@ const CloseSurveyUseCase = require('../../core/useCases/closeSurvey');
 const ReplySurveyUseCase = require('../../core/useCases/replySurvey');
 const CreateSurveyUseCase = require('../../core/useCases/createSurvey');
 const CreateUserUseCase = require('../../core/useCases/createUser');
+const log4js = require('log4js');
+const logger = log4js.getLogger('manager');
 
 class HandlerFactory{
 	createHandler(methodName, useCase){
@@ -27,6 +29,7 @@ class Manager{
 	}
 
 	tryExecute(methodName, args, request){
+		logger.info(`Call ${methodName} with ${JSON.stringify(args, null, 2)} as ${request.session.user}`);
 		for (const handler of this.handlers)
 			if (Object.getOwnPropertyNames(handler).includes(methodName))
 				return handler[methodName].execute(args, request);
@@ -47,5 +50,6 @@ manager.addHandler(handlers.createHandler('closeSurvey', CloseSurveyUseCase));
 manager.addHandler(handlers.createHandler('replySurvey', ReplySurveyUseCase));
 manager.addHandler(handlers.createHandler('createSurvey', CreateSurveyUseCase));
 manager.addHandler(handlers.createHandler('createUser', CreateUserUseCase));
+logger.info('Manager init');
 
 module.exports = Object.freeze(manager);

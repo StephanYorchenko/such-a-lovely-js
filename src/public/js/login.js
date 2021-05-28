@@ -12,11 +12,17 @@ async function tryLogin(){
 async function tryRegister(){
 	const data = {userName: document.forms.login.userid.value};
 	const result = await sendRequest('createUser', data); // eslint-disable-line no-undef
-	if (result.success) {
+	if (result.success){
 		let target = result.target || '/';
 		target = target == '/login' ? '/' : target;
 		window.location.href = target;
-	} else {
-		document.querySelector('#error').style.visibility = 'visible';
-	}
+	} else
+		showError(result.error);
+}
+
+function showError(message){
+	const errorMessageField = document.querySelector('#error');
+	errorMessageField.style.visibility = 'visible';
+	errorMessageField.innerText = message;
+
 }
