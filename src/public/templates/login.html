@@ -15,9 +15,13 @@
             <form name="login">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Введите свой логин:</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="userid">
-                    <div id="emailHelp" class="form-text">Введите свой логин</div>
-                    <div id="error">Введён неверный логин</div>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+
+                    <label for="exampleInputEmail1" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="password">
+
+                    <div id="emailHelp" class="form-text">Введите свои данные</div>
+                    <div id="error">Введён неверный логин или пароль</div>
                 </div>
                 <button type="button" class="btn btn-success" onclick='tryLogin(); return false;'>Войти</button>
                 <button type="button" class="btn btn-outline-success" onclick='tryRegister(); return false;'>Зарегистрироваться</button>

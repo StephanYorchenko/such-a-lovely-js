@@ -60,14 +60,14 @@ class UserRepository {
 		return ans !== null;
 	}
 
-	async createUser(userName) {
-		if (await this.getUserByName(userName) !== null) {
+	async createUser(username, password) {
+		if (await this.getUserByName(username) !== null) {
 			return false;
 		}
 		
 		const user = await db.User.create({
-			name: userName,
-			password: 'i love js',
+			name: username,
+			password: password,
 		});
 
 		return user.id;

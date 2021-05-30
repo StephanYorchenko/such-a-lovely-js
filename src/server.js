@@ -74,17 +74,16 @@ app.get('/login', ash(async (req, res) => {
 	if (req.session.isLogin){
 		logger.info(`Already signed in as ${req.session.user}`);
 		res.redirect(req.session.targetPage || '/');
-	}
-	else
+	} else {
 		res.sendFile(__dirname + '/public/templates/login.html');
+	}
 }));
 
 app.get('/survey/:surveyID', ash(async (req, res) => {
 	if (!req.session.isLogin) {
 		req.session.targetPage = `/survey/${req.params.surveyID}`;
 		res.redirect('/login');
-	}
-	else {
+	} else {
 		const surveyData = await manager.tryExecute('renderSurvey', { id: req.params.surveyID }, req);
 		if (surveyData === null) {
 			res.send({ error: 'no such a survey' });

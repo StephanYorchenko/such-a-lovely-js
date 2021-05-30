@@ -24,3 +24,8 @@ dotenv:
 
 test:
 	docker-compose run app npm test
+
+dev:
+	docker-compose run -d --volume=${PWD}/src:/app/ --publish=8000:31337 app node server.js
+
+.PHONY: all pull push build up down dotenv test
