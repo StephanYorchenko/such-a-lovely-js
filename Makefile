@@ -21,3 +21,6 @@ down:
 dotenv:
 	docker build -t commands ./commands
 	docker run commands /bin/sh -c 'python generate_dotenv.py && cat generate_dotenv/.env.example' > $(if $f,$f,.env)
+
+test:
+	docker-compose run app npm test
