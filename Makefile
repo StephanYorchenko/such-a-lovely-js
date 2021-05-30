@@ -23,7 +23,7 @@ dotenv:
 	docker run commands /bin/sh -c 'python generate_dotenv.py && cat generate_dotenv/.env.example' > $(if $f,$f,.env)
 
 test:
-	docker-compose run app npm test
+	make build && docker-compose run app npm test
 
 dev:
 	docker-compose run -d --volume=${PWD}/src:/app/ --publish=8000:31337 app node server.js

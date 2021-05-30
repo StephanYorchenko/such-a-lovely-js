@@ -7,10 +7,10 @@ beforeEach(() => {
 	jest.clearAllMocks();
 });
 
-const mockUser = new User({
-	name: 'artamaney',
+const mockUser = {
+	username: 'artamaney',
 	password: 'i love js and S.'
-});
+};
 
 jest.mock('../../../infrastructure/models', function(){
 	return jest.requireActual('../../../infrastructure/models');
@@ -21,8 +21,8 @@ jest.mock('../../../infrastructure/repositories/userRepository', function () {
 
 	mockUserRepository.userStorage = [];
 
-	mockUserRepository.createUser = function (name) {
-		return name;
+	mockUserRepository.createUser = async function (username, password) {
+		return username;
 	};
 
 	mockUserRepository.getUserById = function () {
@@ -35,8 +35,9 @@ jest.mock('../../../infrastructure/repositories/userRepository', function () {
 test('Success create user', async () => {
 	const request = {session: {}};
 	const actual = await useCase.execute({username: mockUser.username, password: mockUser.password}, request);
+
 	expect(actual.success).toBeTruthy();
-	// expect(request.session.user).toBe('artamaney');
+	expect(request.session.user).toBe('artamaney');
 	expect(request.session.isLogin).toBeTruthy();
-	// expect(UserRepository.getUserById('artamaney')).toBe(mockUser);
+	expect(UserRepository.getUserById('artamaney')).toBe(mockUser);
 });
