@@ -28,4 +28,10 @@ test:
 dev:
 	docker-compose run -d --volume=${PWD}/src:/app/ --publish=8000:31337 app node server.js
 
-.PHONY: all pull push build up down dotenv test
+drop:
+	docker volume rm such-a-lovely-js_db_volume
+
+psql:
+	docker container exec -it such-a-lovely-js_postgres_1 psql -U postgres --dbname survey_data
+
+.PHONY: all pull push build up down dotenv test dev drop psql

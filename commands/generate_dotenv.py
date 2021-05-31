@@ -7,6 +7,7 @@ PASSWORD_LENGTH = 64
 
 KEY_VARIABLES = (
     'APP_SECRET_KEY',
+    'SECRET_SALT',
 )
 ENV_FILE = './generate_dotenv/.env.example'
 
