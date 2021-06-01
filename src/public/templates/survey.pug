@@ -13,8 +13,8 @@
     include header
     <div class="root mt-5">
         if isAuthor
-            <div class="card survey-card>
-                <div class="card-body>
+            <div class="card survey-card">
+                <div class="card-body">
                     <h5 class="card-text"> #{data.title}</h5>
                     <p class="card-text"> #{data.description}</p>
                     <canvas id="histogramContainer"></canvas>
@@ -29,8 +29,8 @@
             </div>
             <script src="/static/js/generateHistogram.js" async></script>
         else if hasVoted
-            <div class="card survey-card>
-                <div class="card-body>
+            <div class="card survey-card">
+                <div class="card-body">
                     <h5 class="card-text"> #{data.title}</h5>
                     <p class="card-text"> #{data.description}</p>
                     <canvas id="histogramContainer"></canvas>
@@ -38,16 +38,16 @@
             </div>
             <script src="/static/js/generateHistogram.js" async></script>
         else if wasEnd
-            <div class="card survey-card>
-                <div class="card-body>
+            <div class="card survey-card">
+                <div class="card-body">
                     <h5 class="card-text"> Опрос закрыт автором</h5>
                     <p class="card-text"> Вы не участвовали в этом опросе и не можете увидеть его результаты</p>
                     <canvas id="histogramContainer"></canvas>
                 </div>
             </div>
         else
-            <div class="card survey-card>
-                <div class="card-body>
+            <div class="card survey-card">
+                <div class="card-body">
                     <h5 class="card-text"> #{data.title}</h5>
                     <p class="card-text"> #{data.description}</p>
                     <form name="response">
