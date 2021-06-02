@@ -1,17 +1,17 @@
-nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
-    div(class="container-fluid")
-        a(class="navbar-brand", href="/") Опросы
-        button(class="navbar-toggler", type="button", data-bs-toggle="collapse",
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    .container-fluid
+        a.navbar-brand(href="/") Опросы
+        button.navbar-toggler(type="button", data-bs-toggle="collapse",
             data-bs-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false",
             aria-label="Toggle navigation")
-            span(class="navbar-toggler-icon")
-        div(class="collapse navbar-collapse", id="navbarSupportedContent")
-            ul(class="navbar-nav me-auto mb-2 mb-lg-0")
-                li(class="nav-item")
-                    a(class="nav-link active", aria-current="page", href="/") Домой
-                li(class="nav-item")
-                    a(class="nav-link", href="/createSurvey") Создать опрос
-                li(class="nav-item")
-                    a(class="nav-link", href="/results", tabindex="-1") Пройденные опросы
-            form(class="d-flex", novalidate=true)
-                button(class="btn btn-outline-success me-2", onclick="logout()", type="button") Выход
+            span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarSupportedContent
+            ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                li.nav-item
+                    a.nav-link.active(aria-current="page", href="/") Домой
+                li.nav-item
+                    a.nav-link(href="/createSurvey") Создать опрос
+                li.nav-item
+                    a.nav-link(href="/results", tabindex="-1") Пройденные опросы
+            form.d-flex(novalidate=true)
+                button.btn.btn-outline-success.me-2(onclick="logout()", type="button") Выход
