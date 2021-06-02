@@ -45,6 +45,15 @@ app.post('/api', ash(auth_needed), ash(async (req, res) => {
 app.post('/auth', ash(async (req, res) => {
 	logger.trace('Request AUTH ' + req.body.method);
 	const result = await authDispatcher.tryExecute(req.body.method, req.body.params, req);
+	if (result.setCookie !== undefined) {
+		for (obj of result.setCookie) {
+			const { key, value, options } = obj;
+			const cookieOptions = options || {};
+
+			res.cookie(key, value, options);
+		}
+		result.setCookie = undefined;
+	}
 	res.send(result);
 }))
 

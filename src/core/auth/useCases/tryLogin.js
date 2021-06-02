@@ -1,20 +1,45 @@
 const BaseUseCase = require('../../baseUseCase');
 const UserRepository = require('../../../infrastructure/repositories/userRepository');
-
+const { authenticate } = require('../backend');
+const jwt = require('jsonwebtoken');
 
 class TryLoginUseCase extends BaseUseCase {
-	static async execute(params, req) {
-		console.log(params);
-		const user = await UserRepository.getUserByName(params.username);
+	constructor(jwtSecret) {
+		super();
+		this.jwtSecret = jwtSecret;
+	}
 
-		let success = false;
-		if (user !== null && user.password === params.password) {
-			req.session.isLogin = true;
-			req.session.user = user.id;
-			success = true;
+	async execute(params, req) {
+		const [resp, err] = await authenticate(params.username, params.password);
+
+		if (err !== null) {
+			return {
+				success: false,
+				error: err,
+			}
 		}
-		
-		return { success: success, target: req.session.targetPage };
+		const [userData, refreshToken] = resp;
+		const accessToken = jwt.sign({
+			id: userData.id,
+		}, this.jwtSecret, {
+			expiresIn: '20m',
+		});
+
+		return {
+			success: true,
+			accessToken,
+			userData,
+			setCookie: [
+				{
+					key: 'refresh',
+					value: refreshToken,
+					options: {
+						httpOnly: true,
+						maxAge: 2*24*60*50*1000,
+					},
+				}
+			]
+		}
 	}
 }
 

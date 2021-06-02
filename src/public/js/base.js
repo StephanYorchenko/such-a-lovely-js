@@ -1,5 +1,3 @@
-let accessToken = null;
-
 // eslint-disable-next-line no-unused-vars
 async function sendRequest(endpoint, method, params) {
 	let normalizedEndpoint = endpoint;
@@ -11,7 +9,7 @@ async function sendRequest(endpoint, method, params) {
 		'Accept': 'application/json',
 		'Content-Type': 'application/json'
 	}
-	if (accessToken) {
+	if (window.accessToken) {
 		headers['Authorization'] = accessToken;
 	}
 

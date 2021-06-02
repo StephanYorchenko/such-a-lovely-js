@@ -65,7 +65,7 @@ db.User.hasMany(db.UserAnswer, {
 	}
 });
 
-db.UserRefreshToken.hasOne(db.User, {
+db.User.hasOne(db.UserRefreshToken, {
 	as: { single: 'User', plural: 'Users' },
 	onDelete: 'CASCADE',
 	onUpdate: 'CASCADE',

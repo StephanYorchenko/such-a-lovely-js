@@ -27,7 +27,7 @@ class TokenRepository {
         const expiredAt = new Date(curDate.getTime() + 24*60*60*1000);
 
         const tokenModel = await db.UserRefreshToken.create({
-            userId: userModel.id,
+            user_id: userModel.id,
             expiredAt,
         });
 

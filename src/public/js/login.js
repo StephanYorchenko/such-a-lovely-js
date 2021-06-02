@@ -7,10 +7,13 @@ async function tryLogin() {
 
 	const data = { username, password };
 	const result = await sendRequest('auth', 'tryLogin', data); // eslint-disable-line no-undef
-	if (result.success)
+	if (result.success) {
 		window.location.href = result.target || '/';
-	else
+		window.accessToken = result.accessToken;
+		console.log(window.accessToken);
+	} else {
 		document.querySelector('#error').style.visibility = 'visible';
+	}
 }
 
 // eslint-disable-next-line no-unused-vars

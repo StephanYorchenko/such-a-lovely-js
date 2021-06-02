@@ -12,7 +12,7 @@ function createDispatcher() {
 
     manager.addHandler(handlers.createHandler('createUser', CreateUserUseCase));
     manager.addHandler(handlers.createHandler('logout', LogOutUseCase));
-    manager.addHandler(handlers.createHandler('tryLogin', TryLoginUseCase));
+    manager.addHandler(handlers.createHandler('tryLogin', new TryLoginUseCase(process.env['JWT_SECRET'])));
 
     logger.info('auth dispatcher init');
 

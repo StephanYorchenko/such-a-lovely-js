@@ -28,3 +28,5 @@ async function register(username, password) {
 
     return [userId, null];
 }
+
+module.exports = { register, authenticate }
