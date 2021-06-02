@@ -24,5 +24,4 @@ function showError(message){
 	const errorMessageField = document.querySelector('#error');
 	errorMessageField.style.visibility = 'visible';
 	errorMessageField.innerText = message;
-
 }
