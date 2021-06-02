@@ -1,0 +1,22 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        title Login page
+        script(src='/static/js/base.js')
+        script(src='/static/js/login.js')
+        include bootstrap_css_import
+        link(rel='stylesheet' href='/static/css/login.css')
+    body
+        .card.login-card
+            .card-header
+                h5 Авторизация
+            .card-body
+                form(name='login')
+                    .mb-3
+                        label.form-label(for='exampleInputEmail1') Введите свой логин:
+                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' name='userid')
+                        #emailHelp.form-text Введите свой логин
+                        #error Введён неверный логин
+                    button.btn.btn-success(type='button' onclick='tryLogin(); return false;') Войти
+                    button.btn.btn-outline-success(type='button' onclick='tryRegister(); return false;') Зарегистрироваться

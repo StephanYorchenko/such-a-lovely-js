@@ -1,71 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Survey</title>
-    <script src="/static/js/base.js"></script>
-    <script src="/static/js/create.js"></script>
-    <link rel="stylesheet" href="/static/css/create.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-</head>
-<body>
-    include header
-    <div id="root">
-        <form name="surveyBuilder" onsubmit="createSurvey(); return false;">
-            <div class="mb-3">
-                <label for="inputTitle" class="form-label">Название опроса</label>
-                <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp" name="surveyTitle" required>
-                <div id="titleHelp" class="form-text">Короткое название опроса / формулировка вопроса</div>
-            </div>
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title Create Survey
+        script(src='/static/js/base.js')
+        script(src='/static/js/create.js')
+        link(rel='stylesheet' href='/static/css/create.css')
+        include bootstrap_css_import
+    body
+        include header
+        #root
+            form(name='surveyBuilder' onsubmit='createSurvey(); return false;')
+                .mb-3
+                    label.form-label(for='inputTitle') Название опроса
+                    input#inputTitle.form-control(type='text' aria-describedby='titleHelp' name='surveyTitle' required='')
+                    #titleHelp.form-text Короткое название опроса / формулировка вопроса
+                .form-group.mb-5
+                    label.form-label(for='inputDescription') Более полное описание сути опроса
+                    textarea#inputDescription.form-control.rounded-0(rows='3' aria-describedby='descriptionHelp' name='surveyDescription')
+                    #descriptionHelp.form-text Если необходимо добавьте более развёрнутое описание вопроса
+                .row
+                    .col
+                        label.form-label(for='typeSurvey') Выберите тип опроса
+                        select#typeSurvey.form-select(aria-label='Выберите тип опроса' name='typeSurveyField' required='')
+                            option(value='') ...
+                            option(value='checkbox') Множественный выбор
+                            option(value='radio') Одиночный выбор
+                    .col.mb-5
+                        #card_inputs
+                            label.form-label(for='groupInputs') Варианты ответов
+                            #groupInputs.input-group.input_instrument
+                                input.form-control.mb-1.inputAnswer(type='text' placeholder='Текст' aria-label='Example text with button addon' aria-describedby='button-addon1' required='')
+                                .input-group-prepend
+                                    button#button-addon1.btn.btn-outline-secondary.btn-danger(type='button' onclick='delete_input.apply(this)') -
+                            button#add_input.btn.btn-secondary.btn-sm.btn-block(type='button') +
+                    .row
+                        .col
+                            label.form-label(for='colorChoice') Цвет карточки
+                            select#colorChoice.form-select(name='colorCh' aria-label='Цвет карточки')
+                                option(value='bg-light' selected='') Светлый
+                                option(value='bg-danger') Красный
+                                option(value='bg-dark') Тёмный
+                        .col
+                            label.form-label(for='colorChoice') Цвет текста
+                            select.form-select(name='txtCh' aria-label='Цвет текста')
+                                option(value='text-black' selected='') Чёрный
+                                option(value='text-white') Белый
+                    button.btn.btn-success.mt-5(type='submit') Создать
 
-            <div class="form-group mb-5">
-                <label for="inputDescription" class="form-label">Более полное описание сути опроса</label>
-                <textarea class="form-control rounded-0" id="inputDescription" rows="3" aria-describedby="descriptionHelp" name="surveyDescription"></textarea>
-                <div id="descriptionHelp" class="form-text">Если необходимо добавьте более развёрнутое описание вопроса</div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <label for="typeSurvey" class="form-label">Выберите тип опроса</label>
-                    <select class="form-select" aria-label="Выберите тип опроса" id="typeSurvey" name="typeSurveyField" required>
-                        <option value="">...</option>
-                        <option value="checkbox">Множественный выбор</option>
-                        <option value="radio">Одиночный выбор</option>
-                    </select>
-                </div>
-                <div class="col mb-5">
-                    <div id="card_inputs">
-                        <label for="groupInputs" class="form-label">Варианты ответов</label>
-                        <div class="input-group input_instrument" id='groupInputs'>
-                            <input type="text" class="form-control mb-1 inputAnswer" placeholder="Текст" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary btn-danger" type="button" id="button-addon1" onclick="delete_input.apply(this)">-</button>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn btn-secondary btn-sm btn-block" id="add_input">+</button>
-                    </div>
-                </div>
-
-            <div class="row">
-                <div class="col">
-                    <label for="colorChoice" class="form-label">Цвет карточки</label>
-                    <select class="form-select" id="colorChoice" name="colorCh" aria-label="Цвет карточки">
-                        <option value="bg-light" selected>Светлый</option>
-                        <option value="bg-danger">Красный</option>
-                        <option value="bg-dark">Тёмный</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="colorChoice" class="form-label">Цвет текста</label>
-                    <select class="form-select" name="txtCh" aria-label="Цвет текста">
-                        <option value="text-black" selected>Чёрный</option>
-                        <option value="text-white">Белый</option>
-                    </select>
-                </div>
-            </div>
-            <button class="btn btn-success mt-5" type="submit">Создать</button>
-        </form>
-    </div>
-</body>
-</html>
+        include bootstrap_js_import

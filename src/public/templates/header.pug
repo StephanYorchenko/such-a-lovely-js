@@ -1,23 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Опросы</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Домой</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/createSurvey">Создать опрос</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/results" tabindex="-1" >Пройденные опросы</a>
-                </li>
-            </ul>
-            <div class="text-white d-flex mr-1">@<span id="login-field">asdasd</span></div>
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    .container-fluid
+        a.navbar-brand(href="/") Опросы
+        button.navbar-toggler(type="button", data-bs-toggle="collapse",
+            data-bs-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false",
+            aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarSupportedContent
+            ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                li.nav-item
+                    a.nav-link.active(aria-current="page", href="/") Домой
+                li.nav-item
+                    a.nav-link(href="/createSurvey") Создать опрос
+                li.nav-item
+                    a.nav-link(href="/results", tabindex="-1") Пройденные опросы
+            div.text-white.d-flex.mr-1
+                @
+                span#login-field asdasd
             <script>updateUserName();</script>
-            <form class="d-flex" novalidate>
-                <button class="btn btn-outline-success me-2" onclick="logout()" type="button">Выход</button>
-            </form>
-        </div>
-    </div>
-</nav>
+            form.d-flex(novalidate=true)
+                button.btn.btn-outline-success.me-2(onclick="logout()", type="button") Выход
