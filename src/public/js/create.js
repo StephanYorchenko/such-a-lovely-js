@@ -49,7 +49,7 @@ async function createSurvey(){
 		textColor: form.txtCh.value
 	};
 	// eslint-disable-next-line no-undef
-	const result = await sendRequest('createSurvey', data);
+	const result = await sendRequest('api', 'createSurvey', data);
 	if (result.success)
 		window.location.href = '/';
 }

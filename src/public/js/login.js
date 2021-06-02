@@ -6,7 +6,7 @@ async function tryLogin() {
 	headers.append('Authorization', 'Bearer abacaba');
 
 	const data = { username, password };
-	const result = await sendRequest('tryLogin', data); // eslint-disable-line no-undef
+	const result = await sendRequest('auth', 'tryLogin', data); // eslint-disable-line no-undef
 	if (result.success)
 		window.location.href = result.target || '/';
 	else
@@ -20,7 +20,7 @@ async function tryRegister() {
 
 	const data = { username, password };
 
-	const result = await sendRequest('createUser', data); // eslint-disable-line no-undef
+	const result = await sendRequest('auth', 'createUser', data); // eslint-disable-line no-undef
 	if (result.success) {
 		let target = result.target || '/';
 		target = target == '/login' ? '/' : target;

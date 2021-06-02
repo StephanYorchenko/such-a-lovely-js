@@ -1,6 +1,6 @@
 async function getSurveys(){
 	// eslint-disable-next-line no-undef
-	return await sendRequest('listVotedSurveys', {});
+	return await sendRequest('api', 'listVotedSurveys', {});
 }
 
 function onload() {
