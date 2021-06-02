@@ -76,7 +76,7 @@ app.get('/login', ash(async (req, res) => {
 		res.redirect(req.session.targetPage || '/');
 	}
 	else
-		res.sendFile(__dirname + '/public/templates/login.html');
+		res.render('login');
 }));
 
 app.get('/survey/:surveyID', ash(async (req, res) => {

@@ -20,7 +20,7 @@ html
                         if !wasEnd
                             form(name='closeSurvey')
                                 button.btn.btn-outline-success(type='button' onclick='copySurveyLink()') Скопировать ссылку
-                                button.btn.btn-outline-danger(type='button' onclick="setClosed('#{data.id}')") Закрыть опрос
+                                button.btn.btn-outline-danger(type='button' onclick=`setClosed('${data.id}')`) Закрыть опрос
                         else
                             p.card-text Опрос быз закрыт Вами
                 script(src='/static/js/generateHistogram.js' async='')
@@ -46,8 +46,8 @@ html
                             ul
                                 each val, index in data.results
                                     .form-check
-                                        input.form-check-input(type="#{data.config}", name="answer", value="#{index}" id="my#{data.config}" required='')
-                                        label.form-check-label(for="my#{data.config}")
+                                        input.form-check-input(type=data.config, name="answer", value=index, id='my-' + data.config, required='')
+                                        label.form-check-label(for='my-' + data.config)
                                             p #{index}
-                            button.btn.btn-primary(type="button", onclick="sendResponse('#{data.id}');") Отправить ответ
+                            button.btn.btn-primary(type="button", onclick=`sendResponse('${data.id}');`) Отправить ответ
         include bootstrap_js_import
