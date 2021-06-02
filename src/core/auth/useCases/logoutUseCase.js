@@ -1,4 +1,4 @@
-const BaseUseCase = require('./baseUseCase');
+const BaseUseCase = require('../../baseUseCase');
 
 class LogoutUseCase extends BaseUseCase {
 	static execute(params, req) {

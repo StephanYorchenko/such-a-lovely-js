@@ -1,5 +1,5 @@
-const BaseUseCase = require('./baseUseCase');
-const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
+const BaseUseCase = require('../../baseUseCase');
+const SurveysRepository = require('../../../infrastructure/repositories/surveysRepository');
 
 class CloseSurveyUseCase extends BaseUseCase {
 	static async execute(params) {

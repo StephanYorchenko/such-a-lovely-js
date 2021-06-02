@@ -1,6 +1,6 @@
 const BaseUseCase = require('../../baseUseCase');
-const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
-const UserRepository = require('../../infrastructure/repositories/userRepository');
+const SurveysRepository = require('../../../infrastructure/repositories/surveysRepository');
+const UserRepository = require('../../../infrastructure/repositories/userRepository');
 
 
 class CreateSurveyUseCase extends BaseUseCase {

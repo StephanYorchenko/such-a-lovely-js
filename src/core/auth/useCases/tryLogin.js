@@ -1,5 +1,5 @@
-const BaseUseCase = require('./baseUseCase');
-const UserRepository = require('../../infrastructure/repositories/userRepository');
+const BaseUseCase = require('../../baseUseCase');
+const UserRepository = require('../../../infrastructure/repositories/userRepository');
 
 
 class TryLoginUseCase extends BaseUseCase {

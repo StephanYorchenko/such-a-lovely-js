@@ -1,7 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const store = require('session-file-store')(session);
-const manager = require('./core/manager.js');
+const apiDispatcher = require('./core/api/dispatcher');
+const authDispatcher = require('./core/auth/dispatcher');
 const ash = require('express-async-handler');
 const log4js = require('log4js');
 const { auth_needed, auth } = require('./core/auth/midleware');
@@ -31,15 +32,21 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(auth);
 app.set('views', './public/templates');
 app.set('view engine', 'pug');
 
+app.use('/api', ash(auth));
 app.post('/api', ash(auth_needed), ash(async (req, res) => {
 	logger.trace('Request API ' + req.body.method);
-	const result = await manager.tryExecute(req.body.method, req.body.params, req);
+	const result = await apiDispatcher.tryExecute(req.body.method, req.body.params, req);
 	res.send(result);
 }));
+
+app.post('/auth', ash(async (req, res) => {
+	logger.trace('Request AUTH ' + req.body.method);
+	const result = await authDispatcher.tryExecute(req.body.method, req.body.params, req);
+	res.send(result);
+}))
 
 
 app.get('/', ash(async (req, res) => {

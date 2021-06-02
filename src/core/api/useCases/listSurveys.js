@@ -1,6 +1,6 @@
-const BaseUseCase = require('./baseUseCase');
-const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
-const UserRepository = require('../../infrastructure/repositories/userRepository');
+const BaseUseCase = require('../../baseUseCase');
+const SurveysRepository = require('../../../infrastructure/repositories/surveysRepository');
+const UserRepository = require('../../../infrastructure/repositories/userRepository');
 
 class ListSurveysUseCase extends BaseUseCase {
 	static async execute(_, request) {
