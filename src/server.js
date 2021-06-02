@@ -1,19 +1,21 @@
 const express = require('express');
 const session = require('express-session');
 const store = require('session-file-store')(session);
-const manager = require('./infrastructure/managers/manager.js');
+const manager = require('./core/manager.js');
 const ash = require('express-async-handler');
 const log4js = require('log4js');
+const { auth_needed, auth } = require('./core/auth/midleware');
+
 
 log4js.configure({
 	appenders: {
-		tracer: { type: 'stdout', level: 'trace'},
-		important: { type: 'file', filename: 'logs/manager.log', maxLogSize: 10 * 1024 * 1024, level: 'info'},
+		tracer: { type: 'stdout', level: 'trace' },
+		important: { type: 'file', filename: 'logs/manager.log', maxLogSize: 10 * 1024 * 1024, level: 'info' },
 	},
 	categories: {
-		router: {appenders: ['tracer'], level: 'trace'},
-		manager: {appenders: ['important'], level: 'info'},
-		default: { appenders: ['tracer', 'important'], level: 'trace'}
+		router: { appenders: ['tracer'], level: 'trace' },
+		manager: { appenders: ['important'], level: 'info' },
+		default: { appenders: ['tracer', 'important'], level: 'trace' }
 	}
 });
 
@@ -29,11 +31,11 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(auth);
 app.set('views', './public/templates');
 app.set('view engine', 'pug');
 
-
-app.post('/api', ash(async (req, res) => {
+app.post('/api', ash(auth_needed), ash(async (req, res) => {
 	logger.trace('Request API ' + req.body.method);
 	const result = await manager.tryExecute(req.body.method, req.body.params, req);
 	res.send(result);
@@ -43,11 +45,12 @@ app.post('/api', ash(async (req, res) => {
 app.get('/', ash(async (req, res) => {
 	logger.trace('Try open / as ' + req.session.user);
 	if (!req.session.isLogin) {
+		req.header
 		req.session.targetPage = '/';
 		res.redirect('/login');
-	}
-	else
+	} else {
 		res.render('index');
+	}
 }));
 
 app.get('/results', ash(async (req, res) => {
@@ -71,7 +74,7 @@ app.get('/createSurvey', ash(async (req, res) => {
 }));
 
 app.get('/login', ash(async (req, res) => {
-	if (req.session.isLogin){
+	if (req.session.isLogin) {
 		logger.info(`Already signed in as ${req.session.user}`);
 		res.redirect(req.session.targetPage || '/');
 	} else {

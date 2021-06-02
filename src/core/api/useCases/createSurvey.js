@@ -1,4 +1,4 @@
-const BaseUseCase = require('./baseUseCase');
+const BaseUseCase = require('../../baseUseCase');
 const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
 const UserRepository = require('../../infrastructure/repositories/userRepository');
 

@@ -1,22 +1,29 @@
+let accessToken = null;
+
 // eslint-disable-next-line no-unused-vars
-async function sendRequest(method, params){
-	const response =  await fetch(
+async function sendRequest(method, params) {
+	const headers = {
+		'Accept': 'application/json',
+		'Content-Type': 'application/json'
+	}
+	if (accessToken) {
+		headers['Authorization'] = accessToken;
+	}
+
+	const response = await fetch(
 		'/api', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				method: method,
-				params: params
-			})
-		});
+		method: 'POST',
+		headers: headers,
+		body: JSON.stringify({
+			method: method,
+			params: params
+		})
+	});
 	return await response.json();
 }
 
 // eslint-disable-next-line no-unused-vars
-async function logout(){
+async function logout() {
 	const result = await sendRequest('logout', {});
 	if (result.success)
 		window.location.href = '/login';
@@ -27,7 +34,7 @@ function goToSurvey(id) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function generateSurveyCard(data){
+function generateSurveyCard(data) {
 	const surveyCard = document.createElement('div');
 	surveyCard.className = `card survey-card mb-3 mt-3 ${data.style.bg || 'bg-light'} ` +
 		`${data.style.text || 'text-dark'}`;
@@ -43,7 +50,7 @@ function generateSurveyCard(data){
 
 	const descr = document.createElement('p');
 	descr.className = 'card-text';
-	descr.innerText =  data.description;
+	descr.innerText = data.description;
 
 	const footer = document.createElement('p');
 	footer.className = 'card-text';

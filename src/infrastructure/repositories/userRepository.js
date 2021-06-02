@@ -9,6 +9,12 @@ class UserRepository {
 		return tryUser !== null;
 	}
 
+	async usernameInUse(username) {
+		const user = await this.getUserByName(username);
+		
+		return user !== null;
+	}
+
 	async getUserByName(username) {
 		return await db.User.findOne({
 			where: {

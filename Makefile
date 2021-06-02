@@ -34,4 +34,7 @@ drop:
 psql:
 	docker container exec -it such-a-lovely-js_postgres_1 psql -U postgres --dbname survey_data
 
-.PHONY: all pull push build up down dotenv test dev drop psql
+logs:
+	docker-compose logs -f
+
+.PHONY: all pull push build up down dotenv test dev drop psql logs

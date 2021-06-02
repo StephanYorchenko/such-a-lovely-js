@@ -14,9 +14,10 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.QueryType = QueryTypes;
 
-db.User = require('./user.model.js')(sequelize, Sequelize.DataTypes, Model);
-db.UserAnswer = require('./useranswer.model.js')(sequelize, Sequelize.DataTypes, Model);
-db.Question = require('./question.model.js')(sequelize, Sequelize.DataTypes, Model);
+db.User = require('./user.model')(sequelize, Sequelize.DataTypes, Model);
+db.UserAnswer = require('./useranswer.model')(sequelize, Sequelize.DataTypes, Model);
+db.Question = require('./question.model')(sequelize, Sequelize.DataTypes, Model);
+db.UserRefreshToken = require('./userRefreshToken.model')(sequelize, Sequelize.DataTypes, Model);
 
 db.User.hasMany(db.Question, {
 	onDelete: 'SET NULL',
@@ -63,6 +64,16 @@ db.User.hasMany(db.UserAnswer, {
 		unique: 'unique_ans',
 	}
 });
+
+db.UserRefreshToken.hasOne(db.User, {
+	as: { single: 'User', plural: 'Users' },
+	onDelete: 'CASCADE',
+	onUpdate: 'CASCADE',
+	foreignKey: {
+		name: 'user_id',
+		allowNull: false,
+	}
+})
 
 async function sync() {
 	await db.sequelize.sync();
