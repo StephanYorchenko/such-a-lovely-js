@@ -9,7 +9,7 @@ function setClosed(id){
 }
 
 function getDataFromCheckbox(){
-	const inputElements = document.getElementsByClassName('ans');
+	const inputElements = document.getElementsByClassName('form-check-input');
 	const result = [];
 	for(let i=0; inputElements[i]; ++i){
 		if(inputElements[i].checked){

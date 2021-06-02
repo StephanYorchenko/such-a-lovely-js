@@ -53,13 +53,14 @@
                     <form name="response">
                         <ul>
                             each val, index in data.results
-                                <li>
-                                    <div>
-                                        <label><input type="#{data.config}" name="answer" class="ans" value="#{index}" required>#{index}</label>
-                                    </div>
-                                </li>
+                                <div class="form-check">
+                                <input class="form-check-input" type="#{data.config}" name="answer" value="#{index}" id="my#{data.config}" required>
+                                <label class="form-check-label" for="my#{data.config}">
+                                    p #{index}
+                                </label>
+                                </div>
                         </ul>
-                        <button type="button" onclick="sendResponse('#{data.id}');">Отправить ответ</button>
+                        <button class="btn btn-primary" type="button" onclick="sendResponse('#{data.id}');">Отправить ответ</button>
                     </form>
                 </div>
             </div>
