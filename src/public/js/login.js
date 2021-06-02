@@ -14,7 +14,7 @@ async function tryRegister(){
 	const result = await sendRequest('createUser', data); // eslint-disable-line no-undef
 	if (result.success){
 		let target = result.target || '/';
-		target = target == '/login' ? '/' : target;
+		target = target === '/login' ? '/' : target;
 		window.location.href = target;
 	} else
 		showError(result.error);
