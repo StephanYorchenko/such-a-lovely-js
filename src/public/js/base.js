@@ -1,7 +1,7 @@
 let accessToken = null;
 
 // eslint-disable-next-line no-unused-vars
-async function sendRequest(method, endpoint, params) {
+async function sendRequest(endpoint, method, params) {
 	let normalizedEndpoint = endpoint;
 	if (normalizedEndpoint[0] !== '/') {
 		normalizedEndpoint = '/' + normalizedEndpoint;
