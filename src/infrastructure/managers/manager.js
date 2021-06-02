@@ -8,6 +8,7 @@ const CloseSurveyUseCase = require('../../core/useCases/closeSurvey');
 const ReplySurveyUseCase = require('../../core/useCases/replySurvey');
 const CreateSurveyUseCase = require('../../core/useCases/createSurvey');
 const CreateUserUseCase = require('../../core/useCases/createUser');
+const GetNameUseCase = require('../../core/useCases/getName');
 const log4js = require('log4js');
 const logger = log4js.getLogger('manager');
 
@@ -50,6 +51,7 @@ manager.addHandler(handlers.createHandler('closeSurvey', CloseSurveyUseCase));
 manager.addHandler(handlers.createHandler('replySurvey', ReplySurveyUseCase));
 manager.addHandler(handlers.createHandler('createSurvey', CreateSurveyUseCase));
 manager.addHandler(handlers.createHandler('createUser', CreateUserUseCase));
+manager.addHandler(handlers.createHandler('getName', GetNameUseCase));
 logger.info('Manager init');
 
 module.exports = Object.freeze(manager);

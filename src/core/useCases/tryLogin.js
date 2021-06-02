@@ -4,7 +4,6 @@ const UserRepository = require('../../infrastructure/repositories/userRepository
 
 class TryLoginUseCase extends BaseUseCase {
 	static async execute(params, req) {
-		console.log(params);
 		const user = await UserRepository.getUserByName(params.userid);
 
 		let success = false;

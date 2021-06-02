@@ -27,6 +27,12 @@ function goToSurvey(id) {
 }
 
 // eslint-disable-next-line no-unused-vars
+async function updateUserName(){
+	const response = await sendRequest('getName', {});
+	document.querySelector('#login-field').innerText = response.name;
+}
+
+// eslint-disable-next-line no-unused-vars
 function generateSurveyCard(data){
 	const surveyCard = document.createElement('div');
 	surveyCard.className = `card survey-card mb-3 mt-3 ${data.style.bg || 'bg-light'} ` +
