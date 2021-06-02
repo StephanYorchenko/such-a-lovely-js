@@ -13,9 +13,10 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
                     a.nav-link(href="/createSurvey") Создать опрос
                 li.nav-item
                     a.nav-link(href="/results", tabindex="-1") Пройденные опросы
-            div.text-white.d-flex.mr-1
-                @
-                span#login-field asdasd
-            <script>updateUserName();</script>
+            div.p-2.d-flex
+                div.text-white.m-2 @
+                    span#login-field asdasd
+                script.
+                    updateUserName();
             form.d-flex(novalidate=true)
                 button.btn.btn-outline-success.me-2(onclick="logout()", type="button") Выход
