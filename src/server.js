@@ -6,6 +6,7 @@ const authDispatcher = require('./core/auth/dispatcher');
 const ash = require('express-async-handler');
 const log4js = require('log4js');
 const { auth_needed, auth } = require('./core/auth/midleware');
+const cookieParser = require('cookie-parser')
 
 
 log4js.configure({
@@ -32,10 +33,11 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(ash(auth));
 app.set('views', './public/templates');
 app.set('view engine', 'pug');
 
-app.use('/api', ash(auth));
 app.post('/api', ash(auth_needed), ash(async (req, res) => {
 	logger.trace('Request API ' + req.body.method);
 	const result = await apiDispatcher.tryExecute(req.body.method, req.body.params, req);
@@ -54,14 +56,18 @@ app.post('/auth', ash(async (req, res) => {
 		}
 		result.setCookie = undefined;
 	}
+	if (result.destroyCookie) {
+		for (const name of result.destroyCookie) {
+			res.clearCookie(name);
+		}
+	}
 	res.send(result);
 }))
 
 
 app.get('/', ash(async (req, res) => {
-	logger.trace('Try open / as ' + req.session.user);
-	if (!req.session.isLogin) {
-		req.header
+	logger.trace('Try open / as ' + JSON.stringify(req.user));
+	if (!req.user) {
 		req.session.targetPage = '/';
 		res.redirect('/login');
 	} else {
@@ -70,8 +76,8 @@ app.get('/', ash(async (req, res) => {
 }));
 
 app.get('/results', ash(async (req, res) => {
-	logger.trace('Try open /results as ' + req.session.user);
-	if (!req.session.isLogin) {
+	logger.trace('Try open /results as ' + JSON.stringify(req.user));
+	if (!req.user) {
 		req.session.targetPage = '/results';
 		res.redirect('/login');
 	}
@@ -81,7 +87,7 @@ app.get('/results', ash(async (req, res) => {
 
 app.get('/createSurvey', ash(async (req, res) => {
 	logger.trace('Try create survey as ' + req.session.user);
-	if (!req.session.isLogin) {
+	if (!req.user) {
 		req.session.targetPage = '/createSurvey';
 		res.redirect('/login');
 	}
@@ -90,7 +96,7 @@ app.get('/createSurvey', ash(async (req, res) => {
 }));
 
 app.get('/login', ash(async (req, res) => {
-	if (req.session.isLogin) {
+	if (req.user) {
 		logger.info(`Already signed in as ${req.session.user}`);
 		res.redirect(req.session.targetPage || '/');
 	} else {
@@ -99,7 +105,7 @@ app.get('/login', ash(async (req, res) => {
 }));
 
 app.get('/survey/:surveyID', ash(async (req, res) => {
-	if (!req.session.isLogin) {
+	if (!req.user) {
 		req.session.targetPage = `/survey/${req.params.surveyID}`;
 		res.redirect('/login');
 	} else {

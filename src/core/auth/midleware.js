@@ -2,26 +2,17 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../../infrastructure/models');
 
 async function auth(req, res, next) {
-    const auth = req.header('Authorization');
-    // console.log(auth);
-
-    if (auth === undefined) {
+    const token = req.cookies['access'];
+    if (token === undefined) {
         next();
         return;
     }
-
-    if (!auth.startsWith('Bearer ')) {
-        next();
-        return;
-    }
-
-    const token = auth.slice(7);
 
     const jwtSecret = process.env['JWT_SECRET'];
     try {
         const payload = jwt.verify(token, jwtSecret, { algorithms: ['HS256'] });
 
-        req.user = payload;
+        req.user = { id: payload.id };
         next();
         return;
 

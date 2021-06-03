@@ -9,9 +9,6 @@ async function sendRequest(endpoint, method, params) {
 		'Accept': 'application/json',
 		'Content-Type': 'application/json'
 	}
-	if (window.accessToken) {
-		headers['Authorization'] = accessToken;
-	}
 
 	const response = await fetch(
 		normalizedEndpoint, {

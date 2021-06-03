@@ -25,9 +25,9 @@ class TryLoginUseCase extends BaseUseCase {
 			expiresIn: '20m',
 		});
 
+		// req.session.isLogin = true;
 		return {
 			success: true,
-			accessToken,
 			userData,
 			setCookie: [
 				{
@@ -35,7 +35,15 @@ class TryLoginUseCase extends BaseUseCase {
 					value: refreshToken,
 					options: {
 						httpOnly: true,
-						maxAge: 2*24*60*50*1000,
+						maxAge: 2*24*60*60*1000,
+					},
+				},
+				{
+					key: 'access',
+					value: accessToken,
+					options: {
+						httpOnly: true,
+						maxAge: 15*60*1000,
 					},
 				}
 			]
