@@ -1,4 +1,5 @@
 async function updateChart(chart, id){
+	// eslint-disable-next-line no-undef
 	const data = await sendRequest('getSurveyHistogramData', {id: id});
 	chart.data.datasets.pop();
 	chart.data.datasets.push({
