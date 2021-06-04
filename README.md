@@ -24,7 +24,7 @@
 ---
 
   1. Александр Ложкин [ @lololozhkin ](https://github.com/lololozhkin)
-  2. Степан Юрченко [ @stephan_yorchenko ](https://github.com/StephanYorchenko)
+  2. Степан Юрченко [ @StephanYorchenko ](https://github.com/StephanYorchenko)
   3. Никита Анчутин [ @asdminerpro ](https://github.com/asdminerpro)
   4. Артемий Рогов [ @artamaney ](https://github.com/artamaney)
   5. Юрий Фролов [ @EinKrebs ](https://github.com/EinKrebs)
