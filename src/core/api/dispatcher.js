@@ -11,20 +11,20 @@ const logger = log4js.getLogger('manager');
 
 
 function createDispatcher() {
-    const manager = new Manager();
-    const handlers = new HandlerFactory();
+	const manager = new Manager();
+	const handlers = new HandlerFactory();
 
-    manager.addHandler(handlers.createHandler('listCreatedSurveys', ListSurveysUseCase));
-    manager.addHandler(handlers.createHandler('listVotedSurveys', ListVotedSurveysUseCase));
-    manager.addHandler(handlers.createHandler('renderSurvey', RenderSurveyDataUseCase));
-    manager.addHandler(handlers.createHandler('getSurveyHistogramData', GetSurveyHistogramDataUseCase));
-    manager.addHandler(handlers.createHandler('closeSurvey', CloseSurveyUseCase));
-    manager.addHandler(handlers.createHandler('replySurvey', ReplySurveyUseCase));
-    manager.addHandler(handlers.createHandler('createSurvey', CreateSurveyUseCase));
+	manager.addHandler(handlers.createHandler('listCreatedSurveys', ListSurveysUseCase));
+	manager.addHandler(handlers.createHandler('listVotedSurveys', ListVotedSurveysUseCase));
+	manager.addHandler(handlers.createHandler('renderSurvey', RenderSurveyDataUseCase));
+	manager.addHandler(handlers.createHandler('getSurveyHistogramData', GetSurveyHistogramDataUseCase));
+	manager.addHandler(handlers.createHandler('closeSurvey', CloseSurveyUseCase));
+	manager.addHandler(handlers.createHandler('replySurvey', ReplySurveyUseCase));
+	manager.addHandler(handlers.createHandler('createSurvey', CreateSurveyUseCase));
 
-    logger.info('api dispatcher init');
+	logger.info('api dispatcher init');
 
-    return manager;
+	return manager;
 }
 
 module.exports = Object.freeze(createDispatcher());

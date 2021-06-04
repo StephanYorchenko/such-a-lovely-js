@@ -6,7 +6,7 @@ const authDispatcher = require('./core/auth/dispatcher');
 const ash = require('express-async-handler');
 const log4js = require('log4js');
 const { auth_needed, auth } = require('./core/auth/midleware');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 
 
 log4js.configure({
@@ -48,11 +48,11 @@ app.post('/auth', ash(async (req, res) => {
 	logger.trace('Request AUTH ' + req.body.method);
 	const result = await authDispatcher.tryExecute(req.body.method, req.body.params, req);
 	if (result.setCookie !== undefined) {
-		for (obj of result.setCookie) {
+		for (const obj of result.setCookie) {
 			const { key, value, options } = obj;
 			const cookieOptions = options || {};
 
-			res.cookie(key, value, options);
+			res.cookie(key, value, cookieOptions);
 		}
 		result.setCookie = undefined;
 	}
@@ -62,7 +62,7 @@ app.post('/auth', ash(async (req, res) => {
 		}
 	}
 	res.send(result);
-}))
+}));
 
 
 app.get('/', ash(async (req, res) => {
@@ -109,7 +109,7 @@ app.get('/survey/:surveyID', ash(async (req, res) => {
 		req.session.targetPage = `/survey/${req.params.surveyID}`;
 		res.redirect('/login');
 	} else {
-		const surveyData = await manager.tryExecute('renderSurvey', { id: req.params.surveyID }, req);
+		const surveyData = await apiDispatcher.tryExecute('renderSurvey', { id: req.params.surveyID }, req);
 		if (surveyData === null) {
 			res.send({ error: 'no such a survey' });
 			return;

@@ -8,17 +8,17 @@ async function sendRequest(endpoint, method, params) {
 	const headers = {
 		'Accept': 'application/json',
 		'Content-Type': 'application/json'
-	}
+	};
 
 	const response = await fetch(
 		normalizedEndpoint, {
-		method: 'POST',
-		headers: headers,
-		body: JSON.stringify({
-			method: method,
-			params: params
-		})
-	});
+			method: 'POST',
+			headers: headers,
+			body: JSON.stringify({
+				method: method,
+				params: params
+			})
+		});
 	return await response.json();
 }
 

@@ -73,7 +73,7 @@ db.User.hasOne(db.UserRefreshToken, {
 		name: 'user_id',
 		allowNull: false,
 	}
-})
+});
 
 async function sync() {
 	await db.sequelize.sync();

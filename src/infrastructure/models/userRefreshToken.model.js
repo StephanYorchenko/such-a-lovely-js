@@ -6,11 +6,11 @@ module.exports = (sequelize, DataTypes, Model) => {
 			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
 		},
-        expiredAt: {
-            type: DataTypes.DATE,
-            field: 'expired_at',
-            allowNull: false,
-        }
+		expiredAt: {
+			type: DataTypes.DATE,
+			field: 'expired_at',
+			allowNull: false,
+		}
 	}, {
 		modelName: 'UserRefreshTokens',
 		tableName: 'user_refresh_tokens',

@@ -1,6 +1,6 @@
 const surveyRepository = require('./surveysRepository');
 const db = require('../models');
-const md5 = require('md5')
+const md5 = require('md5');
 
 class UserRepository {
 	async checkUserExistByID(userID) {
@@ -72,7 +72,7 @@ class UserRepository {
 			return false;
 		}
 		
-		const salt = process.env['SECRET_SALT'] || 'bad salt'
+		const salt = process.env['SECRET_SALT'] || 'bad salt';
 		const saltedPassword = password + salt;
 
 		const user = await db.User.create({

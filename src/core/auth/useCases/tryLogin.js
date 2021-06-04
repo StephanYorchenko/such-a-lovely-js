@@ -1,5 +1,4 @@
 const BaseUseCase = require('../../baseUseCase');
-const UserRepository = require('../../../infrastructure/repositories/userRepository');
 const { authenticate } = require('../backend');
 const jwt = require('jsonwebtoken');
 
@@ -9,14 +8,14 @@ class TryLoginUseCase extends BaseUseCase {
 		this.jwtSecret = jwtSecret;
 	}
 
-	async execute(params, req) {
+	async execute(params) {
 		const [resp, err] = await authenticate(params.username, params.password);
 
 		if (err !== null) {
 			return {
 				success: false,
 				error: err,
-			}
+			};
 		}
 		const [userData, refreshToken] = resp;
 		const accessToken = jwt.sign({
@@ -47,7 +46,7 @@ class TryLoginUseCase extends BaseUseCase {
 					},
 				}
 			]
-		}
+		};
 	}
 }
 
