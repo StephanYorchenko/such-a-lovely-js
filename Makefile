@@ -1,5 +1,7 @@
 -include .env
 
+PROJECT_NAME=such-a-lovely-js
+
 all: build down up
 
 pull:
@@ -24,3 +26,9 @@ dotenv:
 
 test:
 	docker-compose run app npm test
+
+publish:
+	@docker-compose -f docker-compose.publish.yml build
+	@docker-compose -f docker-compose.publish.yml push
+	@docker tag stepan33314/$(PROJECT_NAME)_app:latest stepan33314/$(PROJECT_NAME)_app:$(VERSION)
+	@docker push stepan33314/$(PROJECT_NAME)_app:$(VERSION)
