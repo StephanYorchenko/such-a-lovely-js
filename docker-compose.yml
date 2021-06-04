@@ -21,8 +21,7 @@ services:
     restart: always
 
   swagger:
-    container_name: project_name__swagger
-    image: ${IMAGE_SWAGGER}
+    image: such-a-lovely-js__swagger
     build: ./swagger
     restart: always
 
