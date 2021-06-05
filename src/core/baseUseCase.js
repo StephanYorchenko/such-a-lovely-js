@@ -1,5 +1,5 @@
 class BaseUseCase {
-	static async execute() { }
+	async execute() { }
 }
 
 module.exports = BaseUseCase;

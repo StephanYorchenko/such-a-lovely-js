@@ -14,13 +14,13 @@ function createDispatcher() {
 	const manager = new Manager();
 	const handlers = new HandlerFactory();
 
-	manager.addHandler(handlers.createHandler('listCreatedSurveys', ListSurveysUseCase));
-	manager.addHandler(handlers.createHandler('listVotedSurveys', ListVotedSurveysUseCase));
-	manager.addHandler(handlers.createHandler('renderSurvey', RenderSurveyDataUseCase));
-	manager.addHandler(handlers.createHandler('getSurveyHistogramData', GetSurveyHistogramDataUseCase));
-	manager.addHandler(handlers.createHandler('closeSurvey', CloseSurveyUseCase));
-	manager.addHandler(handlers.createHandler('replySurvey', ReplySurveyUseCase));
-	manager.addHandler(handlers.createHandler('createSurvey', CreateSurveyUseCase));
+	manager.addHandler(handlers.createHandler('listCreatedSurveys', new ListSurveysUseCase()));
+	manager.addHandler(handlers.createHandler('listVotedSurveys', new ListVotedSurveysUseCase()));
+	manager.addHandler(handlers.createHandler('renderSurvey', new RenderSurveyDataUseCase()));
+	manager.addHandler(handlers.createHandler('getSurveyHistogramData', new GetSurveyHistogramDataUseCase()));
+	manager.addHandler(handlers.createHandler('closeSurvey', new CloseSurveyUseCase()));
+	manager.addHandler(handlers.createHandler('replySurvey', new ReplySurveyUseCase()));
+	manager.addHandler(handlers.createHandler('createSurvey', new CreateSurveyUseCase()));
 
 	logger.info('api dispatcher init');
 

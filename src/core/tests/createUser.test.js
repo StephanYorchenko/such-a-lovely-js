@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars, no-undef */
-const useCase = require('../auth/useCases/createUser');
+const UseCaseClass = require('../auth/useCases/createUser');
+const useCase = new UseCaseClass();
 const { User } = require('../../infrastructure/userStorage');
 const UserRepository = require('../../infrastructure/repositories/userRepository');
 

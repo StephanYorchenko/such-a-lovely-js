@@ -3,7 +3,7 @@ const UserRepository = require('../../../infrastructure/repositories/userReposit
 const SurveysRepository = require('../../../infrastructure/repositories/surveysRepository');
 
 class ReplySurveyUseCase extends BaseUseCase {
-	static async execute(params, req) {
+	async execute(params, req) {
 		try {
 			const user = await UserRepository.getUserById(req.session.user);
 			const survey = await SurveysRepository.getSurveyById(params.surveyID);

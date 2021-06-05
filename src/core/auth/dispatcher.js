@@ -10,8 +10,8 @@ function createDispatcher() {
 	const manager = new Manager();
 	const handlers = new HandlerFactory();
 
-	manager.addHandler(handlers.createHandler('createUser', CreateUserUseCase));
-	manager.addHandler(handlers.createHandler('logout', LogOutUseCase));
+	manager.addHandler(handlers.createHandler('createUser', new CreateUserUseCase()));
+	manager.addHandler(handlers.createHandler('logout', new LogOutUseCase()));
 	manager.addHandler(handlers.createHandler('tryLogin', new TryLoginUseCase(process.env['JWT_SECRET'])));
 
 	logger.info('auth dispatcher init');

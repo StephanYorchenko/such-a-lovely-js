@@ -4,7 +4,7 @@ const UserRepository = require('../../../infrastructure/repositories/userReposit
 
 
 class CreateSurveyUseCase extends BaseUseCase {
-	static async execute(params, request) {
+	async execute(params, request) {
 		const survey = await SurveysRepository.createSurvey(params);
 		const result = await UserRepository.addSurveyToUser(request.session.user, survey);
 		

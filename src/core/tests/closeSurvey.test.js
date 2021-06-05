@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars, no-undef */
-const useCase = require('../api/useCases/closeSurvey');
+const UseCaseClass = require('../api/useCases/closeSurvey');
+const useCase = new UseCaseClass();
 const { Survey }  = require('../../infrastructure/surveyStorage');
 const mockSurvey = new Survey({
 	id: '06b91703-c50c-4154-8a26-c1440edc9904',
