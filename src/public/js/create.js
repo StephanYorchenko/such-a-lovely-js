@@ -14,13 +14,12 @@ function preventEnter(event){
 }
 
 function preventEnterForAll(){
-	for (const input of document.querySelectorAll(".inputAnswer")){
+	for (const input of document.querySelectorAll('.inputAnswer'))
 		input.onkeydown = preventEnter;
-	}
 }
 
 function addBtnFunc(btn){
-	const c = document.querySelectorAll(".inputAnswer").length + 1;
+	const c = document.querySelectorAll('.inputAnswer').length + 1;
 	return function () {
 		const div = document.createElement('div');
 		div.className = 'input-group input_instrument';
