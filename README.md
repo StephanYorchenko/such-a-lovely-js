@@ -28,3 +28,7 @@
   3. Никита Анчутин [ @asdminerpro ](https://github.com/asdminerpro)
   4. Артемий Рогов [ @artamaney ](https://github.com/artamaney)
   5. Юрий Фролов [ @EinKrebs ](https://github.com/EinKrebs)
+
+Документация
+---
+http://internal.yorchenko.rocks/swagger/ - описание API сервиса
