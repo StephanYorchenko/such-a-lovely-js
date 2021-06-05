@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-function delete_input() {
+function deleteInput() {
 	if (this.parentElement.parentElement.parentElement.childElementCount > 3){
 		this.parentElement.parentElement.remove();
 	} else {
@@ -7,10 +7,19 @@ function delete_input() {
 	}
 }
 
-function add_btn(){
-	const btn = document.getElementById('add_input');
-	const c =  btn.parentElement.childNodes.length;
-	btn.onclick = function () {
+function preventEnter(event){
+	event.preventDefault();
+	addBtnFunc(event.target)();
+}
+
+function preventEnterForAll(){
+	for (const input of document.querySelector(".inputAnswer")){
+		input.setAttribute('onKeyUp', 'preventEnter')
+	}
+}
+
+function addBtnFunc(btn){
+	return function () {
 		const div = document.createElement('div');
 		div.className = 'input-group input_instrument';
 		const new_input = document.createElement('input');
@@ -26,11 +35,16 @@ function add_btn(){
 		b.type = 'button';
 		b.id = 'button-addon' + c;
 		b.innerText = '-';
-		b.setAttribute('onclick', 'delete_input.apply(this)');
+		b.setAttribute('onclick', 'deleteInput.apply(this)');
 		div_2.append(b);
 		div.append(div_2);
 		btn.before(div);
 	};
+}
+function add_btn(){
+	const btn = document.getElementById('add_input');
+	const c =  btn.parentElement.childNodes.length;
+	btn.onclick = addBtnFunc();
 }
 // eslint-disable-next-line no-unused-vars
 async function createSurvey(){
