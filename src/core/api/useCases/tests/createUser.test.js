@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-undef */
-const useCase = require('../createUser');
-const { User } = require('../../../infrastructure/userStorage');
-const UserRepository = require('../../../infrastructure/repositories/userRepository');
+const useCase = require('../../../auth/useCases/createUser');
+const { User } = require('../../../../infrastructure/userStorage');
+const UserRepository = require('../../../../infrastructure/repositories/userRepository');
 
 beforeEach(() => {
 	jest.clearAllMocks();
@@ -12,12 +12,12 @@ const mockUser = {
 	password: 'i love js and S.'
 };
 
-jest.mock('../../../infrastructure/models', function(){
-	return jest.requireActual('../../../infrastructure/models');
+jest.mock('../../../../infrastructure/models', function(){
+	return jest.requireActual('../../../../infrastructure/models');
 });
 
-jest.mock('../../../infrastructure/repositories/userRepository', function () {
-	const mockUserRepository = jest.requireActual('../../../infrastructure/repositories/userRepository');
+jest.mock('../../../../infrastructure/repositories/userRepository', function () {
+	const mockUserRepository = jest.requireActual('../../../../infrastructure/repositories/userRepository');
 
 	mockUserRepository.userStorage = [];
 
