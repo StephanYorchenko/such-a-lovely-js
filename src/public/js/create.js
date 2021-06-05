@@ -8,17 +8,19 @@ function deleteInput() {
 }
 
 function preventEnter(event){
-	event.preventDefault();
-	addBtnFunc(event.target)();
+	if (event.keyCode === 13){
+		event.preventDefault();
+	}
 }
 
 function preventEnterForAll(){
-	for (const input of document.querySelector(".inputAnswer")){
-		input.setAttribute('onKeyUp', 'preventEnter')
+	for (const input of document.querySelectorAll(".inputAnswer")){
+		input.onkeydown = preventEnter;
 	}
 }
 
 function addBtnFunc(btn){
+	const c = document.querySelectorAll(".inputAnswer").length + 1;
 	return function () {
 		const div = document.createElement('div');
 		div.className = 'input-group input_instrument';
@@ -39,12 +41,14 @@ function addBtnFunc(btn){
 		div_2.append(b);
 		div.append(div_2);
 		btn.before(div);
+		preventEnterForAll();
 	};
 }
+
 function add_btn(){
 	const btn = document.getElementById('add_input');
-	const c =  btn.parentElement.childNodes.length;
-	btn.onclick = addBtnFunc();
+	btn.onclick = addBtnFunc(btn);
+	preventEnterForAll();
 }
 // eslint-disable-next-line no-unused-vars
 async function createSurvey(){
