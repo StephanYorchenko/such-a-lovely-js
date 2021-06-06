@@ -1,7 +1,7 @@
 const BaseUseCase = require('../../baseUseCase');
 
 class LogoutUseCase extends BaseUseCase {
-	async execute(params, req) {
+	async execute() {
 		return { success: true, destroyCookie: ['access']};
 	}
 }

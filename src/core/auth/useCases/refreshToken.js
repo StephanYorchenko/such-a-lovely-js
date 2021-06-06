@@ -9,19 +9,19 @@ class RefreshTokenUseCase extends BaseUseCase {
 	}
 
 	async execute(params, req) {
-        const refresh = req.cookies['refresh'];
+		const refresh = req.cookies['refresh'];
 		var user = null;
 		try {
-        	user = await tokenRepository.getUserByRefreshToken(refresh);
+			user = await tokenRepository.getUserByRefreshToken(refresh);
 		} catch(err) {
 			return { success: false, error: err };
 		}
 
-        if (user === null) {
-            return { success: false, error: 'refresh token is not present' };
-        }
+		if (user === null) {
+			return { success: false, error: 'refresh token is not present' };
+		}
 
-        const newRefresh = await tokenRepository.generateRefreshToken(user);
+		const newRefresh = await tokenRepository.generateRefreshToken(user);
 		const newAccess = jwt.sign({
 			id: user.id,
 		}, this.jwtSecret, {
@@ -30,11 +30,10 @@ class RefreshTokenUseCase extends BaseUseCase {
 
 		return {
 			success: true,
-			userData,
 			setCookie: [
 				{
 					key: 'refresh',
-					value: refreshToken,
+					value: newRefresh,
 					options: {
 						httpOnly: true,
 						maxAge: 2*24*60*60*1000,
@@ -53,4 +52,4 @@ class RefreshTokenUseCase extends BaseUseCase {
 	}
 }
 
-module.exports = TryLoginUseCase;
+module.exports = RefreshTokenUseCase;
