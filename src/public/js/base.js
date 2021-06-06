@@ -49,7 +49,7 @@ function goToSurvey(id) {
 
 // eslint-disable-next-line no-unused-vars
 async function updateUserName(){
-	const response = await sendRequest('getName', {});
+	const response = await sendRequest('api', 'getName', {});
 	document.querySelector('#login-field').innerText = response.name;
 }
 

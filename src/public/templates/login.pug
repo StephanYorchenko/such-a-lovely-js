@@ -14,9 +14,11 @@ html(lang='en')
             .card-body
                 form(name='login')
                     .mb-3
-                        label.form-label(for='exampleInputEmail1') Введите свой логин:
-                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' name='userid')
-                        #emailHelp.form-text Введите свой логин
-                        #error Введён неверный логин
+                        label.form-label(for='exampleInputEmail1') Логин:
+                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' name='username')
+                        label.form-label(for='exampleInputEmail1') Пароль:
+                        input#exampleInputPassword1.form-control(type='password' aria-describedby='emailHelp' name='password')
+                        #emailHelp.form-text Введите логин и пароль
+                        #error Введён неверный логин или пароль
                     button.btn.btn-success(type='button' onclick='tryLogin(); return false;') Войти
                     button.btn.btn-outline-success(type='button' onclick='tryRegister(); return false;') Зарегистрироваться

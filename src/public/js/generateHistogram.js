@@ -1,6 +1,6 @@
 async function updateChart(chart, id){
 	// eslint-disable-next-line no-undef
-	const data = await sendRequest('getSurveyHistogramData', {id: id});
+	const data = await sendRequest('api', 'getSurveyHistogramData', {id: id});
 	chart.data.datasets.pop();
 	chart.data.datasets.push({
 		label: 'Количество голосов',
@@ -24,7 +24,7 @@ async function generateHistogram(id) {
 			}]
 		}
 	});
-	setInterval(async () => await updateChart(barChart, id), 1000);
+	setInterval(async () => await updateChart(barChart, id), 5000);
 }
 
 generateHistogram(window.location.pathname.slice(8));

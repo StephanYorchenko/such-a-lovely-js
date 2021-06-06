@@ -6,6 +6,7 @@ const GetSurveyHistogramDataUseCase = require('./useCases/getSurveyData');
 const CloseSurveyUseCase = require('./useCases/closeSurvey');
 const ReplySurveyUseCase = require('./useCases/replySurvey');
 const CreateSurveyUseCase = require('./useCases/createSurvey');
+const GetNameUseCase = require('./useCases/getName')
 const log4js = require('log4js');
 const logger = log4js.getLogger('manager');
 
@@ -21,6 +22,7 @@ function createDispatcher() {
 	manager.addHandler(handlers.createHandler('closeSurvey', new CloseSurveyUseCase()));
 	manager.addHandler(handlers.createHandler('replySurvey', new ReplySurveyUseCase()));
 	manager.addHandler(handlers.createHandler('createSurvey', new CreateSurveyUseCase()));
+	manager.addHandler(handlers.createHandler('getName', new GetNameUseCase()));
 
 	logger.info('api dispatcher init');
 
