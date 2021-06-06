@@ -35,7 +35,7 @@ jobs:
       - name: Build Docker image
         run: make build
       - name: Publish Docker image
-        run: make publish VERSION=1.12
+        run: make publish VERSION=1.03
 
   deploy:
     name: DEploy on master.yorchenko.rocks
