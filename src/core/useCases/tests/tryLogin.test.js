@@ -9,6 +9,7 @@ beforeEach(() => {
 
 const mockUser = new User({
     name: 'artamaney',
+    username: 'artamaney',
     voted: [],
     created: []
 });
