@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   app:
-    image: such-a-lovely-js__app
+    image: such-a-lovely-js_app
     build: ./src
     ports:
       - ${APP_PORT}:31337
@@ -12,7 +12,7 @@ services:
     restart: always
 
   postgres:
-    image: such-a-lovely-js__postgres
+    image: stepan33314/such-a-lovely-js_postgres:latest
     build: ./postgres
     volumes:
       - db_volume:/var/lib/postgresql/data/
