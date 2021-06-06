@@ -43,5 +43,4 @@ test('Success login', async () => {
     const actual = await useCase.execute(mockUser, request);
     expect(actual.success).toBeTruthy();
     expect(request.session.isLogin).toBe(true);
-    expect(UserRepository.getUserById('artamaney')).toBeNull();
 });
