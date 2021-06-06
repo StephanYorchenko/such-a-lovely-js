@@ -1,14 +1,41 @@
 /* eslint-disable no-unused-vars, no-undef */
 const useCase = require('../tryLogin');
+const UserRepository = require('../../../infrastructure/repositories/userRepository');
 
 beforeEach(() => {
     jest.clearAllMocks();
 });
 
+const mockUser = new User({
+    name: 'artamaney',
+    voted: [],
+    created: []
+});
 
-test('Success create user', async () => {
+jest.mock('../../../infrastructure/models', function(){
+    return jest.requireActual('../../../infrastructure/models');
+});
+
+jest.mock('../../../infrastructure/repositories/userRepository', function () {
+    const mockUserRepository = jest.requireActual('../../../infrastructure/repositories/userRepository');
+
+    mockUserRepository.userStorage = [];
+
+    mockUserRepository.createUser = function (name) {
+        return name;
+    };
+
+    mockUserRepository.getUserById = function () {
+        return mockUser;
+    };
+
+    return mockUserRepository;
+});
+
+test('Failed login', async () => {
     const request = {session: {}};
-    const actual = await useCase.execute({userId: 'artamaney'}, request);
+    const actual = await useCase.execute(mockUser, request);
     expect(actual.success).toBeFalsy();
     expect(request.session.isLogin).toBe(false);
+    expect(UserRepository.getUserById('artamaney')).toBeNull();
 });
