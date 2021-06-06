@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars, no-undef */
 const useCase = require('../tryLogin');
+const { User } = require('../../../infrastructure/userStorage');
 const UserRepository = require('../../../infrastructure/repositories/userRepository');
 
 beforeEach(() => {
