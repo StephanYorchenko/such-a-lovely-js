@@ -67,3 +67,16 @@ function generateSurveyCard(data){
 	surveyCard.addEventListener('click', () => goToSurvey(data.id));
 	return surveyCard;
 }
+
+function generateEmptyWarning(text){
+	const warning = document.createElement('figure');
+	warning.className = "text-center align-middle";
+	const content = document.createElement('blockquote');
+	content.className = 'blockquote align-middle';
+	const p = document.createElement('p');
+	p.className = "display-2 align-middle text-secondary";
+	p.innerText = text;
+	content.append(p);
+	warning.append(content);
+	return warning;
+}
