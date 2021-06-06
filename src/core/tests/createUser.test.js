@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-undef */
 const UseCaseClass = require('../auth/useCases/createUser');
 const useCase = new UseCaseClass();
-const { User } = require('../../infrastructure/userStorage');
 const UserRepository = require('../../infrastructure/repositories/userRepository');
 
 beforeEach(() => {
@@ -34,11 +33,9 @@ jest.mock('../../infrastructure/repositories/userRepository', function () {
 });
 
 test('Success create user', async () => {
-	const request = {session: {}};
+	const request = {};
 	const actual = await useCase.execute({username: mockUser.username, password: mockUser.password}, request);
 
 	expect(actual.success).toBeTruthy();
-	expect(request.session.user).toBe('artamaney');
-	expect(request.session.isLogin).toBeTruthy();
 	expect(UserRepository.getUserById('artamaney')).toBe(mockUser);
 });

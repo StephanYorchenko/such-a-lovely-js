@@ -5,7 +5,7 @@ const SurveysRepository = require('../../../infrastructure/repositories/surveysR
 class ReplySurveyUseCase extends BaseUseCase {
 	async execute(params, req) {
 		try {
-			const user = await UserRepository.getUserById(req.session.user);
+			const user = await UserRepository.getUserById(req.user.id);
 			const survey = await SurveysRepository.getSurveyById(params.surveyID);
 
 			await UserRepository.addAnswersToQuestion(user, survey, params.response);
@@ -13,7 +13,6 @@ class ReplySurveyUseCase extends BaseUseCase {
 			return { success: true };
 			
 		} catch (error) {
-			console.log(error);
 			return { success: false, errors: error };
 		}
 	}

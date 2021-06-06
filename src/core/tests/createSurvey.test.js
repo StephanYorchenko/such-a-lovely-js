@@ -43,6 +43,6 @@ jest.mock('../../infrastructure/models', function(){
 });
 
 test('Create Survey use case test', async () => {
-	const actual = await useCase.execute({id: '06b91703-c50c-4154-8a26-c1440edc9904'}, {session: {user: 'artamaney'}});
+	const actual = await useCase.execute({id: '06b91703-c50c-4154-8a26-c1440edc9904'}, {user: {id: 'artamaney'}});
 	expect(actual).toStrictEqual({success: true});
 });

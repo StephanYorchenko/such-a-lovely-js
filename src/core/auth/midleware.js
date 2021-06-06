@@ -29,13 +29,13 @@ async function auth_needed(req, res, next) {
 	}
 
 	const payload = req.user;
-	const user = await User.findByPk(payload.userId);
+	const user = await User.findByPk(payload.id);
 	if (user === null) {
 		res.send({ success: false, error: 'user does not exist' });
 		return;
 	}
 
-	req.user = { userId: user.id };
+	req.user = { id: user.id };
 	next();
 }
 

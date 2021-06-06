@@ -8,7 +8,7 @@ class TryLoginUseCase extends BaseUseCase {
 		this.jwtSecret = jwtSecret;
 	}
 
-	async execute(params) {
+	async execute(params, req) {
 		const [resp, err] = await authenticate(params.username, params.password);
 
 		if (err !== null) {
@@ -24,7 +24,6 @@ class TryLoginUseCase extends BaseUseCase {
 			expiresIn: '20m',
 		});
 
-		// req.session.isLogin = true;
 		return {
 			success: true,
 			userData,

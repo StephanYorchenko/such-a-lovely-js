@@ -10,7 +10,7 @@ class SurveysRepository {
 	}
 
 	async closeSurvey(surveyId){
-		const survey = this.getSurveyById(surveyId);
+		const survey = await this.getSurveyById(surveyId);
 		if (survey !== null){
 			survey.closed = true;
 			await survey.save();
@@ -40,7 +40,6 @@ class SurveysRepository {
 	}
 
 	async createSurvey(surveyData) {
-		console.log(surveyData);
 		const questionType = surveyData.config === 'radio' ? 'SINGLE_CHOICE' : 'MULTI_CHOICE';
 		return await db.Question.create({
 			questionType: questionType,

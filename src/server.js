@@ -86,7 +86,7 @@ app.get('/results', ash(async (req, res) => {
 }));
 
 app.get('/createSurvey', ash(async (req, res) => {
-	logger.trace('Try create survey as ' + req.session.user);
+	logger.trace('Try create survey as ' + JSON.stringify(req.user));
 	if (!req.user) {
 		req.session.targetPage = '/createSurvey';
 		res.redirect('/login');
@@ -97,7 +97,7 @@ app.get('/createSurvey', ash(async (req, res) => {
 
 app.get('/login', ash(async (req, res) => {
 	if (req.user) {
-		logger.info(`Already signed in as ${req.session.user}`);
+		logger.info(`Already signed in as ${JSON.stringify(req.user)}`);
 		res.redirect(req.session.targetPage || '/');
 	} else {
 		res.sendFile(__dirname + '/public/templates/login.html');

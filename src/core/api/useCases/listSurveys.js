@@ -4,7 +4,7 @@ const UserRepository = require('../../../infrastructure/repositories/userReposit
 
 class ListSurveysUseCase extends BaseUseCase {
 	async execute(_, request) {
-		const user = await UserRepository.getUserById(request.session.user);
+		const user = await UserRepository.getUserById(request.user.id);
 		const questions = await SurveysRepository.getCreatedByUser(user);
 
 		return questions.map(survey => survey.getDtoForFront());

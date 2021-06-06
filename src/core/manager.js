@@ -19,7 +19,7 @@ class Manager {
 	}
 
 	async tryExecute(methodName, args, request) {
-		logger.info(`Call ${methodName} with ${JSON.stringify(args, null, 2)} as ${request.session.user}`);
+		logger.info(`Call ${methodName} with ${JSON.stringify(args, null, 2)} as ${JSON.stringify(request.user)}`);
 		for (const handler of this.handlers) {
 			if (Object.getOwnPropertyNames(handler).includes(methodName)) {
 				return await handler[methodName].execute(args, request);

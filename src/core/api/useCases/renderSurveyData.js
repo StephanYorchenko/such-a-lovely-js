@@ -4,7 +4,7 @@ const UserRepository = require('../../../infrastructure/repositories/userReposit
 
 class RenderSurveyDataUseCase extends BaseUseCase {
 	async execute(params, req) {
-		const user = await UserRepository.getUserById(req.session.user);
+		const user = await UserRepository.getUserById(req.user.id);
 		const survey = await SurveysRepository.getSurveyById(params.id);
 
 		if (survey === null || user === null) {
