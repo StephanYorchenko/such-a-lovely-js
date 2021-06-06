@@ -68,6 +68,7 @@ function generateSurveyCard(data){
 	return surveyCard;
 }
 
+// eslint-disable-next-line no-unused-vars
 function generateEmptyWarning(text){
 	const warning = document.createElement('figure');
 	warning.className = "text-center align-middle";
