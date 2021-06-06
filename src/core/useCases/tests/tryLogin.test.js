@@ -31,12 +31,16 @@ jest.mock('../../../infrastructure/repositories/userRepository', function () {
         return mockUser;
     };
 
+    mockUserRepository.getUserByName = function () {
+        return mockUser;
+    };
+
     return mockUserRepository;
 });
 
 test('Failed login', async () => {
     const request = {session: {}};
-    const actual = await useCase.execute({"userid": "artamaney"}, request);
+    const actual = await useCase.execute(mockUser, request);
     expect(actual.success).toBeFalsy();
     expect(request.session.isLogin).toBe(false);
     expect(UserRepository.getUserById('artamaney')).toBeNull();
