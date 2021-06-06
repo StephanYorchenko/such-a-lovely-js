@@ -1,13 +1,50 @@
 name: CI
-on: push
+on:
+  push:
+    branches:
+      - master
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
       run: cd src && npm install
     - name: Run ESLint
-      run: cd src && ./node_modules/.bin/eslint .
+      run: cd src && ./node_modules/.bin/eslint . --fix
     - name: Testing
       run: cd src && ./node_modules/.bin/jest
+
+  release-on-push:
+    runs-on: ubuntu-latest
+    needs: [ test ]
+    env:
+      GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    steps:
+      - uses: rymndhng/release-on-push-action@master
+        with:
+          bump_version_scheme: minor
+
+  docker:
+    name: Publish - Docker Hub
+    runs-on: ubuntu-18.04
+    needs: [ release-on-push ]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Set environment vars
+        run: make dotenv
+      - name: Build Docker image
+        run: make build
+      - name: Publish Docker image
+        run: make publish VERSION=${GITHUB_SHA::8}
+
+  deploy:
+    name: DEploy on master.yorchenko.rocks
+    runs-on: ubuntu-18.04
+    needs: [ docker ]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Send Webhook
+        run: curl http://internal.yorchenko.rocks/reload

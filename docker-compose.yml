@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   app:
-    image: such-a-lovely-js__app
+    image: such-a-lovely-js_app
     build: ./src
     ports:
       - ${APP_PORT}:31337
@@ -11,14 +11,24 @@ services:
     env_file: .env
     depends_on: 
       - postgres
-  
+    restart: always
+
   postgres:
-    image: such-a-lovely-js__postgres
+    image: stepan33314/such-a-lovely-js_postgres:latest
     build: ./postgres
     volumes:
       - db_volume:/var/lib/postgresql/data/
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
-    
+    restart: always
+
+  swagger:
+    image: such-a-lovely-js__swagger
+    build: ./swagger
+    ports:
+      - 8080:8080
+    restart: always
+
+
 volumes:
   db_volume:

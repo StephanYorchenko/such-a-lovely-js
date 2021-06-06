@@ -1,0 +1,13 @@
+name: Check PR
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: cd src && npm install
+      - name: Run ESLint
+        run: cd src && ./node_modules/.bin/eslint . --fix
+      - name: Testing
+        run: cd src && ./node_modules/.bin/jest

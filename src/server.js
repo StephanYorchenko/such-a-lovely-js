@@ -90,7 +90,7 @@ app.get('/login', ash(async (req, res) => {
 		logger.info(`Already signed in as ${JSON.stringify(req.user)}`);
 		res.redirect(req.session.targetPage || '/');
 	} else {
-		res.sendFile(__dirname + '/public/templates/login.html');
+		res.render('login'); 
 	}
 }));
 

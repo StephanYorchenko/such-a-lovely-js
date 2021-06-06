@@ -9,7 +9,7 @@ function setClosed(id){
 }
 
 function getDataFromCheckbox(){
-	const inputElements = document.getElementsByClassName('ans');
+	const inputElements = document.getElementsByClassName('form-check-input');
 	const result = [];
 	for(let i=0; inputElements[i]; ++i){
 		if(inputElements[i].checked){
@@ -34,11 +34,14 @@ function sendResponse(id){
 
 //eslint-disable-next-line no-unused-vars
 function copySurveyLink(){
-	navigator.clipboard.writeText(window.location.href)
-		.then(() => {
-			console.log('Successfully copied to clipboard');
-		})
-		.catch(err => {
-			console.log('Something went wrong', err);
-		});
+	copyToClipboard(window.location.href);
+}
+
+function copyToClipboard (str){
+	const el = document.createElement('textarea');
+	el.value = str;
+	document.body.appendChild(el);
+	el.select();
+	document.execCommand('copy');
+	document.body.removeChild(el);
 }

@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  app:
+    image: stepan33314/such-a-lovely-js_app:latest
+    build: ./src
+    ports:
+      - ${APP_PORT}:31337
+    command: >
+      /wait-for postgres:5432 --timeout 5 -- node server.js
+    env_file: .env
+
+#  postgres:
+#    image: stepan33314/such-a-lovely-js_postgres:latest
+#    build: ./postgres
+#    volumes:
+#      - db_volume:/var/lib/postgresql/data/
+#    environment:
+#      POSTGRES_DB: ${POSTGRES_DB}
+
+volumes:
+  db_volume:
