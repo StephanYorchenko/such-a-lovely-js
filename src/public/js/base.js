@@ -26,7 +26,9 @@ async function sendRequest(endpoint, method, params) {
 				await refreshToken();
 				return await sendRequest(endpoint, method, params);
 			}
-		} catch {}
+		} catch(err) {
+			console.log(err);
+		}
 	}
 	return await responseData;
 }
@@ -92,11 +94,11 @@ function generateSurveyCard(data){
 // eslint-disable-next-line no-unused-vars
 function generateEmptyWarning(text){
 	const warning = document.createElement('figure');
-	warning.className = "text-center align-middle";
+	warning.className = 'text-center align-middle';
 	const content = document.createElement('blockquote');
 	content.className = 'blockquote align-middle';
 	const p = document.createElement('p');
-	p.className = "display-2 align-middle text-secondary";
+	p.className = 'display-2 align-middle text-secondary';
 	p.innerText = text;
 	content.append(p);
 	warning.append(content);

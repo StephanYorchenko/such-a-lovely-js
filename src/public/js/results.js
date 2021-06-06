@@ -8,7 +8,7 @@ function onload() {
 	getSurveys().then((createdSurveys) => {
 		if (createdSurveys.length === 0){
 			// eslint-disable-next-line no-undef
-			root.append(generateEmptyWarning("Здесь будут пройденные Вами опросы"));
+			root.append(generateEmptyWarning('Здесь будут пройденные Вами опросы'));
 		} else{
 			for (const survey of createdSurveys){
 				// eslint-disable-next-line no-undef

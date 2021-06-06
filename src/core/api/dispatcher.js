@@ -6,7 +6,7 @@ const GetSurveyHistogramDataUseCase = require('./useCases/getSurveyData');
 const CloseSurveyUseCase = require('./useCases/closeSurvey');
 const ReplySurveyUseCase = require('./useCases/replySurvey');
 const CreateSurveyUseCase = require('./useCases/createSurvey');
-const GetNameUseCase = require('./useCases/getName')
+const GetNameUseCase = require('./useCases/getName');
 const log4js = require('log4js');
 const logger = log4js.getLogger('manager');
 

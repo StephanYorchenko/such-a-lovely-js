@@ -27,7 +27,7 @@ async function auth(req, res, next) {
 				setCookies(res, refreshResponse);
 				const tokenData = jwt.decode(token);
 				req.user = { id: tokenData.id };
-				next()
+				next();
 				return;
 			}
 		}

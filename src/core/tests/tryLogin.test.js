@@ -1,46 +1,35 @@
 /* eslint-disable no-unused-vars, no-undef */
-const useCase = require('../tryLogin');
-const { User } = require('../../../infrastructure/userStorage');
-const UserRepository = require('../../../infrastructure/repositories/userRepository');
+const UseCaseClass = require('../auth/useCases/tryLogin');
+const useCase = new UseCaseClass();
+const { User } = require('../../infrastructure/userStorage');
+const { authenticate } = require('../auth/backend');
 
 beforeEach(() => {
-    jest.clearAllMocks();
+	jest.clearAllMocks();
 });
 
 const mockUser = new User({
-    name: 'artamaney',
-    username: 'artamaney',
-    voted: [],
-    created: []
+	name: 'artamaney',
+	username: 'artamaney',
+	voted: [],
+	created: []
 });
 
-jest.mock('../../../infrastructure/models', function(){
-    return jest.requireActual('../../../infrastructure/models');
+jest.mock('../../infrastructure/models', function () {
+	return jest.requireActual('../../infrastructure/models');
 });
 
-jest.mock('../../../infrastructure/repositories/userRepository', function () {
-    const mockUserRepository = jest.requireActual('../../../infrastructure/repositories/userRepository');
+jest.mock('../auth/backend', function () {
+	const mockBackend = jest.requireActual('../auth/backend');
+	mockBackend.authenticate = async function() {
+		return [[mockUser.name, 'cool refresh token'], null];
+	};
 
-    mockUserRepository.userStorage = [];
-
-    mockUserRepository.createUser = function (name) {
-        return name;
-    };
-
-    mockUserRepository.getUserById = function () {
-        return mockUser;
-    };
-
-    mockUserRepository.getUserByName = function () {
-        return mockUser;
-    };
-
-    return mockUserRepository;
+	return mockBackend;
 });
 
 test('Success login', async () => {
-    const request = {session: {}};
-    const actual = await useCase.execute(mockUser, request);
-    expect(actual.success).toBeTruthy();
-    expect(request.session.isLogin).toBe(true);
+	const request = { session: {} };
+	const actual = await useCase.execute(mockUser, request);
+	expect(actual.success).toBeTruthy();
 });

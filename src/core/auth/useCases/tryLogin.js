@@ -20,7 +20,7 @@ class TryLoginUseCase extends BaseUseCase {
 		const [userData, refreshToken] = resp;
 		const accessToken = jwt.sign({
 			id: userData.id,
-		}, this.jwtSecret, {
+		}, this.jwtSecret || 'secret', {
 			expiresIn: '60m',
 		});
 

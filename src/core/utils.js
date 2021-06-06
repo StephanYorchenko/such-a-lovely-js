@@ -1,5 +1,5 @@
 function setCookies(res, data) {
-    if (data.setCookie) {
+	if (data.setCookie) {
 		for (const obj of data.setCookie) {
 			const { key, value, options } = obj;
 			const cookieOptions = options || {};
