@@ -32,3 +32,4 @@
 Документация
 ---
 http://internal.yorchenko.rocks/swagger/ - описание API сервиса
+https://docs.google.com/presentation/d/1FUCGNl98kcUdsKY8m1zUCrphaWPRdO0wci6RHyhJ0eU/edit?usp=sharing - презентация
