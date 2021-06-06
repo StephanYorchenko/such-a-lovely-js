@@ -8,7 +8,7 @@ class TryLoginUseCase extends BaseUseCase {
 		this.jwtSecret = jwtSecret;
 	}
 
-	async execute(params) {
+	async execute(params, req) {
 		const [resp, err] = await authenticate(params.username, params.password);
 
 		if (err !== null) {
@@ -27,6 +27,7 @@ class TryLoginUseCase extends BaseUseCase {
 		return {
 			success: true,
 			userData,
+			target: req.session.targetPage,
 			setCookie: [
 				{
 					key: 'refresh',

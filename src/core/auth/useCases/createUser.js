@@ -2,7 +2,7 @@ const BaseUseCase = require('../../baseUseCase');
 const UserRepository = require('../../../infrastructure/repositories/userRepository');
 
 class CreateUserUseCase extends BaseUseCase {
-	async execute(params) {
+	async execute(params, req) {
 		if (params.username === '') {
 			return { success: false, error: 'Пустое имя пользователя' };
 		}
@@ -10,7 +10,7 @@ class CreateUserUseCase extends BaseUseCase {
 		const userid = await UserRepository.createUser(params.username, params.password);
 		const result = Boolean(userid);
 
-		const responseData = { success: result };
+		const responseData = { success: result, target: req.session.target };
 		if (!result) {
 			responseData.error = 'Данное имя уже занято';
 		}
