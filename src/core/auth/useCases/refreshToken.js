@@ -1,5 +1,5 @@
 const BaseUseCase = require('../../baseUseCase');
-const { tokenRepository } = require('../../../infrastructure/repositories/tokenRepository');
+const tokenRepository = require('../../../infrastructure/repositories/tokenRepository');
 const jwt = require('jsonwebtoken');
 
 class RefreshTokenUseCase extends BaseUseCase {
@@ -25,7 +25,7 @@ class RefreshTokenUseCase extends BaseUseCase {
 		const newAccess = jwt.sign({
 			id: user.id,
 		}, this.jwtSecret, {
-			expiresIn: '20m',
+			expiresIn: '60m',
 		});
 
 		return {
@@ -44,7 +44,7 @@ class RefreshTokenUseCase extends BaseUseCase {
 					value: newAccess,
 					options: {
 						httpOnly: true,
-						maxAge: 15*60*1000,
+						maxAge: 60*60*1000,
 					},
 				}
 			]

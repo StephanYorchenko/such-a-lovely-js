@@ -65,8 +65,8 @@ db.User.hasMany(db.UserAnswer, {
 	}
 });
 
-db.User.hasOne(db.UserRefreshToken, {
-	as: { single: 'User', plural: 'Users' },
+db.User.hasMany(db.UserRefreshToken, {
+	as: { single: 'Token', plural: 'Tokens' },
 	onDelete: 'CASCADE',
 	onUpdate: 'CASCADE',
 	foreignKey: {
@@ -74,6 +74,13 @@ db.User.hasOne(db.UserRefreshToken, {
 		allowNull: false,
 	}
 });
+
+db.UserRefreshToken.belongsTo(db.User, {
+	foreignKey: {
+		name: 'user_id',
+		allowNull: false,
+	}
+})
 
 async function sync() {
 	await db.sequelize.sync();

@@ -19,7 +19,20 @@ async function sendRequest(endpoint, method, params) {
 				params: params
 			})
 		});
-	return await response.json();
+	const responseData = await response.json();
+	if (responseData.error) {
+		try {
+			if (responseData.error.indexOf('authorization') !== -1) {
+				await refreshToken();
+				return await sendRequest(endpoint, method, params);
+			}
+		} catch {}
+	}
+	return await responseData;
+}
+
+async function refreshToken() {
+	return await sendRequest('auth', 'refreshToken');
 }
 
 // eslint-disable-next-line no-unused-vars
