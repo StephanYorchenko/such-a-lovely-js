@@ -8,7 +8,7 @@ beforeEach(() => {
 
 test('Success create user', async () => {
     const request = {session: {}};
-    const actual = await useCase.execute({userName: 'artamaney'}, request);
+    const actual = await useCase.execute({userId: 'artamaney'}, request);
     expect(actual.success).toBeFalsy();
     expect(request.session.isLogin).toBe(false);
 });
