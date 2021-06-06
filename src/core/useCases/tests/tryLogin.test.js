@@ -38,10 +38,10 @@ jest.mock('../../../infrastructure/repositories/userRepository', function () {
     return mockUserRepository;
 });
 
-test('Failed login', async () => {
+test('Success login', async () => {
     const request = {session: {}};
     const actual = await useCase.execute(mockUser, request);
-    expect(actual.success).toBeFalsy();
-    expect(request.session.isLogin).toBe(false);
+    expect(actual.success).toBeTruthy();
+    expect(request.session.isLogin).toBe(true);
     expect(UserRepository.getUserById('artamaney')).toBeNull();
 });
