@@ -9,7 +9,8 @@ services:
     command: >
       /wait-for postgres:5432 --timeout 5 -- node server.js
     env_file: .env
-  
+    restart: always
+
   postgres:
     image: stepan33314/such-a-lovely-js_postgres:latest
     build: ./postgres
@@ -17,6 +18,15 @@ services:
       - db_volume:/var/lib/postgresql/data/
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
-    
+    restart: always
+
+  swagger:
+    image: such-a-lovely-js__swagger
+    build: ./swagger
+    ports:
+      - 8080:8080
+    restart: always
+
+
 volumes:
   db_volume:

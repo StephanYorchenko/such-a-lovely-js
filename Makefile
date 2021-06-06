@@ -24,6 +24,9 @@ dotenv:
 	docker build -t commands ./commands
 	docker run commands /bin/sh -c 'python generate_dotenv.py && cat generate_dotenv/.env.example' > $(if $f,$f,.env)
 
+swagger_dev:
+	docker-compose run --volume=${PWD}/swagger/build:/swagger --publish=8080:8080 swagger
+
 test:
 	docker-compose run app npm test
 
