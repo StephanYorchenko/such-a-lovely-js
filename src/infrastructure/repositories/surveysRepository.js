@@ -10,7 +10,7 @@ class SurveysRepository {
 	}
 
 	async closeSurvey(surveyId){
-		const survey = this.getSurveyById(surveyId);
+		const survey = await this.getSurveyById(surveyId);
 		if (survey !== null){
 			survey.closed = true;
 			await survey.save();

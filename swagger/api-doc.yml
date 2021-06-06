@@ -1,0 +1,73 @@
+title: project_name API
+handlers:
+  authentication:
+    POST /login:
+      headers: [ AUTHENTICATION! ]
+      request:
+        email!: string
+        password!: string
+      response: $authResponse
+    POST /api/tryLogin:
+      headers: [ AUTHENTICATION! ]
+      request:
+        email!: string
+        password!: string
+      response: $authResponse
+    POST /api/logout:
+      headers: [ AUTHENTICATION! ]
+      request:
+        email!: string
+        password!: string
+      response: $authResponse
+
+  servey:
+    GET /api/getSurveyHistogramData:
+      headers: [ AUTHENTICATION! ]
+      response: $authResponse
+    POST /api/closeSurvey:
+      headers: [ AUTHENTICATION! ]
+      request:
+        id!: string(2c298aca-5b1f-4539-9618-8327c6aef821)
+      response: $authResponse
+    GET /api/replySurvey:
+      headers: [ AUTHENTICATION! ]
+      response: $authResponse
+    POST /api/createSurvey:
+      headers: [ AUTHENTICATION! ]
+      request:
+        email!: string
+        password!: string
+      response: $authResponse
+    GET /api/listCreatedSurveys:
+      headers: [ AUTHENTICATION! ]
+      response: $authResponse
+    GET /api/listVotedSurveys:
+      headers: [ AUTHENTICATION! ]
+      response: $authResponse
+    GET /api/renderSurvey:
+      headers: [ AUTHENTICATION! ]
+      response: $authResponse
+
+  user:
+    POST /api/createUser:
+      request:
+        email!: string
+        password!: string
+      response: $authResponse
+    GET /api/getName:
+      headers: [ AUTHENTICATION! ]
+      response: $authResponse
+
+models:
+  successResponse:
+    success: boolean
+  userResponse:
+    id: integer
+    email: string
+  authResponse:
+    token: string
+    user: $userResponse
+error:
+  errors[]:
+    code: string
+    message: string

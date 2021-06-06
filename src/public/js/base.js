@@ -27,6 +27,12 @@ function goToSurvey(id) {
 }
 
 // eslint-disable-next-line no-unused-vars
+async function updateUserName(){
+	const response = await sendRequest('getName', {});
+	document.querySelector('#login-field').innerText = response.name;
+}
+
+// eslint-disable-next-line no-unused-vars
 function generateSurveyCard(data){
 	const surveyCard = document.createElement('div');
 	surveyCard.className = `card survey-card mb-3 mt-3 ${data.style.bg || 'bg-light'} ` +
@@ -60,4 +66,18 @@ function generateSurveyCard(data){
 
 	surveyCard.addEventListener('click', () => goToSurvey(data.id));
 	return surveyCard;
+}
+
+// eslint-disable-next-line no-unused-vars
+function generateEmptyWarning(text){
+	const warning = document.createElement('figure');
+	warning.className = "text-center align-middle";
+	const content = document.createElement('blockquote');
+	content.className = 'blockquote align-middle';
+	const p = document.createElement('p');
+	p.className = "display-2 align-middle text-secondary";
+	p.innerText = text;
+	content.append(p);
+	warning.append(content);
+	return warning;
 }
