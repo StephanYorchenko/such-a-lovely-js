@@ -17,6 +17,7 @@ jobs:
 
   release-on-push:
     runs-on: ubuntu-latest
+    needs: [ test ]
     env:
       GITHUB_TOKEN: ${{ secrets.TOKEN }}
     steps:
@@ -37,7 +38,7 @@ jobs:
       - name: Build Docker image
         run: make build
       - name: Publish Docker image
-        run: make publish VERSION=1.04
+        run: make publish VERSION=${GITHUB_SHA::8}
 
   deploy:
     name: DEploy on master.yorchenko.rocks
