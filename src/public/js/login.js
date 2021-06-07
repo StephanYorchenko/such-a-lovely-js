@@ -6,7 +6,6 @@ async function tryLogin() {
 	const data = { username, password };
 	const result = await sendRequest('auth', 'tryLogin', data); // eslint-disable-line no-undef
 	if (result.success) {
-		console.log(result.target);
 		window.location.href = result.target || '/';
 	} else {
 		document.querySelector('#error').style.visibility = 'visible';
@@ -23,7 +22,6 @@ async function tryRegister() {
 	const result = await sendRequest('auth', 'createUser', data); // eslint-disable-line no-undef
 	if (result.success) {
 		let target = result.target || '/';
-		console.log(target);
 		target = target === '/login' ? '/' : target;
 		window.location.href = target;
 	} else {

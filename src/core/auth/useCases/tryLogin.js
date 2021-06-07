@@ -24,7 +24,6 @@ class TryLoginUseCase extends BaseUseCase {
 			expiresIn: '60m',
 		});
 
-		console.log(req.session.targetPage);
 		return {
 			success: true,
 			userData,
