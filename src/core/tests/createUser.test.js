@@ -12,7 +12,7 @@ const mockUser = {
 	password: 'i love js and S.'
 };
 
-jest.mock('../../infrastructure/models', function(){
+jest.mock('../../infrastructure/models', function () {
 	return jest.requireActual('../../infrastructure/models');
 });
 
@@ -33,8 +33,8 @@ jest.mock('../../infrastructure/repositories/userRepository', function () {
 });
 
 test('Success create user', async () => {
-	const request = {};
-	const actual = await useCase.execute({username: mockUser.username, password: mockUser.password}, request);
+	const request = { session: { target: 'https://vk.com' } };
+	const actual = await useCase.execute({ username: mockUser.username, password: mockUser.password }, request);
 
 	expect(actual.success).toBeTruthy();
 	expect(UserRepository.getUserById('artamaney')).toBe(mockUser);
