@@ -19,6 +19,11 @@
  - Сделать так, чтобы из одного браузера дважды нельзя было голосовать (✔)
  - Сделать и одиночный, и множественный выбор вариантов в опросе (✔)
 
+## Как запустить у себя?
+* ```git clone ....```
+* ```make dotenv```
+* заполнить данные в файле .env
+* ```make```
 
 Состав команды
 ---
@@ -33,3 +38,5 @@
 ---
 http://internal.yorchenko.rocks/swagger/ - описание API сервиса
 https://docs.google.com/presentation/d/1FUCGNl98kcUdsKY8m1zUCrphaWPRdO0wci6RHyhJ0eU/edit?usp=sharing - презентация
+
+
