@@ -78,7 +78,6 @@ app.get('/results', ash(async (req, res) => {
 app.get('/createSurvey', ash(async (req, res) => {
 	logger.trace('Try create survey as ' + JSON.stringify(req.user));
 	if (!req.user || req.userErr) {
-		req = '/createSurvey';
 		res.redirect('/login?next=/createSurvey');
 	}
 	else {
