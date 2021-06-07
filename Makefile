@@ -28,7 +28,21 @@ swagger_dev:
 	docker-compose run --volume=${PWD}/swagger/build:/swagger --publish=8080:8080 swagger
 
 test:
-	docker-compose run app npm test
+	make build && docker-compose run app npm test
+
+dev:
+	docker-compose run -d --volume=${PWD}/src:/app/ --publish=8000:31337 app node server.js
+
+drop:
+	docker volume rm such-a-lovely-js_db_volume
+
+psql:
+	docker container exec -it such-a-lovely-js_postgres_1 psql -U postgres --dbname survey_data
+
+logs:
+	docker-compose logs -f
+
+.PHONY: all pull push build up down dotenv test dev drop psql logs
 
 publish:
 	@docker-compose -f docker-compose.publish.yml build

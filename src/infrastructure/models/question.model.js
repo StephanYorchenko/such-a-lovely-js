@@ -35,11 +35,6 @@ module.exports = (sequelize, DataTypes, Model) => {
 			field: 'question_description',
 			allowNull: true,
 		},
-		questionType: {
-			type: DataTypes.ENUM('MULTI_CHOICE', 'SINGLE_CHOICE', 'TEXTUAL_QUESTION'),
-			field: 'question_type',
-			allowNull: false,
-		},
 		options: {
 			type: DataTypes.ARRAY(DataTypes.STRING(255)),
 			allowNull: true,

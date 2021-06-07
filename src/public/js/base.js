@@ -1,25 +1,48 @@
 // eslint-disable-next-line no-unused-vars
-async function sendRequest(method, params){
-	const response =  await fetch(
-		'/api', {
+async function sendRequest(endpoint, method, params) {
+	let normalizedEndpoint = endpoint;
+	if (normalizedEndpoint[0] !== '/') {
+		normalizedEndpoint = '/' + normalizedEndpoint;
+	}
+
+	const headers = {
+		'Accept': 'application/json',
+		'Content-Type': 'application/json'
+	};
+
+	const response = await fetch(
+		normalizedEndpoint, {
 			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
+			headers: headers,
 			body: JSON.stringify({
 				method: method,
 				params: params
 			})
 		});
-	return await response.json();
+	const responseData = await response.json();
+	if (responseData.error) {
+		try {
+			if (responseData.error.indexOf('authorization') !== -1) {
+				await refreshToken();
+				return await sendRequest(endpoint, method, params);
+			}
+		} catch(err) {
+			console.log(err);
+		}
+	}
+	return await responseData;
+}
+
+async function refreshToken() {
+	return await sendRequest('auth', 'refreshToken');
 }
 
 // eslint-disable-next-line no-unused-vars
-async function logout(){
-	const result = await sendRequest('logout', {});
-	if (result.success)
-		window.location.href = '/login';
+async function logout() {
+	const result = await sendRequest('auth', 'logout', {});
+	if (result.success) {
+		window.location.href = '/login'; 
+	}
 }
 
 function goToSurvey(id) {
@@ -28,7 +51,7 @@ function goToSurvey(id) {
 
 // eslint-disable-next-line no-unused-vars
 async function updateUserName(){
-	const response = await sendRequest('getName', {});
+	const response = await sendRequest('api', 'getName', {});
 	document.querySelector('#login-field').innerText = response.name;
 }
 
@@ -49,7 +72,7 @@ function generateSurveyCard(data){
 
 	const descr = document.createElement('p');
 	descr.className = 'card-text';
-	descr.innerText =  data.description;
+	descr.innerText = data.description;
 
 	const footer = document.createElement('p');
 	footer.className = 'card-text';
@@ -71,11 +94,11 @@ function generateSurveyCard(data){
 // eslint-disable-next-line no-unused-vars
 function generateEmptyWarning(text){
 	const warning = document.createElement('figure');
-	warning.className = "text-center align-middle";
+	warning.className = 'text-center align-middle';
 	const content = document.createElement('blockquote');
 	content.className = 'blockquote align-middle';
 	const p = document.createElement('p');
-	p.className = "display-2 align-middle text-secondary";
+	p.className = 'display-2 align-middle text-secondary';
 	p.innerText = text;
 	content.append(p);
 	warning.append(content);

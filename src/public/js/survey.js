@@ -1,6 +1,6 @@
 async function _setClosed(id){
 	// eslint-disable-next-line no-undef
-	return await sendRequest('closeSurvey', {id: id});
+	return await sendRequest('api', 'closeSurvey', {id: id});
 }
 
 //eslint-disable-next-line no-unused-vars
@@ -29,7 +29,7 @@ function sendResponse(id){
 		surveyID: id
 	};
 	// eslint-disable-next-line no-undef
-	sendRequest('replySurvey', data).then(() => {window.location.reload();});
+	sendRequest('api', 'replySurvey', data).then(() => {window.location.reload();});
 }
 
 //eslint-disable-next-line no-unused-vars

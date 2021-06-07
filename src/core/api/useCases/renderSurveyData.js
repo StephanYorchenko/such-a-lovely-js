@@ -1,10 +1,10 @@
-const BaseUseCase = require('./baseUseCase');
-const SurveysRepository = require('../../infrastructure/repositories/surveysRepository');
-const UserRepository = require('../../infrastructure/repositories/userRepository');
+const BaseUseCase = require('../../baseUseCase');
+const SurveysRepository = require('../../../infrastructure/repositories/surveysRepository');
+const UserRepository = require('../../../infrastructure/repositories/userRepository');
 
 class RenderSurveyDataUseCase extends BaseUseCase {
-	static async execute(params, req) {
-		const user = await UserRepository.getUserById(req.session.user);
+	async execute(params, req) {
+		const user = await UserRepository.getUserById(req.user.id);
 		const survey = await SurveysRepository.getSurveyById(params.id);
 
 		if (survey === null || user === null) {

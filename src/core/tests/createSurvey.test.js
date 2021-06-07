@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars, no-undef */
-const useCase = require('../createSurvey');
-const { Survey }  = require('../../../infrastructure/surveyStorage');
+const UseCaseClass = require('../api/useCases/createSurvey');
+const useCase = new UseCaseClass();
+const { Survey }  = require('../../infrastructure/surveyStorage');
 const mockSurvey = new Survey({
 	id: '06b91703-c50c-4154-8a26-c1440edc9904',
 	title: 'Куда идём кушать?',
@@ -17,8 +18,8 @@ const mockSurvey = new Survey({
 	end: true,
 });
 
-jest.mock('../../../infrastructure/repositories/surveysRepository', function () {
-	const mockSurveysRepository = jest.requireActual('../../../infrastructure/repositories/surveysRepository');
+jest.mock('../../infrastructure/repositories/surveysRepository', function () {
+	const mockSurveysRepository = jest.requireActual('../../infrastructure/repositories/surveysRepository');
 
 	mockSurveysRepository.createSurvey = function () {
 		return mockSurvey.id;
@@ -27,8 +28,8 @@ jest.mock('../../../infrastructure/repositories/surveysRepository', function () 
 	return mockSurveysRepository;
 });
 
-jest.mock('../../../infrastructure/repositories/userRepository', function () {
-	const mockUsersRepository = jest.requireActual('../../../infrastructure/repositories/userRepository');
+jest.mock('../../infrastructure/repositories/userRepository', function () {
+	const mockUsersRepository = jest.requireActual('../../infrastructure/repositories/userRepository');
 
 	mockUsersRepository.addSurveyToUser = function () {
 		return true;
@@ -37,11 +38,11 @@ jest.mock('../../../infrastructure/repositories/userRepository', function () {
 	return mockUsersRepository;
 });
 
-jest.mock('../../../infrastructure/models', function(){
-	return jest.requireActual('../../../infrastructure/models');
+jest.mock('../../infrastructure/models', function(){
+	return jest.requireActual('../../infrastructure/models');
 });
 
 test('Create Survey use case test', async () => {
-	const actual = await useCase.execute({id: '06b91703-c50c-4154-8a26-c1440edc9904'}, {session: {user: 'artamaney'}});
+	const actual = await useCase.execute({id: '06b91703-c50c-4154-8a26-c1440edc9904'}, {user: {id: 'artamaney'}});
 	expect(actual).toStrictEqual({success: true});
 });

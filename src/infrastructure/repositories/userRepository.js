@@ -1,11 +1,18 @@
 const surveyRepository = require('./surveysRepository');
 const db = require('../models');
+const md5 = require('md5');
 
 class UserRepository {
 	async checkUserExistByID(userID) {
 		const tryUser = await db.User.findByPk(userID);
 
 		return tryUser !== null;
+	}
+
+	async usernameInUse(username) {
+		const user = await this.getUserByName(username);
+		
+		return user !== null;
 	}
 
 	async getUserByName(username) {
@@ -60,14 +67,17 @@ class UserRepository {
 		return ans !== null;
 	}
 
-	async createUser(userName) {
-		if (await this.getUserByName(userName) !== null) {
+	async createUser(username, password) {
+		if (await this.getUserByName(username) !== null) {
 			return false;
 		}
 		
+		const salt = process.env['SECRET_SALT'] || 'bad salt';
+		const saltedPassword = password + salt;
+
 		const user = await db.User.create({
-			name: userName,
-			password: 'i love js',
+			name: username,
+			password: md5(saltedPassword),
 		});
 
 		return user.id;

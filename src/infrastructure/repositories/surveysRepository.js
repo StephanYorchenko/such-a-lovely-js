@@ -40,7 +40,6 @@ class SurveysRepository {
 	}
 
 	async createSurvey(surveyData) {
-		console.log(surveyData);
 		const questionType = surveyData.config === 'radio' ? 'SINGLE_CHOICE' : 'MULTI_CHOICE';
 		return await db.Question.create({
 			questionType: questionType,
