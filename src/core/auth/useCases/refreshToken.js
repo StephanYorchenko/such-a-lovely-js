@@ -10,7 +10,7 @@ class RefreshTokenUseCase extends BaseUseCase {
 
 	async execute(params, req) {
 		const refresh = req.cookies['refresh'];
-		var user = null;
+		let user = null;
 		try {
 			user = await tokenRepository.getUserByRefreshToken(refresh);
 		} catch(err) {

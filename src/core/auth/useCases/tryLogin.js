@@ -24,10 +24,11 @@ class TryLoginUseCase extends BaseUseCase {
 			expiresIn: '60m',
 		});
 
+		console.log(req.session.targetPage);
 		return {
 			success: true,
 			userData,
-			target: req.session.targetPage,
+			target: req.query.next,
 			setCookie: [
 				{
 					key: 'refresh',

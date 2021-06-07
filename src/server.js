@@ -78,17 +78,18 @@ app.get('/results', ash(async (req, res) => {
 app.get('/createSurvey', ash(async (req, res) => {
 	logger.trace('Try create survey as ' + JSON.stringify(req.user));
 	if (!req.user || req.userErr) {
-		req.session.targetPage = '/createSurvey';
-		res.redirect('/login');
+		req = '/createSurvey';
+		res.redirect('/login?next=/createSurvey');
 	}
-	else
+	else {
 		res.render('createSurvey');
+	}
 }));
 
 app.get('/login', ash(async (req, res) => {
 	if (req.user && !req.userErr) {
 		logger.info(`Already signed in as ${JSON.stringify(req.user)}`);
-		res.redirect(req.session.targetPage || '/');
+		res.redirect(req.query.next || '/');
 	} else {
 		res.render('login'); 
 	}
@@ -96,8 +97,7 @@ app.get('/login', ash(async (req, res) => {
 
 app.get('/survey/:surveyID', ash(async (req, res) => {
 	if (!req.user || req.userErr) {
-		req.session.targetPage = `/survey/${req.params.surveyID}`;
-		res.redirect('/login');
+		res.redirect(`/login?next=/survey/${req.params.surveyID}`);
 	} else {
 		const surveyData = await apiDispatcher.tryExecute('renderSurvey', { id: req.params.surveyID }, req);
 		if (surveyData === null) {
