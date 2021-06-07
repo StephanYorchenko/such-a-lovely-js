@@ -27,7 +27,7 @@ class TryLoginUseCase extends BaseUseCase {
 		return {
 			success: true,
 			userData,
-			target: req.query.next,
+			// target: req.query.next,
 			setCookie: [
 				{
 					key: 'refresh',

@@ -10,7 +10,8 @@ class CreateUserUseCase extends BaseUseCase {
 		const userid = await UserRepository.createUser(params.username, params.password);
 		const result = Boolean(userid);
 
-		const responseData = { success: result, target: req.query.next };
+		//const responseData = { success: result, target: req.query.next };
+		const responseData = { success: result };
 		if (!result) {
 			responseData.error = 'Данное имя уже занято';
 		}
